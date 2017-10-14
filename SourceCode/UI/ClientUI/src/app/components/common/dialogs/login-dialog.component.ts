@@ -4,21 +4,18 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
     selector: 'login-dialog',
     templateUrl: 'login-dialog.component.html',
+    styleUrls: ['login-dialog.component.css']
 })
 
 export class LoginDialog {
     static config = {
         disableClose: false,
-        panelClass: 'custom-overlay-pane-class',
         hasBackdrop: true,
         backdropClass: '',
-        minWidth: '300px',
-        minHeight: '200px',
-        maxWidth: '800px',
-        maxHeight: '600px',
-        data: {
-            message: 'Jazzy jazz jazz'
-        }
+        width: '500',
+        height: '300px',
+        maxWidth: '600px',
+        maxHeight: '400px'
     };
     constructor(
         public dialogRef: MatDialogRef<LoginDialog>,

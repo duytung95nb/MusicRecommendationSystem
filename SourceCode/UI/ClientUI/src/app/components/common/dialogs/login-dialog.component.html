@@ -1,15 +1,23 @@
-<h2 mat-dialog-title>
-    Login</h2>
-<mat-dialog-content>
-    <mat-form-field>
-        <input matInput placeholder="Username">
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="Password">
-    </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-button mat-dialog-close>No</button>
-    <!-- Can optionally provide a result for the closing dialog. -->
-    <button mat-button>Yes</button>
-</mat-dialog-actions>
+<div class="login-dialog-content">
+    <div class="login-dialog-content__register">
+        <button mat-raised-button color="warn" class="register-button">Đăng ký ngay!</button>
+        <hr>
+        <div class="social-login">
+            <div class="social-login__facebook">Đăng nhập với Facebook</div>
+            <div class="social-login__google">Đăng nhập với Google</div>
+        </div>
+    </div>
+    <div class="login-dialog-content__login">
+        <h2 mat-dialog-title class="login-title">Đăng nhập</h2>
+        <mat-form-field class="input-username">
+            <input matInput type="text" placeholder="Username">
+        </mat-form-field>
+        <mat-form-field class="input-password">
+            <input matInput type="password" placeholder="Password">
+        </mat-form-field>
+        <a href="">Quên mật khẩu?</a>
+        <mat-dialog-actions>
+            <button mat-raised-button color="primary" class="login-button">Đăng nhập</button>
+        </mat-dialog-actions>
+    </div>
+</div>

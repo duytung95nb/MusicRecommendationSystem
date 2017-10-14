@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormInputComponent } from "app/components/shared/forms/items/form-input.component";
+import { FormInputComponent } from "./items/form-input.component";
 
 @NgModule({
     declarations: [FormInputComponent],
