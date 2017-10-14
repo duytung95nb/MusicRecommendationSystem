@@ -1,0 +1,39 @@
+.login-dialog-content {
+    display: table-row;
+}
+.login-dialog-content__register {
+    display: table-cell;
+    padding: 0 10px;
+    width: 200px;
+    height: 100%;
+    vertical-align: top;
+    border-right: 1px solid #eee;
+}
+.social-login {
+    vertical-align: bottom;
+}
+.register-button {
+    width: 100%;
+}
+.login-dialog-content__login {
+    display: table-cell;
+    padding: 0 10px;
+    width: 400px;
+    height: 100%;
+    text-align: center;
+    vertical-align: top;
+}
+.input-username {
+    display: block;
+    width: 100%;
+}
+.input-password {
+    display: block;
+    width: 100%;
+}
+.login-button {
+    width: 100%;
+}
+.login-title {
+    font-weight: bold;
+}
