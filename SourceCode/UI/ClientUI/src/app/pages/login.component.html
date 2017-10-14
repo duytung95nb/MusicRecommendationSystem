@@ -1,0 +1,47 @@
+<div class="login_wrapper">
+    <div class="animate form login_form">
+        <section class="login_content">
+            <form>
+                <h1>Đăng nhập</h1>
+                <form-input [type]="'text'" [placeHolder]="'User name'" [required]="'true'" (value)="onUserId($event)"></form-input>
+                <form-input [type]="'password'" [placeHolder]="'Password'" [required]="'true'"></form-input>
+                <div>
+                    <a class="btn btn-default submit" (click)="onClicked()">Log in</a>
+                    <a class="reset_pass" href="#">Quên mật khẩu?</a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="separator">
+                    <p class="change_link">New to site?
+                        <a href="#signup" class="to_register">Tạo tài khoản</a>
+                    </p>
+
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <div id="register" class="animate form registration_form">
+        <section class="login_content">
+            <form>
+                <h1>Create Account {{userid}}</h1>
+                <form-input [type]="'text'" [placeHolder]="'Username'" [required]="'true'"></form-input>
+                <form-input [type]="'email'" [placeHolder]="'Email'" [required]="'true'"></form-input>
+                <form-input [type]="'password'" [placeHolder]="'Password'" [required]="'true'"></form-input>
+                <div>
+                    <a class="btn btn-default submit" (click)="onClicked()">Submit</a>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="separator">
+                    <p class="change_link">Already a member ?
+                        <a href="#signin" class="to_register"> Log in </a>
+                    </p>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
