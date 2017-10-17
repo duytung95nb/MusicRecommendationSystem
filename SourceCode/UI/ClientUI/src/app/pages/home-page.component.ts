@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SongService } from "../helper/services";
 import { Song } from "../objects/song";
 import { TestDate } from "../objects/date";
-import { ResponseToObject } from "../objects/response-to-object";
+import { ResponseToObject } from "../utilities/response-to-object";
 import { ActivatedRoute } from "@angular/router";
 import { User } from "../objects/user";
 

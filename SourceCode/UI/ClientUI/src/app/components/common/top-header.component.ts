@@ -1,18 +1,26 @@
 import { Component, Input, Inject } from '@angular/core';
+import {FormControl } from '@angular/forms';
 import { User } from "../../objects/user";
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { LoginDialog } from './dialogs/login-dialog.component';
 
 @Component({
-    selector: 'main-navigation',
-    templateUrl: 'main-nav.component.html'
+    selector: 'top-header',
+    templateUrl: 'top-header.component.html',
+    styleUrls: ['top-header.component.css']
 })
 
-export class MainNavigationComponent {
+export class TopHeaderComponent {
     private username: string;
     private password: string;
     animal: string;
     name: string;
+    myControl: FormControl = new FormControl();
+    options = [
+        'One',
+        'Two',
+        'Three'
+    ];
     dialogRef: MatDialogRef<LoginDialog>;
     constructor(public dialog: MatDialog) { }
 
