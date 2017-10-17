@@ -12,7 +12,6 @@ import { CommonSiteModule } from './components/common/common-site.module';
 import { CarouselComponent } from "./components/shared/custom-design/carousel.component";
 import { SongComponent } from "./components/shared/custom-design/song.component";
 import { HomePageComponent } from "./pages/home-page.component";
-import { LoginComponent } from "./pages/login.component";
 import { CommonModule } from "@angular/common";
 import { EllipsisPipe } from "./utilities/ellipsis-pipe";
 
@@ -20,7 +19,6 @@ import { EllipsisPipe } from "./utilities/ellipsis-pipe";
   declarations: [
     AppComponent,
     HomePageComponent,
-    LoginComponent,
     SongComponent,
     CarouselComponent,
     EllipsisPipe

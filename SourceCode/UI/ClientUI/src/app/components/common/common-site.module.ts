@@ -1,12 +1,12 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LoginDialog } from './dialogs/login-dialog.component';
-import { MainNavigationComponent } from './main-nav.component';
+import { TopHeaderComponent } from './top-header.component';
 import { FooterComponent } from './footer-area.component';
 import {MaterialModule } from '../../material.module';
 
 @NgModule({
     declarations: [
-        MainNavigationComponent,
+        TopHeaderComponent,
         FooterComponent,
         LoginDialog
     ],
@@ -14,7 +14,7 @@ import {MaterialModule } from '../../material.module';
         MaterialModule
     ],
     exports: [
-        MainNavigationComponent,
+        TopHeaderComponent,
         FooterComponent
     ],
     entryComponents: [

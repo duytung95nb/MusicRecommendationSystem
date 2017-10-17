@@ -1,0 +1,23 @@
+.top-header {
+    display: table;
+    width: 100%;
+    height: 60px;
+    z-index: 1000;
+    padding: 0 10px;
+}
+.top-header__logo {
+    display: table-cell;
+    vertical-align: middle;
+    width: auto;
+    color: #f44336;
+    font-size: 40px;
+}
+.top-header__main-nav {
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+}
+.login-button {
+    display: inline-flex;
+    align-items: center;
+}
