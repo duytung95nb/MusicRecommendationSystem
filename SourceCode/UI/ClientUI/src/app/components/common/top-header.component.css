@@ -4,17 +4,30 @@
     height: 60px;
     z-index: 1000;
     padding: 0 10px;
+    z-index: 1000;
+    box-shadow: 0 3px 4px -1px rgba(0,0,0,.2), 0 6px 9px 1px rgba(0,0,0,.14), 0 4px 23px 4px rgba(0,0,0,.12);
 }
 .top-header__logo {
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
     width: auto;
     color: #f44336;
     font-size: 40px;
+    text-align: center;
+    width: 10%;
+}
+.top-header__search-area {
+    width: 40%;
+    height: 100%;
+    display: inline-flex;
+}
+.search-area__content {
+    width: 100%;
 }
 .top-header__main-nav {
-    display: flex;
+    display: inline-flex;
     justify-content: flex-end;
+    width: 50%;
     height: 100%;
 }
 .login-button {

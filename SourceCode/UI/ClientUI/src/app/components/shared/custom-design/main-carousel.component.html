@@ -1,0 +1,7 @@
+<div class="carousel">
+    <ul class="slides">
+        <li *ngFor="let image of images">
+            <img src="{{image.url}}" title="{{ image.name }} - {{image.artist}}" alt="">
+        </li>
+    </ul>
+</div>

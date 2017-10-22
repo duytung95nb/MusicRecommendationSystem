@@ -1,0 +1,11 @@
+<form [formGroup]="myGroup" class="search-form">
+    <mat-form-field class="search-form__field">
+        <i class="fa fa-search search-form__search-icon" aria-hidden="true"></i>
+        <input type="text" placeholder="Tìm kiếm tên bài hát, ca sỹ, nhạc sỹ, album" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{ option }}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</form>

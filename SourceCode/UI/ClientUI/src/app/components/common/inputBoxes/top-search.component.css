@@ -1,0 +1,14 @@
+.search-form {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+.search-form__search-icon {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    font-size: 30px;
+}
+.search-form__field {
+    width: 100%;
+}

@@ -1,8 +1,10 @@
 import { Component, Input, Inject } from '@angular/core';
-import {FormControl } from '@angular/forms';
 import { User } from "../../objects/user";
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { LoginDialog } from './dialogs/login-dialog.component';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'top-header',
@@ -15,12 +17,6 @@ export class TopHeaderComponent {
     private password: string;
     animal: string;
     name: string;
-    myControl: FormControl = new FormControl();
-    options = [
-        'One',
-        'Two',
-        'Three'
-    ];
     dialogRef: MatDialogRef<LoginDialog>;
     constructor(public dialog: MatDialog) { }
 
