@@ -1,6 +1,12 @@
 <div class="container body">
     <div class="main_container">
         <top-header></top-header>
+        <div class="newest-area">
+            <main-carousel [images]="topSongs"></main-carousel>
+            <div class="navigation-area">
+                <main-carousel></main-carousel>
+            </div>
+        </div>
         <div class="right_col" role="main" style="min-height: 1054px;">
             <div class="">
                 <carousel [songs]="collaborativeSongs" [title]="'Nghe lại'"></carousel>
