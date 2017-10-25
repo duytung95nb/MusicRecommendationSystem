@@ -102,7 +102,7 @@ class Mp3Spider(scrapy.Spider):
         elif "https://mp3.zing.vn/bai-hat" in response.url:
             song = response.xpath('//div[@class="info-content otr"]/div/h1/text()').extract_first()
             artist = response.xpath('//div[@class="info-content otr"]').xpath('.//a/text()').extract_first()
-            composer = response.xpath('//div[@id="composer-container"]/h2/a/text()').extract_first()
+            composer = response.xpath('//div[@id="composer-container"]/h2/text()').extract_first()
             album = response.xpath('//div[@class="info-song-top otr fl"]').xpath('.//a[@class="txt-info"]/text()').extract_first()
             thumbnail = response.xpath('//div[@class="box-artist"]/a/img/@src').extract_first()
             genres = response.xpath('//div[@class="info-song-top otr clear"]').xpath(".//h2/a/text()").extract()
