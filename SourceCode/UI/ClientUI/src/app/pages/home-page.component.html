@@ -1,20 +1,21 @@
-<div class="container body">
-    <div class="main_container">
-        <top-header></top-header>
+<div class="home-page-content">
+    <div class="left-side">
         <div class="newest-area">
             <main-carousel [images]="topSongs"></main-carousel>
-            <div class="navigation-area">
-                <main-carousel></main-carousel>
-            </div>
         </div>
-        <div class="right_col" role="main" style="min-height: 1054px;">
-            <div class="">
+        <div class="recommmendation-area">
+            <div class="right_col" role="main" style="min-height: 1054px;">
                 <carousel [songs]="collaborativeSongs" [title]="'Nghe lại'"></carousel>
                 <carousel [songs]="collaborativeSongs" [title]="'Gợi ý cho bạn'"></carousel>
                 <carousel [songs]="contentbasedSongs" [title]="'Có thể bạn sẽ thích'"></carousel>
                 <div class="clearfix"></div>
             </div>
         </div>
-        <footer-area></footer-area>
     </div>
+    <div class="right-side">
+        <div class="top-monthly-area">
+            <vertical-list [layoutType]="'item--with-image'" [title]="'Bảng xếp hạng tháng'" [songs]="topSongs"></vertical-list>
+        </div>
+    </div>
+    <div class="clearfix"></div>
 </div>

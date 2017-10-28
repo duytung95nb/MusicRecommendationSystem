@@ -1,18 +1,20 @@
-<div class="col-md-12 carousel--regular">
-  <div class="x_panel">
-    <div class="x_title">
-      <h2><a href="">{{title}} <span class="glyphicon glyphicon-chevron-right"></span></a></h2>
-      <div class="clearfix"></div>
-    </div>
-    <div class="x_content">
-      <ng-container *ngIf="songs==null">
-        <mat-spinner style="margin:0 auto;"></mat-spinner>
-      </ng-container>
-      <ng-container *ngIf="songs">
-        <div class="row">
-          <song *ngFor="let song of songs" [song]="song"></song>
-        </div>
-      </ng-container>
-    </div>
+<div class="carousel--regular">
+  <div class="x_title">
+    <h2>
+      <a href="">{{title}}
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </h2>
+    <div class="clearfix"></div>
+  </div>
+  <div class="x_content">
+    <ng-container *ngIf="songs==null">
+      <mat-spinner style="margin:0 auto;"></mat-spinner>
+    </ng-container>
+    <ng-container *ngIf="songs">
+      <div class="row">
+        <song *ngFor="let song of songs" [song]="song"></song>
+      </div>
+    </ng-container>
   </div>
 </div>

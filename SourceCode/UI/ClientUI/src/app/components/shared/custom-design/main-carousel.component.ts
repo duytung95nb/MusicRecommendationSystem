@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'main-carousel',
     templateUrl: './main-carousel.component.html',
-    styleUrls: ['./main-carousel.component.css']
+    styleUrls: ['./custom-design.css']
 })
 export class MainCarousel {
     @Input() images;

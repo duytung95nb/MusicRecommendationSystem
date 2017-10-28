@@ -5,6 +5,7 @@ import { LoginDialog } from './dialogs/login-dialog.component';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'top-header',
@@ -18,8 +19,10 @@ export class TopHeaderComponent {
     animal: string;
     name: string;
     dialogRef: MatDialogRef<LoginDialog>;
-    constructor(public dialog: MatDialog) { }
-
+    constructor(public dialog: MatDialog, private router: Router) { }
+    onLogoClicked() {
+        this.router.navigate(['/']);
+    }
     showLoginForm(): void {
         this.dialogRef = this.dialog.open(LoginDialog, LoginDialog.config);
 

@@ -1,19 +1,62 @@
-<ng-container *ngIf="song">
-    <div class="col-md-55">
-        <div class="thumbnail">
-            <div class="image view view-first">
-                <img style="width: 100%; display: block;" src="./assets/images/song/song.jpg" alt="image" />
-                <div class="mask">
-                    <p>{{song.name | ellipsis:15 }}</p>
-                    <div class="tools tools-bottom">
-                        <a href="#"><i class="fa fa-play"></i></a>
+<div *ngIf="song" class="single-song" (click)="onSongClicked(song)">
+    <!-- regular song type -->
+    <ng-container *ngIf="layoutType === undefined">
+        <div class="col-md-55">
+            <div class="thumbnail">
+                <div class="image view view-first">
+                    <img style="width: 100%; display: block;" src="./assets/images/song/song.jpg" alt="image" />
+                    <div class="mask">
+                        <p>{{song.name | ellipsis:15 }}</p>
+                        <div class="tools tools-bottom">
+                            <a href="#">
+                                <i class="fa fa-play"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="caption">
-                <p><strong>{{song.name | ellipsis:15 }}</strong></p>
-                <p>{{song.artist | ellipsis:15 }}</p>
+                <div class="caption">
+                    <p>
+                        <strong>{{song.name | ellipsis:15 }}</strong>
+                    </p>
+                    <p>{{song.artist | ellipsis:15 }}</p>
+                </div>
             </div>
         </div>
-    </div>
-</ng-container>
+    </ng-container>
+    <ng-container *ngIf="layoutType === 'item--with-image'">
+        <mat-card class="list-item">
+            <a class="image-mask"></a>
+            <img mat-card-image src="{{song.url}}">
+            <div class="info-area">
+                <h3 class="list-item__title">
+                    {{indexInList + 1}}
+                </h3>
+                <div class="list-item__content">
+                    <p class="song-name">{{song.name}}</p>
+                    <a class="song-artist">{{song.artist}}</a>
+                </div>
+                <div class="list-item__views">
+                    <span class="glyphicon glyphicon-headphones">{{song.listened}}</span>
+                </div>
+            </div>
+        </mat-card>
+    </ng-container>
+    <ng-container *ngIf="layoutType === 'item--no-image'">
+        <mat-card class="list-item">
+            <a class="image-mask"></a>
+            <img mat-card-image src="{{song.url}}">
+            <div class="info-area">
+                <h3 class="list-item__title">
+                    {{indexInList + 1}}
+                </h3>
+                <div class="list-item__content">
+                    <p class="song-name">{{song.name}}</p>
+                    <a class="song-artist">{{song.artist}}</a>
+                </div>
+                <div class="list-item__views">
+                    <span class="glyphicon glyphicon-headphones">{{song.listened}}</span>
+                </div>
+            </div>
+        </mat-card>
+    </ng-container>
+</div>

@@ -494,6 +494,9 @@ body {
     font-weight: 400;
     line-height: 1.471
 }
+ul {
+    list-style: none;
+}
 .main_container .top_nav {
     display: block;
 }

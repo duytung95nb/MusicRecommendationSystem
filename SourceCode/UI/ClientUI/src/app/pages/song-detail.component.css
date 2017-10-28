@@ -1,0 +1,71 @@
+.detail-page-content {
+    position: relative;
+    margin: 60px;
+}
+.detail-page-content .left-side {
+    float: left;
+    width: 70%;
+}
+.detail-page-content .right-side {
+    float: left;
+    width: 30%;
+}
+.play-area {
+    text-align: center;
+    height: 500px;
+    padding: 1px;
+}
+.play-area__image {
+    width: 100%;
+    height: 40%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+.play-area__texts {
+    display: block;
+    min-width: 200px;
+    max-width: 550px;
+    padding: 10px 0 0 0;
+    margin: auto;
+    background-color: #FFFFFF;
+    transform: translateY(-50%);
+    font-weight: bold;
+}
+.play-area__texts .artist {
+    color: #999999;
+    font-size: 16px;
+}
+.play-area__texts .name {
+    color: #000000;
+    font-size: 20px;
+}
+.player-area__player {
+    width: 100%;
+    height: 30%;
+}
+.play-area__social {
+    display: block;
+    text-align: left;
+}
+.play-area__social .rating-area {
+    display: inline-block;
+}
+.play-area__social .social-buttons {
+    display: inline-block;
+    font-size: 50px;
+}
+.play-area__social .listened {
+    display: inline-block;
+    font-size: 20px;
+
+}
+.play-area__social .rating__user-rate {
+    display: block;
+}
+.play-area__social .rating__song-rate {
+    display: block;
+}
+.album-area {
+    padding: 0 20px;
+}
