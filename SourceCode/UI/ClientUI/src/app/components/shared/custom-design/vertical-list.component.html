@@ -1,0 +1,5 @@
+<h2 class="vertical-list-title">{{title}}</h2>
+<song *ngFor="let song of songs; let i = index"
+[song]="song"
+[indexInList]="i"
+[layoutType]="layoutType"></song>

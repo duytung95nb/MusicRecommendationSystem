@@ -10,11 +10,15 @@ import { CommonSiteModule } from './components/common/common-site.module';
 import { HomePageComponent } from "./pages/home-page.component";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from './components/shared/shared.module';
+import { SongDetail } from './pages/song-detail.component';
+import { MaterialModule } from './material.module';
+import { StarRatingModule } from 'angular-star-rating';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    SongDetail
   ],
   imports: [
     BrowserModule,
@@ -23,7 +27,9 @@ import { SharedModule } from './components/shared/shared.module';
     HttpModule,
     AppRoutingModule,
     CommonSiteModule,
-    SharedModule
+    SharedModule,
+    MaterialModule,
+    StarRatingModule.forRoot()
   ],
   providers: [SongService, HttpConnector],
   bootstrap: [AppComponent]

@@ -1,4 +1,20 @@
-.newest-area {
-    height: 400px;
+.home-page-content {
+    position: relative;
+    margin: 60px;
+}
+.home-page-content .left-side {
+    float: left;
     width: 70%;
+}
+.home-page-content .right-side {
+    float: left;
+    width: 30%;
+}
+.home-page-content .newest-area {
+    height: 400px;
+}
+.home-page-content .recommmendation-area {
+}
+.home-page-content .top-monthly-area {
+    padding: 0 20px;
 }

@@ -9,6 +9,7 @@
 }
 .top-header__logo {
     display: inline-block;
+    cursor: pointer;
     vertical-align: middle;
     width: auto;
     color: #f44336;

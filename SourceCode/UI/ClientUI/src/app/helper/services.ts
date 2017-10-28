@@ -7,29 +7,31 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class SongService{
-    private link: string = 'http://192.168.1.74:8080/project/music_recommendation/';
+    private link: string = 'assets/data.json';
     private collaborative: string = 'collaborative';
     private contentBased: string = 'contentbased';
     constructor(private connector: HttpConnector){
-        
     }
     private data: string;
+    get(songId:number): Observable<Song>{
+        return this.connector.get(this.link)
+        .map(res => {
+            let songArray = res.json();
+            let resultSong = null;
+            songArray.forEach(song => {
+                if (song.id === songId) {
+                    resultSong = song;
+                }
+            });
+            return resultSong;
+        });;
+    }
     getCollaborativeSongs(userid:string): Observable<Song[]>{
-        var requestApi = this.link + this.collaborative + '?' + 'userid='+userid;
-        return this.connector.get(requestApi)
-        .map(response => response as Song[]);
+        return this.connector.get(this.link)
+        .map(res => res.json());;
     }
-    
     getContentBasedSongs(userid:string): Observable<Song[]>{
-        var requestApi = this.link + this.contentBased + '?' + 'userid='+userid;
-        return this.connector.get(requestApi)
-        .map(response => response as Song[]);
-    }
-    getDate() {
-        return this.connector.get('http://date.jsontest.com');
-    }
-    testGetDate(): Observable<TestDate> {
-        return this.connector.get('http://date.jsontest.com')
-        .map(response => response as TestDate);
+        return this.connector.get(this.link)
+        .map(res => res.json());;
     }
 }

@@ -1,9 +1,11 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { SongDetail } from '../pages/song-detail.component';
 import { HomePageComponent } from "../pages/home-page.component";
 
 let routes: Routes = [
-    {path: '', component: HomePageComponent}
+    { path: '', component: HomePageComponent },
+    { path: 'song/:songId', component: SongDetail }
 ]
 
 @NgModule({
@@ -11,4 +13,4 @@ let routes: Routes = [
     exports: [RouterModule]
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule { }

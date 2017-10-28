@@ -1,34 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { SongService } from "../helper/services";
 import { Song } from "../objects/song";
-import { TestDate } from "../objects/date";
-import { ActivatedRoute } from "@angular/router";
-import { User } from "../objects/user";
 
 @Component({
-    templateUrl: 'home-page.component.html',
-    styleUrls: ['./home-page.component.css']
+    templateUrl: 'song-detail.component.html',
+    styleUrls: ['./song-detail.component.css']
 })
 
-export class HomePageComponent implements OnInit {
-    public userid: string;
-    private topSongs = images;
-    public collaborativeSongs: any[];
-    public contentbasedSongs: any[];
-    constructor(private songService: SongService, private activatedRoute: ActivatedRoute) {
+export class SongDetail implements OnInit, OnDestroy{
+    private idSubscribe: any;
+    private song: Song;
+    constructor(private activatedRoute: ActivatedRoute,
+        private songService: SongService) {
     }
     ngOnInit() {
-        this.userid = this.activatedRoute.params["value"].id;
         var self = this;
-        this.songService.getCollaborativeSongs('testId').subscribe((songs: Song[]) => {
-            self.collaborativeSongs = songs;
-        });
-        this.songService.getContentBasedSongs('testId').subscribe((songs: Song[]) => {
-            self.contentbasedSongs = songs;
-        });
-        
+        this.idSubscribe = this.activatedRoute.params.subscribe(params => {
+            self.songService.get(+params['songId']).subscribe((song: Song) => {
+                self.song = song;
+            });;
+            // In a real app: dispatch action to load the details here.
+         });
+    }
+
+    ngOnDestroy() {
+        this.idSubscribe.unsubscribe();
     }
 }
+
 const images = [
     {
         "id": 1,
@@ -111,35 +111,3 @@ const images = [
     }
 
 ];
-const collaborativeSongs = [
-    {
-        "id": 1,
-        "name": "Tình đơn phương",
-        "artist": "Đan trường",
-        "composer": "Đan trường"
-    },
-    {
-        "id": 2,
-        "name": "Tình đơn phương",
-        "artist": "Đan trường",
-        "composer": "Đan trường"
-    },
-    {
-        "id": 3,
-        "name": "Tình đơn phương",
-        "artist": "Đan trường",
-        "composer": "Đan trường"
-    },
-    {
-        "id": 4,
-        "name": "Tình đơn phương",
-        "artist": "Đan trường",
-        "composer": "Đan trường"
-    },
-    {
-        "id": 5,
-        "name": "Tình đơn phương",
-        "artist": "Đan trường",
-        "composer": "Đan trường"
-    }
-]

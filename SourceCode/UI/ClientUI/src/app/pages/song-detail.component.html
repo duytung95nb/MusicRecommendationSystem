@@ -1,0 +1,52 @@
+<div class="detail-page-content">
+    <div class="left-side">
+        <div *ngIf="song" class="song-detail">
+            <mat-card class="play-area">
+                <div class="play-area__image" [ngStyle]="{'background-image': 'url(' + song.url + ')'}">
+                </div>
+                <div class="play-area__texts">
+                    <p class="artist">{{song.artist}}</p>
+                    <p class="name">{{song.name}}</p>
+                </div>
+                <iframe scrolling="no" class="player-area__player" src="http://mp3.zing.vn/embed/song/ZW80COFO" frameborder="0" allowfullscreen="true"></iframe>
+                <div class="play-area__social">
+                    <div class="rating-area">
+                        <star-rating-comp class="rating__user-rate" [labelText]="'Đánh giá'" [starType]="'svg'" [labelPosition]="'left'" [staticColor]="'positive'"
+                            [size]="'medium'">
+                        </star-rating-comp>
+                        <star-rating-comp class="rating__song-rate" [labelText]="'2.63/5'" [starType]="'svg'" [labelPosition]="'left'" [rating]="2.63"
+                            [size]="'medium'" [showHalfStars]="true" [readOnly]="true">
+                        </star-rating-comp>
+                    </div>
+                    <div class="social-buttons">
+                        <a class="social-buttons__download" title="Thêm vào yêu thích">
+                            <span class="fa fa-plus"></span>
+                        </a>
+                        <a class="social-buttons__share" title="Chia sẻ">
+                            <span class="fa fa-share-alt-square"></span>
+                        </a>
+                        <a class="social-buttons__download" title="Tải">
+                            <span class="fa fa-download"></span>
+                        </a>
+                    </div>
+                    <div class="listened">
+                        <span class="glyphicon glyphicon-headphones"></span>
+                        {{song.listened}}
+                    </div>
+                </div>
+            </mat-card>
+            <div class="infor-area">
+                <div class="infor-area__description"></div>
+                <div class="infor-area__lyric"></div>
+            </div>
+            <carousel [songs]="relatedSongs" [title]="'Có thể bạn sẽ thích'"></carousel>
+        </div>
+
+    </div>
+    <div class="right-side">
+        <div class="album-area">
+            <vertical-list [title]="'Bài hát kế tiếp'" [songs]="topSongs"></vertical-list>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

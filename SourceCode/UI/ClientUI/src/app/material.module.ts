@@ -2,7 +2,7 @@ import {
     MatButtonModule, MatInputModule,
     MatGridListModule, MatProgressSpinnerModule,
     MatDialogModule, MatFormFieldModule, MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule, MatCardModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -12,12 +12,12 @@ import { NgModule } from '@angular/core';
         MatInputModule, MatGridListModule,
         MatProgressSpinnerModule, MatDialogModule,
         MatFormFieldModule, MatSelectModule,
-        MatAutocompleteModule],
+        MatAutocompleteModule, MatCardModule],
     exports: [BrowserAnimationsModule, MatButtonModule,
         MatInputModule, MatGridListModule,
         MatProgressSpinnerModule, MatDialogModule,
         MatFormFieldModule, MatSelectModule,
-        MatAutocompleteModule]
+        MatAutocompleteModule, MatCardModule]
 })
 
 export class MaterialModule { }

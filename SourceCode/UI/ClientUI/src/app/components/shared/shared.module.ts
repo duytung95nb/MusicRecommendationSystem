@@ -7,6 +7,7 @@ import { ResponseToObject } from './utilities/response-to-object';
 import { EllipsisPipe } from './utilities/ellipsis-pipe';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material.module';
+import { VerticalList } from './custom-design/vertical-list.component';
 
 @NgModule({
     imports: [
@@ -18,13 +19,15 @@ import { MaterialModule } from '../../material.module';
         FormInputComponent,
         SongComponent,
         CarouselComponent,
+        VerticalList,
         EllipsisPipe
     ],
     exports: [
         MainCarousel,
         FormInputComponent,
         SongComponent,
-        CarouselComponent
+        CarouselComponent,
+        VerticalList
     ],
     providers: [ResponseToObject]
 })

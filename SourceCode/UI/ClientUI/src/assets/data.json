@@ -1,35 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { SongService } from "../helper/services";
-import { Song } from "../objects/song";
-import { TestDate } from "../objects/date";
-import { ActivatedRoute } from "@angular/router";
-import { User } from "../objects/user";
-
-@Component({
-    templateUrl: 'home-page.component.html',
-    styleUrls: ['./home-page.component.css']
-})
-
-export class HomePageComponent implements OnInit {
-    public userid: string;
-    private topSongs = images;
-    public collaborativeSongs: any[];
-    public contentbasedSongs: any[];
-    constructor(private songService: SongService, private activatedRoute: ActivatedRoute) {
-    }
-    ngOnInit() {
-        this.userid = this.activatedRoute.params["value"].id;
-        var self = this;
-        this.songService.getCollaborativeSongs('testId').subscribe((songs: Song[]) => {
-            self.collaborativeSongs = songs;
-        });
-        this.songService.getContentBasedSongs('testId').subscribe((songs: Song[]) => {
-            self.contentbasedSongs = songs;
-        });
-        
-    }
-}
-const images = [
+[
     {
         "id": 1,
         "artist": "Lam Truong",
@@ -108,38 +77,5 @@ const images = [
         "name": "Tinh don phuong 10",
         "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/soccer.jpg",
         "listened": 3000
-    }
-
-];
-const collaborativeSongs = [
-    {
-        "id": 1,
-        "name": "Tình đơn phương",
-        "artist": "Đan trường",
-        "composer": "Đan trường"
-    },
-    {
-        "id": 2,
-        "name": "Tình đơn phương",
-        "artist": "Đan trường",
-        "composer": "Đan trường"
-    },
-    {
-        "id": 3,
-        "name": "Tình đơn phương",
-        "artist": "Đan trường",
-        "composer": "Đan trường"
-    },
-    {
-        "id": 4,
-        "name": "Tình đơn phương",
-        "artist": "Đan trường",
-        "composer": "Đan trường"
-    },
-    {
-        "id": 5,
-        "name": "Tình đơn phương",
-        "artist": "Đan trường",
-        "composer": "Đan trường"
     }
 ]
