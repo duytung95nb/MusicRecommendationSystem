@@ -1,4 +1,5 @@
 /DataArchive/*
+SourceCode/UI/MusicRecommendationUI/node_modules
 **.pyc
 **.idea/
 **.idea/*

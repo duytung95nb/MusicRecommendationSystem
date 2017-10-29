@@ -1,0 +1,18 @@
+<div class="col-md-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>{{title}}</h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <ng-container *ngIf="songs==null">
+        <mat-spinner style="margin:0 auto;"></mat-spinner>
+      </ng-container>
+      <ng-container *ngIf="songs">
+        <div class="row">
+          <song *ngFor="let song of songs" [song]="song"></song>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
