@@ -8,9 +8,10 @@ import { Song } from "../objects/song";
     styleUrls: ['./song-detail.component.css']
 })
 
-export class SongDetail implements OnInit, OnDestroy{
+export class SongDetail implements OnInit, OnDestroy {
     private idSubscribe: any;
     private song: Song;
+    private nextSongs: Song[];
     constructor(private activatedRoute: ActivatedRoute,
         private songService: SongService) {
     }
@@ -21,7 +22,10 @@ export class SongDetail implements OnInit, OnDestroy{
                 self.song = song;
             });;
             // In a real app: dispatch action to load the details here.
-         });
+        });
+        this.songService.getCollaborativeSongs('testId').subscribe((songs: Song[]) => {
+            self.nextSongs = songs;
+        });
     }
 
     ngOnDestroy() {

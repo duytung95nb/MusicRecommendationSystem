@@ -42,13 +42,9 @@
         </mat-card>
     </ng-container>
     <ng-container *ngIf="layoutType === 'item--no-image'">
-        <mat-card class="list-item">
-            <a class="image-mask"></a>
-            <img mat-card-image src="{{song.url}}">
+        <mat-card class="list-item list-item--no-image">
             <div class="info-area">
-                <h3 class="list-item__title">
-                    {{indexInList + 1}}
-                </h3>
+                <button mat-button class="play-button"><span class="fa fa-play"></span></button>
                 <div class="list-item__content">
                     <p class="song-name">{{song.name}}</p>
                     <a class="song-artist">{{song.artist}}</a>
