@@ -1,0 +1,10 @@
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\API\MusicRecommendationWebApi\bin\Debug\netcoreapp2.0\MusicRecommendationWebApi.deps.json
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\API\MusicRecommendationWebApi\bin\Debug\netcoreapp2.0\MusicRecommendationWebApi.runtimeconfig.json
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\API\MusicRecommendationWebApi\bin\Debug\netcoreapp2.0\MusicRecommendationWebApi.runtimeconfig.dev.json
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\API\MusicRecommendationWebApi\bin\Debug\netcoreapp2.0\MusicRecommendationWebApi.dll
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\API\MusicRecommendationWebApi\bin\Debug\netcoreapp2.0\MusicRecommendationWebApi.pdb
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\API\MusicRecommendationWebApi\obj\Debug\netcoreapp2.0\MusicRecommendationWebApi.csproj.CoreCompileInputs.cache
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\API\MusicRecommendationWebApi\obj\Debug\netcoreapp2.0\MusicRecommendationWebApi.AssemblyInfoInputs.cache
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\API\MusicRecommendationWebApi\obj\Debug\netcoreapp2.0\MusicRecommendationWebApi.AssemblyInfo.cs
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\API\MusicRecommendationWebApi\obj\Debug\netcoreapp2.0\MusicRecommendationWebApi.dll
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\API\MusicRecommendationWebApi\obj\Debug\netcoreapp2.0\MusicRecommendationWebApi.pdb
