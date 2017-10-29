@@ -9,7 +9,8 @@ if [[ -z "${CONDA_DIR}" ]] || [[ -z "${CONDA_DIR}" ]] || [[ -z "${CONDA_DIR}" ]]
 fi
 
 echo "1. Crawl music data."
-echo "2. Generate user event."
+echo "2. Genrate fake users."
+echo "3. Generate user event."
 
 # Get user input
 echo -n "> "
@@ -29,6 +30,13 @@ if [ $option == "1" ]; then
 fi
 
 if [ $option == "2" ]; then 
+        rm -f ${DATA_ARCHIVE}/user.csv
+        python ${USERGEN_DIR}/fake_user_maker.py
+        echo "Completed!"
+        exit 0
+fi
+
+if [ $option == "3" ]; then 
 	rm -f ${DATA_ARCHIVE}/user_event.csv
 	python ${EVENTGEN_DIR}/UserEventMaker.py
         echo "Completed!"
