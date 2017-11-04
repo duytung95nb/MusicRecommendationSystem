@@ -3,17 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Cassandra;
+using Cassandra.Mapping;
+using MusicRecommendationWebApi.Models;
 
 namespace MusicRecommendationWebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class UsersController : Controller
     {
+        private ICluster _cluster;
+        private ISession _session;
+        private IMapper _mapper;
+        public UsersController() {
+            this._cluster = Cluster.Builder()
+            .AddContactPoint("127.0.0.1")
+            .WithPort(9042)
+            .Build();
+            this._session = this._cluster.Connect("musicrecommendation");
+            this._mapper = new Mapper(this._session);
+        }
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<User> Get()
         {
-            return new string[] { "value1", "value2" };
+            var usersList = this._mapper.Fetch<User>();
+            return usersList;
         }
 
         // GET api/values/5

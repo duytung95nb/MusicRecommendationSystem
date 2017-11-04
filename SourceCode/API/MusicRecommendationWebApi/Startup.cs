@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cassandra.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,7 @@ namespace MusicRecommendationWebApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            MappingConfiguration.Global.Define<CassandraMapping>();
         }
 
         public IConfiguration Configuration { get; }
