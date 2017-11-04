@@ -6,3 +6,4 @@ export DATA_ARCHIVE=${THESIS_HOME}/DataArchive/
 export CRAWLER_DIR=${THESIS_HOME}/SourceCode/Helpers/DataCrawler/
 export EVENTGEN_DIR=${THESIS_HOME}/SourceCode/Helpers/EventsGenerator/
 export USERGEN_DIR=${THESIS_HOME}/SourceCode/Helpers/FakeUserGenerator/
+export IMPORTCAS_DIR=${THESIS_HOME}/SourceCode/Helpers/ImportCasa/
