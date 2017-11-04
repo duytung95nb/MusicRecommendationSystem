@@ -11,6 +11,7 @@ fi
 echo "1. Crawl music data."
 echo "2. Genrate fake users."
 echo "3. Generate user event."
+echo "4. Import metadata."
 
 # Get user input
 echo -n "> "
@@ -39,6 +40,13 @@ fi
 if [ $option == "3" ]; then 
 	rm -f ${DATA_ARCHIVE}/user_event.csv
 	python ${EVENTGEN_DIR}/UserEventMaker.py
+        echo "Completed!"
+        exit 0
+fi
+
+if [ $option == "4" ]; then 
+        echo "Importing metatdata.csv into Cassandra... Please be patient!"
+	python ${IMPORTCAS_DIR}/main.py
         echo "Completed!"
         exit 0
 fi
