@@ -19,7 +19,6 @@ namespace MusicRecommendationWebApi
                .Column(u => u.Lastname, cm => cm.WithName("lastname"))
                .Column(u => u.AvatarUrl, cm => cm.WithName("avatar_url"))
                .Column(u => u.Gender, cm => cm.WithName("gender"))
-               .Column(u => u.Age, cm => cm.WithName("age"))
                .Column(u => u.Birthdate, cm => cm.WithName("birth_date"))
                .Column(u => u.City, cm => cm.WithName("city"));
         }

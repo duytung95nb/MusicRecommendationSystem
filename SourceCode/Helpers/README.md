@@ -14,3 +14,8 @@ You should follow three below easy steps to get the convenience from this helper
 3. ./helpermenu.sh
 
 Enjoy!
+
+Run main.py in ImportCasa folder.
+Install necessary module.
+Put metadata.csv the same level as main.py.
+Modify code from db_utils: self.data_archive = "".

@@ -2,10 +2,11 @@ using System;
 using Cassandra;
 using UserGeneratorBaseOnDatabase.DAL;
 using UserGeneratorBaseOnDatabase.Models;
+using UserGeneratorBaseOnDatabase.Utils;
 
-namespace UserGeneratorBaseOnDatabase
+namespace UserGeneratorBaseOnDatabase.Generators
 {
-    public class UserAutoGenerate
+    public class UserAutoGenerator
     {
         const string USERNAME = "duytung95nb";
         const string PASSWORD = "duytung95nb";
@@ -26,17 +27,10 @@ namespace UserGeneratorBaseOnDatabase
                 u.Firstname = FIRSTNAME + i;
                 u.Lastname = LASTNAME + i;
                 u.Gender = i % 2 == 0 ? GENDER : !GENDER;
-                u.Birthdate = GetRadomDate();
+                u.Birthdate = RandomUtils.GetRadomDate();
                 u.City = CITY + i;
                 userDAL.addUser(u);
             }
-        }
-        private DateTime GetRadomDate()
-        {
-            Random gen = new Random();
-            DateTime start = new DateTime(1995, 1, 1);
-            int range = (DateTime.Today - start).Days;
-            return start.AddDays(gen.Next(range));
         }
     }
 }

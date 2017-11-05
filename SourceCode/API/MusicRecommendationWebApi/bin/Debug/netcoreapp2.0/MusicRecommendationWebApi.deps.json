@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "a7aa306d2e264d92ffef06296341a5e29b6e41eb"
+    "signature": "52bddfbec7b5d000d0cae94ac1de4bd5ec9a14a9"
   },
   "compilationOptions": {
     "defines": [
@@ -23,6 +23,8 @@
     ".NETCoreApp,Version=v2.0": {
       "MusicRecommendationWebApi/1.0.0": {
         "dependencies": {
+          "CassandraCSharpDriver": "3.3.2",
+          "Microsoft.AspNet.WebApi": "5.2.3",
           "Microsoft.AspNetCore.All": "2.0.0",
           "Microsoft.NETCore.App": "2.0.0"
         },
@@ -31,6 +33,26 @@
         },
         "compile": {
           "MusicRecommendationWebApi.dll": {}
+        }
+      },
+      "CassandraCSharpDriver/3.3.2": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "2.0.0",
+          "NETStandard.Library": "2.0.0",
+          "System.Data.Common": "4.1.0",
+          "System.Diagnostics.StackTrace": "4.3.0",
+          "System.Diagnostics.TraceSource": "4.0.0",
+          "System.Net.NameResolution": "4.3.0",
+          "System.Net.Security": "4.3.0",
+          "System.Runtime.Serialization.Primitives": "4.3.0",
+          "System.Threading.Thread": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.5/Cassandra.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.5/Cassandra.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -118,6 +140,41 @@
         },
         "compile": {
           "lib/netstandard1.6/Microsoft.AI.DependencyCollector.dll": {}
+        }
+      },
+      "Microsoft.AspNet.WebApi/5.2.3": {
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.WebHost": "5.2.3"
+        }
+      },
+      "Microsoft.AspNet.WebApi.Client/5.2.3": {
+        "runtime": {
+          "lib/net45/System.Net.Http.Formatting.dll": {}
+        },
+        "compile": {
+          "lib/net45/System.Net.Http.Formatting.dll": {}
+        }
+      },
+      "Microsoft.AspNet.WebApi.Core/5.2.3": {
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Client": "5.2.3"
+        },
+        "runtime": {
+          "lib/net45/System.Web.Http.dll": {}
+        },
+        "compile": {
+          "lib/net45/System.Web.Http.dll": {}
+        }
+      },
+      "Microsoft.AspNet.WebApi.WebHost/5.2.3": {
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Core": "5.2.3"
+        },
+        "runtime": {
+          "lib/net45/System.Web.Http.WebHost.dll": {}
+        },
+        "compile": {
+          "lib/net45/System.Web.Http.WebHost.dll": {}
         }
       },
       "Microsoft.AspNetCore/2.0.0": {
@@ -2743,6 +2800,18 @@
           "System.Text.Encoding": "4.3.0"
         }
       },
+      "System.Data.Common/4.1.0": {
+        "dependencies": {
+          "System.Collections": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        }
+      },
       "System.Data.SqlClient/4.4.0": {
         "dependencies": {
           "Microsoft.Win32.Registry": "4.4.0",
@@ -2816,6 +2885,29 @@
           "Microsoft.NETCore.Platforms": "2.0.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Diagnostics.TraceSource/4.0.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.0.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "runtime.native.System": "4.3.0"
+        },
+        "runtimeTargets": {
+          "runtime/unix/lib/_._": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtime/win/lib/_._": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
         }
       },
       "System.Diagnostics.Tracing/4.3.0": {
@@ -3978,6 +4070,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "CassandraCSharpDriver/3.3.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XrNfyfAbfdMfl1lj6TGx685+htQenQEQPkaRUMaHvFrA/x0fcslcOkPtIpd47xMS+2lHohxk05QNTxTLfsnoiA==",
+      "path": "cassandracsharpdriver/3.3.2",
+      "hashPath": "cassandracsharpdriver.3.3.2.nupkg.sha512"
+    },
     "Libuv/1.10.0": {
       "type": "package",
       "serviceable": true,
@@ -4005,6 +4104,34 @@
       "sha512": "sha512-RWxdX90MY6tNF8S5lwRvJcHiBMIWwVLCxd4TGIEl3X0yAKaolY2vs4zTCvyCIVkEAMs1aInTgWkYwOjzYvAHWw==",
       "path": "microsoft.applicationinsights.dependencycollector/2.4.1",
       "hashPath": "microsoft.applicationinsights.dependencycollector.2.4.1.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebApi/5.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mGBfSy61+2dIdPwgguW8EaCVsbYTwwVHeCc/pVq1PhlZS87ColgJ++Hve40TrX6Dtqde0fo9M1Tt19rXlHC5GA==",
+      "path": "microsoft.aspnet.webapi/5.2.3",
+      "hashPath": "microsoft.aspnet.webapi.5.2.3.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebApi.Client/5.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3kiI8peSXbXHDDrRuo+QaX0iCEVRe0nvn2dBDRw656uPX32UalbBlSIDUDlJxu05eau4tnuhsikiUuugvvoUoQ==",
+      "path": "microsoft.aspnet.webapi.client/5.2.3",
+      "hashPath": "microsoft.aspnet.webapi.client.5.2.3.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebApi.Core/5.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-o90QYlRV8VKR1S7+EcJw9w8WSyVFLl+IIzN8ILZ+n2t6rsc/KS8kBxRzA7wCFPRUHhebCfLqilBk39phvanx3g==",
+      "path": "microsoft.aspnet.webapi.core/5.2.3",
+      "hashPath": "microsoft.aspnet.webapi.core.5.2.3.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebApi.WebHost/5.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bhm4/BKdS3t6nK2R3NjCpxulcwtMFiHqVBDLuN3W5So1PhZfE+RBs7eVazGOhsEKCk7PoSmiSnl9DG0cpyfHtA==",
+      "path": "microsoft.aspnet.webapi.webhost/5.2.3",
+      "hashPath": "microsoft.aspnet.webapi.webhost.5.2.3.nupkg.sha512"
     },
     "Microsoft.AspNetCore/2.0.0": {
       "type": "package",
@@ -5413,6 +5540,13 @@
       "path": "system.console/4.3.0",
       "hashPath": "system.console.4.3.0.nupkg.sha512"
     },
+    "System.Data.Common/4.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YZ0e2ZoZG4022hI6oFWNjMOo41DEdkywQzgXtBpz54DRJhBBnoYIzViY2uehsfZD7eRvDPs35NfqddZKNDgjdA==",
+      "path": "system.data.common/4.1.0",
+      "hashPath": "system.data.common.4.1.0.nupkg.sha512"
+    },
     "System.Data.SqlClient/4.4.0": {
       "type": "package",
       "serviceable": true,
@@ -5461,6 +5595,13 @@
       "sha512": "sha512-gok3dTDUYuDdziOLQbnZUSVeQ4SLYfiK5SQUaS3XBf1bYb3oM1O7Y4jw1k44I8ssWnMRT5bueoj5P+8bnH/rXA==",
       "path": "system.diagnostics.tools/4.3.0",
       "hashPath": "system.diagnostics.tools.4.3.0.nupkg.sha512"
+    },
+    "System.Diagnostics.TraceSource/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6WVCczFZKXwpWpzd/iJkYnsmWTSFFiU24Xx/YdHXBcu+nFI/ehTgeqdJQFbtRPzbrO3KtRNjvkhtj4t5/WwWsA==",
+      "path": "system.diagnostics.tracesource/4.0.0",
+      "hashPath": "system.diagnostics.tracesource.4.0.0.nupkg.sha512"
     },
     "System.Diagnostics.Tracing/4.3.0": {
       "type": "package",
@@ -5738,7 +5879,7 @@
     "System.Runtime.Serialization.Json/4.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+7DIJhnKYgCzUgcLbVTtRQb2l1M0FP549XFlFkQM5lmNiUBl44AfNbx4bz61xA8PzLtlYwfmif4JJJW7MPPnjg==",
+      "sha512": "sha512-74c7KR09ImOM/3wzOVpM/wETzLR1nTnO6PTe+yK6uONcQzCpDBoU9zzg4TWThSIapbT7JQ0E6vJi2ZyGR2D1vA==",
       "path": "system.runtime.serialization.json/4.0.2",
       "hashPath": "system.runtime.serialization.json.4.0.2.nupkg.sha512"
     },
@@ -5948,7 +6089,7 @@
     "System.Xml.XmlDocument/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-lJ8AxvkX7GQxpC6GFCeBj8ThYVyQczx2+f/cWHJU8tjS7YfI6Cv6bon70jVEgs2CiFbmmM8b9j1oZVx0dSI2Ww==",
+      "sha512": "sha512-1u6RV4LXfyYpUN/dIxyQttLq3cKvVmdqkQXcLsKSApOaO7oGqic29v6xkZVmz6JDJVvIPbDyjq+x0IRURs6Vqw==",
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
     },
@@ -5962,7 +6103,7 @@
     "System.Xml.XPath/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-v1JQ5SETnQusqmS3RwStF7vwQ3L02imIzl++sewmt23VGygix04pEH+FCj1yWb+z4GDzKiljr1W7Wfvrx0YwgA==",
+      "sha512": "sha512-b81h6F0qP0vCj5KVeRQJpjuqYGRE7WT5/d+iTAsUF3gV/w8LXrLlXtzu8RdHzdG8uDWc3xSxbLN3RTob5JiDZQ==",
       "path": "system.xml.xpath/4.3.0",
       "hashPath": "system.xml.xpath.4.3.0.nupkg.sha512"
     },

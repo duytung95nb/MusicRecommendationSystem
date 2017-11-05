@@ -14,7 +14,7 @@ namespace UserGeneratorBaseOnDatabase.DAL
             .AddContactPoint("127.0.0.1")
             .WithPort(9042)
             .Build();
-            this._session = this._cluster.Connect("musicrecommendation");
+            this._session = this._cluster.Connect("music_recommendation");
             this._mapper = new Mapper(this._session);
         } 
         private static CassandraConnector instance;
@@ -22,8 +22,7 @@ namespace UserGeneratorBaseOnDatabase.DAL
         {
             if (instance == null)
             {
-
-                return new CassandraConnector();
+                instance = new CassandraConnector();
             }
             return instance;
         }

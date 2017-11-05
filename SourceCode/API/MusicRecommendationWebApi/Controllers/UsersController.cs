@@ -20,7 +20,7 @@ namespace MusicRecommendationWebApi.Controllers
             .AddContactPoint("127.0.0.1")
             .WithPort(9042)
             .Build();
-            this._session = this._cluster.Connect("musicrecommendation");
+            this._session = this._cluster.Connect("music_recommendation");
             this._mapper = new Mapper(this._session);
         }
         // GET api/values
