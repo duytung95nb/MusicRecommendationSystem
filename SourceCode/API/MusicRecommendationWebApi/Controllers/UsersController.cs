@@ -6,36 +6,43 @@ using Microsoft.AspNetCore.Mvc;
 using Cassandra;
 using Cassandra.Mapping;
 using MusicRecommendationWebApi.Models;
+using MusicRecommendationWebApi.DAL;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using System.Dynamic;
 
 namespace MusicRecommendationWebApi.Controllers
 {
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
-        private ICluster _cluster;
-        private ISession _session;
-        private IMapper _mapper;
-        public UsersController() {
-            this._cluster = Cluster.Builder()
-            .AddContactPoint("127.0.0.1")
-            .WithPort(9042)
-            .Build();
-            this._session = this._cluster.Connect("music_recommendation");
-            this._mapper = new Mapper(this._session);
+        private CassandraConnector cassandraConnector;
+        public UsersController()
+        {
+            cassandraConnector = CassandraConnector.getInstance();
         }
         // GET api/values
+        [Authorize]
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IActionResult Get()
         {
-            var usersList = this._mapper.Fetch<User>();
-            return usersList;
+            var usersList = this.cassandraConnector.getMapper().Fetch<User>();
+            return Ok(usersList);
         }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [Route("login")]
+        [HttpPost]
+        public IActionResult Login(string username, string password)
         {
-            return "value";
+            User userChecked = GetUserByUsername(username).Result;
+            if (userChecked == null || userChecked.Password != password)
+                return BadRequest();
+            dynamic successUserValidationData = new ExpandoObject();
+            successUserValidationData.token = GenerateToken(username);
+            successUserValidationData.userInfo = userChecked;
+            return new ObjectResult(successUserValidationData);
         }
 
         // POST api/values
@@ -54,6 +61,29 @@ namespace MusicRecommendationWebApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+        private string GenerateToken(string username)
+        {
+            var claims = new Claim[]
+            {
+                new Claim(ClaimTypes.Name, username),
+                new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
+                new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
+            };
+
+            var token = new JwtSecurityToken(
+                new JwtHeader(new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the secret that needs to be at least 16 characeters long for HmacSha256")),
+                                             SecurityAlgorithms.HmacSha256)),
+                new JwtPayload(claims));
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+        private async Task<User> GetUserByUsername(string username)
+        {
+            User userChecked = await this.cassandraConnector.getMapper()
+            .FirstOrDefaultAsync<User>("SELECT * FROM user WHERE username = ?  ALLOW FILTERING", username);
+            return userChecked;
         }
     }
 }

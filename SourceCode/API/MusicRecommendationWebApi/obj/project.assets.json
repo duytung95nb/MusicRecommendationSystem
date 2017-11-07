@@ -12783,7 +12783,8 @@
       "CassandraCSharpDriver >= 3.3.2",
       "Microsoft.AspNet.WebApi >= 5.2.3",
       "Microsoft.AspNetCore.All >= 2.0.0",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "System.IdentityModel.Tokens.Jwt >= 5.1.4"
     ]
   },
   "packageFolders": {
@@ -12793,11 +12794,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\duy tung dao\\Documents\\MusicRecommendationSystem\\SourceCode\\API\\MusicRecommendationWebApi\\MusicRecommendationWebApi.csproj",
+      "projectUniqueName": "C:\\Users\\duy tung dao\\Documents\\MusicRecommendationSystem\\SourceCode\\API\\MusicRecommendationWebApi\\MusicRecommendationWebApi.csproj",
       "projectName": "MusicRecommendationWebApi",
-      "projectPath": "c:\\Users\\duy tung dao\\Documents\\MusicRecommendationSystem\\SourceCode\\API\\MusicRecommendationWebApi\\MusicRecommendationWebApi.csproj",
+      "projectPath": "C:\\Users\\duy tung dao\\Documents\\MusicRecommendationSystem\\SourceCode\\API\\MusicRecommendationWebApi\\MusicRecommendationWebApi.csproj",
       "packagesPath": "C:\\Users\\duy tung dao\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\duy tung dao\\Documents\\MusicRecommendationSystem\\SourceCode\\API\\MusicRecommendationWebApi\\obj\\",
+      "outputPath": "C:\\Users\\duy tung dao\\Documents\\MusicRecommendationSystem\\SourceCode\\API\\MusicRecommendationWebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12841,6 +12842,10 @@
           "Microsoft.AspNetCore.All": {
             "target": "Package",
             "version": "2.0.0"
+          },
+          "System.IdentityModel.Tokens.Jwt": {
+            "target": "Package",
+            "version": "5.1.4"
           }
         },
         "imports": [

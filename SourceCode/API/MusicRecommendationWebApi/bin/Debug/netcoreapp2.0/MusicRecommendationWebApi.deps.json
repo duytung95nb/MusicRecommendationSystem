@@ -26,7 +26,8 @@
           "CassandraCSharpDriver": "3.3.2",
           "Microsoft.AspNet.WebApi": "5.2.3",
           "Microsoft.AspNetCore.All": "2.0.0",
-          "Microsoft.NETCore.App": "2.0.0"
+          "Microsoft.NETCore.App": "2.0.0",
+          "System.IdentityModel.Tokens.Jwt": "5.1.4"
         },
         "runtime": {
           "MusicRecommendationWebApi.dll": {}
