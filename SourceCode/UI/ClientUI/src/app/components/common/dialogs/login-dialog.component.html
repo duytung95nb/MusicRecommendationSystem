@@ -14,14 +14,14 @@
     <div class="login-dialog-content__login">
         <h2 mat-dialog-title class="login-title">Đăng nhập</h2>
         <mat-form-field class="input-username">
-            <input matInput type="text" placeholder="Username">
+            <input [(ngModel)]="username" matInput type="text" placeholder="Username">
         </mat-form-field>
         <mat-form-field class="input-password">
-            <input matInput type="password" placeholder="Password">
+            <input [(ngModel)]="password" matInput type="password" placeholder="Password">
         </mat-form-field>
         <a href="">Quên mật khẩu?</a>
         <mat-dialog-actions>
-            <button mat-raised-button color="primary" class="login-button">Đăng nhập</button>
+            <button (click)="onLoginClicked()" mat-raised-button color="primary" class="login-button">Đăng nhập</button>
         </mat-dialog-actions>
     </div>
 </div>
