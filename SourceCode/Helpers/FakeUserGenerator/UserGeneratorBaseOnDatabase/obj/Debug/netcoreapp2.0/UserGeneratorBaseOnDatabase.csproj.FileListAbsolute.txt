@@ -1,0 +1,10 @@
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\Helpers\FakeUserGenerator\UserGeneratorBaseOnDatabase\bin\Debug\netcoreapp2.0\UserGeneratorBaseOnDatabase.deps.json
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\Helpers\FakeUserGenerator\UserGeneratorBaseOnDatabase\bin\Debug\netcoreapp2.0\UserGeneratorBaseOnDatabase.runtimeconfig.json
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\Helpers\FakeUserGenerator\UserGeneratorBaseOnDatabase\bin\Debug\netcoreapp2.0\UserGeneratorBaseOnDatabase.runtimeconfig.dev.json
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\Helpers\FakeUserGenerator\UserGeneratorBaseOnDatabase\bin\Debug\netcoreapp2.0\UserGeneratorBaseOnDatabase.dll
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\Helpers\FakeUserGenerator\UserGeneratorBaseOnDatabase\bin\Debug\netcoreapp2.0\UserGeneratorBaseOnDatabase.pdb
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\Helpers\FakeUserGenerator\UserGeneratorBaseOnDatabase\obj\Debug\netcoreapp2.0\UserGeneratorBaseOnDatabase.csproj.CoreCompileInputs.cache
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\Helpers\FakeUserGenerator\UserGeneratorBaseOnDatabase\obj\Debug\netcoreapp2.0\UserGeneratorBaseOnDatabase.AssemblyInfoInputs.cache
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\Helpers\FakeUserGenerator\UserGeneratorBaseOnDatabase\obj\Debug\netcoreapp2.0\UserGeneratorBaseOnDatabase.AssemblyInfo.cs
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\Helpers\FakeUserGenerator\UserGeneratorBaseOnDatabase\obj\Debug\netcoreapp2.0\UserGeneratorBaseOnDatabase.dll
+C:\Users\duy tung dao\Documents\MusicRecommendationSystem\SourceCode\Helpers\FakeUserGenerator\UserGeneratorBaseOnDatabase\obj\Debug\netcoreapp2.0\UserGeneratorBaseOnDatabase.pdb

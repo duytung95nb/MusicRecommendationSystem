@@ -13,6 +13,7 @@ import { SharedModule } from './components/shared/shared.module';
 import { SongDetail } from './pages/song-detail.component';
 import { MaterialModule } from './material.module';
 import { StarRatingModule } from 'angular-star-rating';
+import { UserService } from './helper/userService';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { StarRatingModule } from 'angular-star-rating';
     MaterialModule,
     StarRatingModule.forRoot()
   ],
-  providers: [SongService, HttpConnector],
+  providers: [SongService, HttpConnector, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
