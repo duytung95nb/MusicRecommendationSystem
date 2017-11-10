@@ -1,0 +1,38 @@
+CREATE KEYSPACE MusicRecommendation
+  WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 2 };
+
+Use music_recommendation;
+CREATE TABLE IF NOT EXISTS user
+	(uid uuid primary key,
+	username varchar,
+	password varchar,
+	firstname text,
+	lastname text,
+	gender boolean,
+	avatar_url varchar,
+	birth_date timestamp,
+	city varchar);
+CREATE /*IF NOT EXISTS*/ INDEX ON user (username);
+insert into user (uid, username, password, firstname, lastname, gender, avatar_url, birth_date, city)
+values(now(), 'duytung95nb', 'tungdao', 'Dao', 'Tung', true, 'https://www.w3schools.com/css/trolltunga.jpg', '2011-02-03 04:05+0000', 'Ho Chi Minh');
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS user_event
+	(uid varchar,
+	timestamp uuid,
+	song_id text,
+	action_type varchar,
+	payload varchar,
+	PRIMARY KEY (uid, timestamp));
+		
+
+insert into user (uid, timestamp, song_id, action_type, payload)
+values(now(), now(), 'song_000001', 'Rate', '5');
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS song (sid text PRIMARY KEY,
+                             song text,
+                             genre list<text>,
+                             artist text,
+                             composer text,
+                             album text,
+                             thumbnail text,
+                             iframe text);
