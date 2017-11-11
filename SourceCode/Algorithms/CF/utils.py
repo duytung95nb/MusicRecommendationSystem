@@ -1,19 +1,12 @@
 from pyspark.mllib.recommendation import Rating
 
 def handle_raw_data(rawData):
-    """ This function will split the whole sentence into factors: user_id,
-        user_id, rating. Then it also will remove the first line of the csv
-        file.
+    user_event = list()
+    for row in rawData:
+        new_tuple = tuple([row.uid, row.song_id, row.payload])
+        user_event.append(new_tuple)
 
-    :param: rawData: raw data from user_event.csv
-    :return: new RDD
-    """
-    header = rawData.first()
-    newRDD = rawData.filter(lambda line: line != header)\
-                    .map(lambda line: line.split(","))
-
-    return newRDD
-
+    return user_event
 
 def get_id_based_maps(userEventData):
     """ This function will return {'music_id', 'music_index'} map and
