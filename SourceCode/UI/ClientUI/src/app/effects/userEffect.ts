@@ -24,10 +24,9 @@ export class UserEffects {
         .switchMap(
         payload => {
             return this.userService.login(payload.username, payload.password)
-            // If successful, dispatch success action with result
-            .map(res => ({ type: LOGIN_SUCCESS, payload: res.json() }))
-            // If request fails, dispatch failed action
-            .catch(() => Observable.of({ type: LOGIN_FAIL }))
-        }
-        );
+                // If successful, dispatch success action with result
+                .map(res => ({ type: LOGIN_SUCCESS, payload: res.json() }))
+                // If request fails, dispatch failed action
+                .catch(() => Observable.of({ type: LOGIN_FAIL }))
+        });
 }

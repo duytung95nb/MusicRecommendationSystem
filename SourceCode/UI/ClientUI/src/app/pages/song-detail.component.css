@@ -53,10 +53,16 @@
 }
 .play-area__social .social-buttons {
     display: inline-block;
-    font-size: 50px;
+    font-size: 30px;
+}
+.play-area__social .social-buttons__text {
+    font-size: 20px;
+}
+.play-area__social .social-buttons__action {
+    margin-right: 30px;
 }
 .play-area__social .listened {
-    display: inline-block;
+    float: right;
     font-size: 20px;
 
 }

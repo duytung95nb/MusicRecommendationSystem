@@ -907,7 +907,7 @@ a:focus {
     padding: 4px 6px
 }
 footer {
-    background: #fff;
+    background: #EDEFF1;
     padding: 15px 20px;
     display: block
 }
@@ -1697,9 +1697,6 @@ span.right {
     position: relative
 }
 @media (min-width: 992px) {
-    footer {
-        margin-left: 230px
-    }
 }
 @media (min-width: 992px) {
     .tile_count .tile_stats_count {

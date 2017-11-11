@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
@@ -9,9 +9,19 @@ export class HttpConnector {
 
     }
     get(url: string): Observable<any> {
-        return this.http.get(url);
+        let headers = new Headers({ 'Accept': 'application/json' });
+        this.createAuthorizationHeader(headers);
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(url, options);
     }
     post(url: string, body: any): Observable<any> {
-        return this.http.post(url, body);
+        let headers = new Headers({ 'Accept': 'application/json' });
+        this.createAuthorizationHeader(headers);
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(url, body, options);
+    }
+    createAuthorizationHeader(headers: Headers) {
+        headers.append('Authorization', 'Bearer '
+            + sessionStorage.getItem('user_token'));
     }
 }

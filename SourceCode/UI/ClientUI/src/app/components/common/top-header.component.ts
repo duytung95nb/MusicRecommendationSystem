@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 @Component({
     selector: 'top-header',
@@ -16,10 +17,18 @@ import { Router } from '@angular/router';
 export class TopHeaderComponent {
     private username: string;
     private password: string;
+    private user: User;
     animal: string;
     name: string;
     dialogRef: MatDialogRef<LoginDialog>;
-    constructor(public dialog: MatDialog, private router: Router) { }
+    constructor(public dialog: MatDialog, private router: Router, private store: Store<any>) { }
+    ngOnInit() {
+        var self = this;
+        this.store.select(state => state.loggedInUser)
+            .subscribe(resultUser => {
+                self.user = resultUser;
+            });
+    }
     onLogoClicked() {
         this.router.navigate(['/']);
     }

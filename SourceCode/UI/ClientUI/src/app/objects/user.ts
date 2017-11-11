@@ -1,10 +1,16 @@
 import { Song } from "./song";
 
 export class User {
-    id: String;
-    name: String;
-    constructor(id:string, name:string){
-        this.id = id;
-        this.name = name;
+    constructor(
+        private Id: string,
+        private Username: string,
+        private Password: string,
+        private AvatarUrl: string,
+        private Firstname: string,
+        private Lastname: string,
+        private Gender: boolean,
+        private Birthdate: Date,
+        private City: string
+    ) {
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -30,6 +32,13 @@ namespace MusicRecommendationWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
             services.AddMvc();
             services.AddAuthentication(options =>
             {
@@ -64,9 +73,10 @@ namespace MusicRecommendationWebApi
             }
             app.UseAuthentication(); //needs to be up in the pipeline, before MVC
             app.UseMvc();
-
             app.UseMvcWithDefaultRoute();
 
+            // Shows UseCors with named policy.
+            app.UseCors("AllowSpecificOrigin");
             app.Run(async (context) =>
             {
                 context.Response.StatusCode = 404;
