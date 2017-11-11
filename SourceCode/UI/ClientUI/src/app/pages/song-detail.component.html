@@ -19,14 +19,17 @@
                         </star-rating-comp>
                     </div>
                     <div class="social-buttons">
-                        <a class="social-buttons__download" title="Thêm vào yêu thích">
+                        <a class="social-buttons__action" title="Thêm vào yêu thích">
                             <span class="fa fa-plus"></span>
+                            <span class="social-buttons__text">Thêm yêu thích</span>
                         </a>
-                        <a class="social-buttons__share" title="Chia sẻ">
+                        <a class="social-buttons__action" title="Chia sẻ">
                             <span class="fa fa-share-alt-square"></span>
+                            <span class="social-buttons__text">Chia sẻ</span>
                         </a>
-                        <a class="social-buttons__download" title="Tải">
+                        <a class="social-buttons__action" title="Tải">
                             <span class="fa fa-download"></span>
+                            <span class="social-buttons__text">Tải Xuống</span>
                         </a>
                     </div>
                     <div class="listened">
@@ -39,7 +42,7 @@
                 <div class="infor-area__description"></div>
                 <div class="infor-area__lyric"></div>
             </div>
-            <carousel [songs]="relatedSongs" [title]="'Có thể bạn sẽ thích'"></carousel>
+            <carousel [songs]="relatedSongs" [title]="'Bài hát liên quan'"></carousel>
         </div>
 
     </div>

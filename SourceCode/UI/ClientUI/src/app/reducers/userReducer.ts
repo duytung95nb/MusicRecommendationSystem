@@ -1,23 +1,30 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import { Login, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL, UserActions } from '../actions/UserAction';
+import { User } from '../objects/user';
 
-export var initialUserState = {
-    loggedInUser: {
-        token: "",
-        userInfo: {
-            username: "",
-            password: ""
-        }
-    }
+export interface AppState {
+    token: string;
+    loggedInUserInfo: User
 }
 
-export function userReducer(state = initialUserState, action: UserActions) {
+const initialState: AppState = {
+    token: "",
+    loggedInUserInfo: new User(null, null, null, null, null, null, null, null, null)
+}
+
+export function userReducer(state = initialState, action: UserActions) {
     switch (action.type) {
         case LOGIN:
-            return Object.assign({}, state, { loggedInUser: action.payload });
+            return Object.assign({}, state, { loggedInUserInfo: action.payload });
 
         case LOGIN_SUCCESS:
-            return Object.assign({}, state, { loggedInUser: action.payload });
+            var newState = Object.assign({}, state, {
+                token: action.payload.token,
+                loggedInUserInfo: action.payload.userInfo
+            });
+            sessionStorage.setItem("token", action.payload.token);
+            console.log(LOGIN_SUCCESS, newState);
+            return newState;
 
         case LOGIN_FAIL:
             return state;

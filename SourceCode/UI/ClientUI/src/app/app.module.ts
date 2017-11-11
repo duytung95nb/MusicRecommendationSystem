@@ -14,6 +14,12 @@ import { SongDetail } from './pages/song-detail.component';
 import { MaterialModule } from './material.module';
 import { StarRatingModule } from 'angular-star-rating';
 import { UserService } from './helper/userService';
+import { StoreModule } from '@ngrx/store';
+import { userReducer, AppState } from './reducers/userReducer';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './effects/userEffect';
+import {StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { User } from './objects/user';
 
 @NgModule({
   declarations: [
@@ -30,7 +36,12 @@ import { UserService } from './helper/userService';
     CommonSiteModule,
     SharedModule,
     MaterialModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    StoreModule.forRoot({ root: userReducer}),
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([
+      UserEffects
+    ])
   ],
   providers: [SongService, HttpConnector, UserService],
   bootstrap: [AppComponent]

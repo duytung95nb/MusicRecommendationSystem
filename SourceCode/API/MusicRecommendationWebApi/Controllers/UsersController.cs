@@ -13,9 +13,13 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using System.Dynamic;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Cors;
 
 namespace MusicRecommendationWebApi.Controllers
 {
+    [EnableCors("AllowSpecificOrigin")]
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
@@ -34,13 +38,13 @@ namespace MusicRecommendationWebApi.Controllers
         }
         [Route("login")]
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        public IActionResult Login([FromBody] Credentials user)
         {
-            User userChecked = GetUserByUsername(username).Result;
-            if (userChecked == null || userChecked.Password != password)
+            User userChecked = GetUserByUsername(user.Username).Result;
+            if (userChecked == null || userChecked.Password != user.Password)
                 return BadRequest();
             dynamic successUserValidationData = new ExpandoObject();
-            successUserValidationData.token = GenerateToken(username);
+            successUserValidationData.token = GenerateToken(user.Username);
             successUserValidationData.userInfo = userChecked;
             return new ObjectResult(successUserValidationData);
         }
@@ -82,8 +86,17 @@ namespace MusicRecommendationWebApi.Controllers
         private async Task<User> GetUserByUsername(string username)
         {
             User userChecked = await this.cassandraConnector.getMapper()
-            .FirstOrDefaultAsync<User>("SELECT * FROM user WHERE username = ?  ALLOW FILTERING", username);
+            .FirstOrDefaultAsync<User>("SELECT * FROM user WHERE username = ?", username);
             return userChecked;
         }
+    }
+
+    public class Credentials
+    {
+        [JsonProperty("username")]
+        public string Username { get; set; }
+
+        [JsonProperty("password")]
+        public string Password { get; set; }
     }
 }

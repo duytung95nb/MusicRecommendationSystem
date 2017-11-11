@@ -7,5 +7,6 @@
     </div>
     <div class="top-header__main-nav">
         <a mat-button class="login-button" routerLink="." (click)="showLoginForm()">Đăng nhập</a>
+        <span *ngIf="user">{{user.username}}</span>
     </div>
 </div>
