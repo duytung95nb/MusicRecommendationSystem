@@ -29,8 +29,6 @@ class DBUtils:
                              "thumbnail text,"
                              "iframe text);")
 
-        self.session.execute("INSERT INTO song (sid) VALUES (%s);", ["abc"])
-
         for index, item in self.metadata_data_frame.iterrows():
             id = '' if pd.isnull(item['id']) else item['id']
             song = '' if pd.isnull(item['song']) else item['song']
