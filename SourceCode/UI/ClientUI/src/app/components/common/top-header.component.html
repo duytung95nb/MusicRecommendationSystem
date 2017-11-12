@@ -6,7 +6,18 @@
         <top-search class="search-area__content"></top-search>
     </div>
     <div class="top-header__main-nav">
-        <a mat-button class="login-button" routerLink="." (click)="showLoginForm()">Đăng nhập</a>
-        <span *ngIf="user">{{user.username}}</span>
+        <a *ngIf="!loggedInInfo" mat-button class="login-button" routerLink="." (click)="showLoginForm()">Đăng nhập</a>
+        <a *ngIf="loggedInInfo" class="user-profile dropdown-toggle login-button" (click)="onUserClicked()" data-toggle="dropdown" aria-expanded="false">
+            <img src="{{loggedInUser.avatarUrl}}" alt="">{{loggedInUser.username}}
+            <span class=" fa fa-angle-down"></span>
+        </a>
+        <ul *ngIf="isShowUserMenu"  class="user-menu">
+            <li>
+                <a> Profile</a>
+            </li>
+            <li (click)="onLogoutClicked()">
+                <a>Log Out</a>
+            </li>
+        </ul>
     </div>
 </div>

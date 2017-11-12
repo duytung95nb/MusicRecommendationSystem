@@ -34,4 +34,12 @@ export class SongService{
         return this.connector.get(this.link)
         .map(res => res.json());;
     }
+    getRecommendationsForLoggedInUser(userid: string): Observable<any>{
+        return this.connector.get(this.link/*change for specific request*/)
+        .map(res => res.json());;
+    }
+    getRegularCommendation(): Observable<any> {
+        return this.connector.get(this.link/*change for specific request*/)
+        .map(res => res.json());;
+    }
 }

@@ -21,7 +21,9 @@ export class HttpConnector {
         return this.http.post(url, body, options);
     }
     createAuthorizationHeader(headers: Headers) {
-        headers.append('Authorization', 'Bearer '
-            + sessionStorage.getItem('user_token'));
+        if (sessionStorage.getItem('user_token') !== null) {
+            headers.append('Authorization', 'Bearer '
+                + sessionStorage.getItem('user_token'));
+        }
     }
 }
