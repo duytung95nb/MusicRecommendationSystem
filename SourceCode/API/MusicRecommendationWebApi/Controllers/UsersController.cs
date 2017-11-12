@@ -49,12 +49,6 @@ namespace MusicRecommendationWebApi.Controllers
             return new ObjectResult(successUserValidationData);
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)

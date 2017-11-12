@@ -14,8 +14,8 @@ export class HomePageComponent implements OnInit {
     public userid: string;
     public user: any;
     private topSongs = images;
+    private listenedSongs: any[];
     public collaborativeSongs: any[];
-    public contentbasedSongs: any[];
     constructor(private songService: SongService, private activatedRoute: ActivatedRoute) {
     }
     ngOnInit() {
@@ -24,8 +24,9 @@ export class HomePageComponent implements OnInit {
         var isLoggedIn = localStorage.getItem('loggedInInfo');
         if (isLoggedIn) {
             this.user = JSON.parse(localStorage.getItem('loggedInInfo')).userInfo;
-            this.songService.getRecommendationsForLoggedInUser(this.user.uid).subscribe(returnedResult => {
-
+            this.songService.getRecommendationsForLoggedInUser(this.user.id).subscribe(returnedResult => {
+                self.listenedSongs = returnedResult.listenedSongs;
+                self.collaborativeSongs = returnedResult.cfRecommendedSongs
             });
         }
         else {
@@ -33,13 +34,6 @@ export class HomePageComponent implements OnInit {
 
             });
         }
-        this.songService.getCollaborativeSongs('testId').subscribe((songs: Song[]) => {
-            self.collaborativeSongs = songs;
-        });
-        this.songService.getContentBasedSongs('testId').subscribe((songs: Song[]) => {
-            self.contentbasedSongs = songs;
-        });
-
     }
 }
 const images = [

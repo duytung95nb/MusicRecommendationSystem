@@ -9,9 +9,12 @@ using MusicRecommendationWebApi.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using MusicRecommendationWebApi.DAL;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace MusicRecommendationWebApi.Controllers
 {
+    [EnableCors("AllowSpecificOrigin")]
     [Route("api/[controller]")]
     public class RecommendationsController : Controller
     {
@@ -20,14 +23,15 @@ namespace MusicRecommendationWebApi.Controllers
         {
             cassandraConnector = CassandraConnector.getInstance();
         }
-        [Route("recommendations")]
-        [Produces("application/json")]
+        // [Authorize]
+        [Route("home")]
+        // [Produces("application/json")]
         [HttpGet]
-        public IActionResult GetRecommendations()
+        public IActionResult Get(string userId)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userCfResult = this.cassandraConnector.getMapper().Single<UserCfResult>
-            ("WHERE uid = ?", userId);
+            var userCfResult = this.cassandraConnector.getMapper()
+            .Single<UserCfResult>("WHERE uid = ?", userId);
+
             List<Song> cfRecommendedSongs = new List<Song>();
             foreach (string songId in userCfResult.recommendedSongIds)
             {
@@ -35,9 +39,19 @@ namespace MusicRecommendationWebApi.Controllers
                 .Single<Song>("WHERE sid = ?", songId);
                 cfRecommendedSongs.Add(returnedSong);
             }
+
+            IEnumerable<string> listenedSongIds = this.cassandraConnector.getMapper()
+            .Fetch<string>("SELECT song_id FROM user_event WHERE uid = ? ORDER BY timestamp DESC LIMIT 10 ALLOW FILTERING", userId);
+            List<Song> listenedSongs = new List<Song>();
+            foreach(string songId in listenedSongIds) {
+                var returnedSong = this.cassandraConnector.getMapper()
+                .Single<Song>("WHERE sid = ?", songId);
+                listenedSongs.Add(returnedSong);
+            }
             dynamic returnResult = new System.Dynamic.ExpandoObject();
-            returnResult.collaborative = cfRecommendedSongs;
-            return Ok(Json(returnResult));
+            returnResult.listenedSongs = listenedSongs;
+            returnResult.cfRecommendedSongs = cfRecommendedSongs;
+            return Ok(returnResult);
         }
     }
 }

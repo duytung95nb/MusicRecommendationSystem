@@ -37,12 +37,35 @@ CREATE TABLE IF NOT EXISTS song (sid text PRIMARY KEY,
                              thumbnail text,
                              iframe text);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE TABLE music_recommendation.result_cf (
+CREATE TABLE result_cf (
 			uid text PRIMARY KEY,
 			recommendations list<text>
 );
+INSERT INTO result_cf ("uid", "recommendations")
+       VALUES ( 'f90cc077-b9e1-40f9-8f59-ca69abaa5b93',
+                [ '47a303f48cef438fa6203b14e87d2925',
+                  '47a303f48cef438fa6203b14e87d2925',
+                  'b92b05f2a08945ce8532749f22cbb8e0',
+                  'c41126b40f4b4f2ead331f99dd7acb94',
+		  '47a303f48cef438fa6203b14e87d2925',
+                  '47a303f48cef438fa6203b14e87d2925',
+                  'b92b05f2a08945ce8532749f22cbb8e0',
+                  'c41126b40f4b4f2ead331f99dd7acb94'
+                  ]);
+=> username = duytung95nb501
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE TABLE music_recommendation.result_cb_item_item (
+CREATE TABLE result_cb_item_item (
     sid text PRIMARY KEY,
     recommendations list<text>
 );
+INSERT INTO result_cb_item_item ("uid", "recommendations")
+       VALUES ( 'f90cc077-b9e1-40f9-8f59-ca69abaa5b93',
+                [ '47a303f48cef438fa6203b14e87d2925',
+                  '47a303f48cef438fa6203b14e87d2925',
+                  'b92b05f2a08945ce8532749f22cbb8e0',
+                  'c41126b40f4b4f2ead331f99dd7acb94',
+		  '47a303f48cef438fa6203b14e87d2925',
+                  '47a303f48cef438fa6203b14e87d2925',
+                  'b92b05f2a08945ce8532749f22cbb8e0',
+                  'c41126b40f4b4f2ead331f99dd7acb94'
+                  ]);

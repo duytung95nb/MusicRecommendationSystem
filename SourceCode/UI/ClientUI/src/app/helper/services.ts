@@ -8,6 +8,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class SongService{
     private link: string = 'assets/data.json';
+    private apiRoute: string = 'http://localhost:5000/api/recommendations/home';
     private collaborative: string = 'collaborative';
     private contentBased: string = 'contentbased';
     constructor(private connector: HttpConnector){
@@ -34,8 +35,8 @@ export class SongService{
         return this.connector.get(this.link)
         .map(res => res.json());;
     }
-    getRecommendationsForLoggedInUser(userid: string): Observable<any>{
-        return this.connector.get(this.link/*change for specific request*/)
+    getRecommendationsForLoggedInUser(userId: string): Observable<any>{
+        return this.connector.get(this.apiRoute + "?userId="+ userId)
         .map(res => res.json());;
     }
     getRegularCommendation(): Observable<any> {

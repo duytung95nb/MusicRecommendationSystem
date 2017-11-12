@@ -32,9 +32,16 @@ namespace MusicRecommendationWebApi
             .Column(s => s.song, cm => cm.WithName("song"))
             .Column(s => s.Thumbnail, cm => cm.WithName("thumbnail"));
             For<UserCfResult>()
-            .TableName("cf_result")
+            .TableName("result_cf")
             .Column(s => s.userId, cm => cm.WithName("uid"))
-            .Column(s => s.recommendedSongIds, cm => cm.WithName("recommended_song_id"));
+            .Column(s => s.recommendedSongIds, cm => cm.WithName("recommendations"));
+            For<UserEvent>()
+            .TableName("user_event")
+            .Column(u => u.userId, cm => cm.WithName("uid"))
+            .Column(u => u.timestamp, cm => cm.WithName("timestamp"))
+            .Column(u => u.actionType, cm => cm.WithName("action_type"))
+            .Column(u => u.payload, cm => cm.WithName("payload"))
+            .Column(u => u.songId, cm => cm.WithName("song_id"));
         }
     }
 }

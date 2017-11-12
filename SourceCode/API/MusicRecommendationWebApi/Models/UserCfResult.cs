@@ -7,6 +7,6 @@ namespace MusicRecommendationWebApi.Models
     public class UserCfResult
     {
         public string userId { get; set; }
-        public ICollection<string> recommendedSongIds {get; set;}
+        public List<string> recommendedSongIds {get; set;}
     }
 }

@@ -1,10 +1,13 @@
 export class Song {
     constructor(
         public id: number,
-        public name: String,
+        public album: string,
+        public song: String,
         public artist: String,
         public composer: String,
-        public url: String,
+        public genre: string[],
+        public iframe: string,
+        public thumbnail: string,
         public listened: number
     ) {
 
