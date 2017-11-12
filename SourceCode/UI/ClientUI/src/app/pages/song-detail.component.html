@@ -1,4 +1,4 @@
-<div class="detail-page-content">
+<div class="detail-page-content" *ngIf="currentSong">
     <div class="left-side">
         <div class="song-detail">
             <mat-card class="play-area">
@@ -6,9 +6,9 @@
                 </div>
                 <div class="play-area__texts">
                     <p class="artist">{{currentSong.artist}}</p>
-                    <p class="name">{{currentSong.name}}</p>
+                    <p class="name">{{currentSong.song}}</p>
                 </div>
-                <iframe scrolling="no" class="player-area__player" src="{{currentSong.iframe}}" frameborder="0" allowfullscreen="true"></iframe>
+                <iframe *ngIf="currentIframeSource" scrolling="no" class="player-area__player" [src]="currentIframeSource" frameborder="0" allowfullscreen="true"></iframe>
                 <div class="play-area__social">
                     <div class="rating-area">
                         <star-rating-comp class="rating__user-rate" [labelText]="'Đánh giá'" [starType]="'svg'" [labelPosition]="'left'" [staticColor]="'positive'"

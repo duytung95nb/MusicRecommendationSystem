@@ -17,5 +17,6 @@ export class SongComponent{
     }
     onSongClicked(song) {
         this.router.navigate(["song", song.id])
+        window.location.reload();
     }
 }

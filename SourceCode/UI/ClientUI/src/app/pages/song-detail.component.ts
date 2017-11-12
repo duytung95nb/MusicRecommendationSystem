@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { SongService } from "../helper/services";
 import { Song } from "../objects/song";
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
     templateUrl: 'song-detail.component.html',
@@ -11,11 +12,13 @@ import { Song } from "../objects/song";
 export class SongDetail implements OnInit, OnDestroy {
     private idSubscribe: any;
     private currentSong: Song;
+    private currentIframeSource: SafeUrl;
     private similarSongs: Song[];
     private nextPlaySongs: Song[];
     private loggedInUser: any;
     constructor(private activatedRoute: ActivatedRoute,
-        private songService: SongService) {
+        private songService: SongService,
+        private sanitizer: DomSanitizer) {
     }
     ngOnInit() {
         if (localStorage.getItem('loggedInInfo')) {
@@ -27,6 +30,7 @@ export class SongDetail implements OnInit, OnDestroy {
             self.songService.get(loggedInUserId, params['songId'])
                 .subscribe(result => {
                     self.currentSong = result.currentSong;
+                    self.currentIframeSource = self.sanitizer.bypassSecurityTrustResourceUrl("https://mp3.zing.vn/embed/song/" + result.currentSong.iframe + "?start=true");
                     self.similarSongs = result.similarSongs;
                     self.nextPlaySongs = result.nextPlaySongs;
                 });
