@@ -36,3 +36,13 @@ CREATE TABLE IF NOT EXISTS song (sid text PRIMARY KEY,
                              album text,
                              thumbnail text,
                              iframe text);
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE music_recommendation.result_cf (
+			uid text PRIMARY KEY,
+			recommendations list<text>
+);
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE music_recommendation.result_cb_item_item (
+    sid text PRIMARY KEY,
+    recommendations list<text>
+);
