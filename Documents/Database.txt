@@ -18,7 +18,7 @@ values(now(), 'duytung95nb', 'tungdao', 'Dao', 'Tung', true, 'https://www.w3scho
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS user_event
 	(uid varchar,
-	timestamp uuid,
+	timestamp timestamp,
 	song_id text,
 	action_type varchar,
 	payload varchar,
