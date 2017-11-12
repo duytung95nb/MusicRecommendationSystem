@@ -21,3 +21,6 @@
 	.carousel-inner .next        { left:  16.7%; }
 	.carousel-inner .prev		 { left: -16.7%; }	
 }
+.top-header-placeholder {
+	height: 60px;
+}

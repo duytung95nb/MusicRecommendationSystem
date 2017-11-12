@@ -12,6 +12,7 @@ import { User } from "../objects/user";
 
 export class HomePageComponent implements OnInit {
     public userid: string;
+    public user: any;
     private topSongs = images;
     public collaborativeSongs: any[];
     public contentbasedSongs: any[];
@@ -20,13 +21,25 @@ export class HomePageComponent implements OnInit {
     ngOnInit() {
         this.userid = this.activatedRoute.params["value"].id;
         var self = this;
+        var isLoggedIn = localStorage.getItem('loggedInInfo');
+        if (isLoggedIn) {
+            this.user = JSON.parse(localStorage.getItem('loggedInInfo')).userInfo;
+            this.songService.getRecommendationsForLoggedInUser(this.user.uid).subscribe(returnedResult => {
+
+            });
+        }
+        else {
+            this.songService.getRegularCommendation().subscribe(returnedResult => {
+
+            });
+        }
         this.songService.getCollaborativeSongs('testId').subscribe((songs: Song[]) => {
             self.collaborativeSongs = songs;
         });
         this.songService.getContentBasedSongs('testId').subscribe((songs: Song[]) => {
             self.contentbasedSongs = songs;
         });
-        
+
     }
 }
 const images = [

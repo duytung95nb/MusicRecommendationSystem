@@ -9,7 +9,7 @@ export interface AppState {
 
 const initialState: AppState = {
     token: "",
-    loggedInUserInfo: new User(null, null, null, null, null, null, null, null, null)
+    loggedInUserInfo: null
 }
 
 export function userReducer(state = initialState, action: UserActions) {

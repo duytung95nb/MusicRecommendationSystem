@@ -73,10 +73,10 @@ namespace MusicRecommendationWebApi
             }
             app.UseAuthentication(); //needs to be up in the pipeline, before MVC
             app.UseMvc();
-            app.UseMvcWithDefaultRoute();
-
             // Shows UseCors with named policy.
             app.UseCors("AllowSpecificOrigin");
+            app.UseMvcWithDefaultRoute();
+
             app.Run(async (context) =>
             {
                 context.Response.StatusCode = 404;

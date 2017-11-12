@@ -1,4 +1,4 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Input, Inject, OnInit } from '@angular/core';
 import { User } from "../../objects/user";
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { LoginDialog } from './dialogs/login-dialog.component';
@@ -7,6 +7,7 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { AppState } from '../../reducers/userReducer';
 
 @Component({
     selector: 'top-header',
@@ -14,31 +15,31 @@ import { Store } from '@ngrx/store';
     styleUrls: ['top-header.component.css']
 })
 
-export class TopHeaderComponent {
-    private username: string;
-    private password: string;
-    private user: User;
-    animal: string;
-    name: string;
+export class TopHeaderComponent implements OnInit {
+    private loggedInInfo: any;
+    private loggedInUser: User;
+    private isShowUserMenu: boolean;
     dialogRef: MatDialogRef<LoginDialog>;
-    constructor(public dialog: MatDialog, private router: Router, private store: Store<any>) { }
+    constructor(public dialog: MatDialog, private router: Router) {
+        this.loggedInInfo = localStorage.getItem('loggedInInfo');
+        if (this.loggedInInfo) {
+            this.loggedInUser = JSON.parse(this.loggedInInfo).userInfo;
+            this.isShowUserMenu = false;
+        }
+    }
     ngOnInit() {
-        var self = this;
-        this.store.select(state => state.loggedInUser)
-            .subscribe(resultUser => {
-                self.user = resultUser;
-            });
     }
     onLogoClicked() {
         this.router.navigate(['/']);
     }
+    onUserClicked(): void {
+        this.isShowUserMenu = !this.isShowUserMenu;
+    }
+    onLogoutClicked(): void {
+        localStorage.removeItem('loggedInInfo');
+        window.location.reload();
+    }
     showLoginForm(): void {
         this.dialogRef = this.dialog.open(LoginDialog, LoginDialog.config);
-
-        this.dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            this.animal = result;
-        });
-        console.log("Show login dialog!");
     }
 }
