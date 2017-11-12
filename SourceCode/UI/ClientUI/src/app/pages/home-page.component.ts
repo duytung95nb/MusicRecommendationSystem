@@ -24,10 +24,11 @@ export class HomePageComponent implements OnInit {
         var isLoggedIn = localStorage.getItem('loggedInInfo');
         if (isLoggedIn) {
             this.user = JSON.parse(localStorage.getItem('loggedInInfo')).userInfo;
-            this.songService.getRecommendationsForLoggedInUser(this.user.id).subscribe(returnedResult => {
-                self.listenedSongs = returnedResult.listenedSongs;
-                self.collaborativeSongs = returnedResult.cfRecommendedSongs;
-            });
+            this.songService.getRecommendationsForLoggedInUser(this.user.id)
+                .subscribe(returnedResult => {
+                    self.listenedSongs = returnedResult.listenedSongs;
+                    self.collaborativeSongs = returnedResult.cfRecommendedSongs;
+                });
         }
         else {
             this.songService.getRegularCommendation().subscribe(returnedResult => {

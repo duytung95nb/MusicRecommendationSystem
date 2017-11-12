@@ -10,21 +10,26 @@ import { Song } from "../objects/song";
 
 export class SongDetail implements OnInit, OnDestroy {
     private idSubscribe: any;
-    private song: Song;
-    private nextSongs: Song[];
+    private currentSong: Song;
+    private similarSongs: Song[];
+    private nextPlaySongs: Song[];
+    private loggedInUser: any;
     constructor(private activatedRoute: ActivatedRoute,
         private songService: SongService) {
     }
     ngOnInit() {
+        if (localStorage.getItem('loggedInInfo')) {
+            this.loggedInUser = JSON.parse(localStorage.getItem('loggedInInfo')).userInfo;
+        }
         var self = this;
         this.idSubscribe = this.activatedRoute.params.subscribe(params => {
-            self.songService.get(+params['songId']).subscribe((song: Song) => {
-                self.song = song;
-            });;
-            // In a real app: dispatch action to load the details here.
-        });
-        this.songService.getCollaborativeSongs('testId').subscribe((songs: Song[]) => {
-            self.nextSongs = songs;
+            var loggedInUserId = self.loggedInUser ? self.loggedInUser.id : null;
+            self.songService.get(loggedInUserId, params['songId'])
+                .subscribe(result => {
+                    self.currentSong = result.currentSong;
+                    self.similarSongs = result.similarSongs;
+                    self.nextPlaySongs = result.nextPlaySongs;
+                });
         });
     }
 

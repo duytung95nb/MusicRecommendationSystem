@@ -2,13 +2,13 @@
     <div class="left-side">
         <div *ngIf="song" class="song-detail">
             <mat-card class="play-area">
-                <div class="play-area__image" [ngStyle]="{'background-image': 'url(' + song.url + ')'}">
+                <div class="play-area__image" [ngStyle]="{'background-image': 'url(' + currentSong.thumbnail + ')'}">
                 </div>
                 <div class="play-area__texts">
-                    <p class="artist">{{song.artist}}</p>
-                    <p class="name">{{song.name}}</p>
+                    <p class="artist">{{currentSong.artist}}</p>
+                    <p class="name">{{currentSong.name}}</p>
                 </div>
-                <iframe scrolling="no" class="player-area__player" src="http://mp3.zing.vn/embed/song/ZW80COFO" frameborder="0" allowfullscreen="true"></iframe>
+                <iframe scrolling="no" class="player-area__player" src="{{currentSong.iframe}}" frameborder="0" allowfullscreen="true"></iframe>
                 <div class="play-area__social">
                     <div class="rating-area">
                         <star-rating-comp class="rating__user-rate" [labelText]="'Đánh giá'" [starType]="'svg'" [labelPosition]="'left'" [staticColor]="'positive'"
@@ -34,7 +34,7 @@
                     </div>
                     <div class="listened">
                         <span class="glyphicon glyphicon-headphones"></span>
-                        {{song.listened}}
+                        3000
                     </div>
                 </div>
             </mat-card>
@@ -42,13 +42,13 @@
                 <div class="infor-area__description"></div>
                 <div class="infor-area__lyric"></div>
             </div>
-            <carousel [songs]="relatedSongs" [title]="'Bài hát liên quan'"></carousel>
+            <carousel [songs]="similarSongs" [title]="'Bài hát liên quan'"></carousel>
         </div>
 
     </div>
     <div class="right-side">
         <div class="album-area">
-            <vertical-list [layoutType]="'item--no-image'" [title]="'Bài hát kế tiếp'" [songs]="nextSongs"></vertical-list>
+            <vertical-list [layoutType]="'item--no-image'" [title]="'Bài hát kế tiếp'" [songs]="nextPlaySongs"></vertical-list>
         </div>
     </div>
     <div class="clearfix"></div>

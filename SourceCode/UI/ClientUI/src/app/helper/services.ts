@@ -6,41 +6,34 @@ import { Observable } from "rxjs/Observable";
 
 
 @Injectable()
-export class SongService{
+export class SongService {
     private link: string = 'assets/data.json';
-    private apiRoute: string = 'http://localhost:5000/api/recommendations/home';
+    private homeApiRoute: string = 'http://localhost:5000/api/recommendations/home';
+    private detailApiRoute: string = 'http://localhost:5000/api/recommendations/detail';
     private collaborative: string = 'collaborative';
     private contentBased: string = 'contentbased';
-    constructor(private connector: HttpConnector){
+    constructor(private connector: HttpConnector) {
     }
     private data: string;
-    get(songId:number): Observable<Song>{
-        return this.connector.get(this.link)
-        .map(res => {
-            let songArray = res.json();
-            let resultSong = null;
-            songArray.forEach(song => {
-                if (song.id === songId) {
-                    resultSong = song;
-                }
-            });
-            return resultSong;
-        });;
+    get(userId: string, songId: string): Observable<any> {
+        var requestedUserId = userId ? userId: 'null';
+        return this.connector.get(this.detailApiRoute + "?userId=" + userId + "&" + "songId=" + songId)
+            .map(res => res.json());
     }
-    getCollaborativeSongs(userid:string): Observable<Song[]>{
+    getCollaborativeSongs(userid: string): Observable<Song[]> {
         return this.connector.get(this.link)
-        .map(res => res.json());;
+            .map(res => res.json());;
     }
-    getContentBasedSongs(userid:string): Observable<Song[]>{
+    getContentBasedSongs(userid: string): Observable<Song[]> {
         return this.connector.get(this.link)
-        .map(res => res.json());;
+            .map(res => res.json());;
     }
-    getRecommendationsForLoggedInUser(userId: string): Observable<any>{
-        return this.connector.get(this.apiRoute + "?userId="+ userId)
-        .map(res => res.json());;
+    getRecommendationsForLoggedInUser(userId: string): Observable<any> {
+        return this.connector.get(this.homeApiRoute + "?userId=" + userId)
+            .map(res => res.json());
     }
     getRegularCommendation(): Observable<any> {
         return this.connector.get(this.link/*change for specific request*/)
-        .map(res => res.json());;
+            .map(res => res.json());;
     }
 }

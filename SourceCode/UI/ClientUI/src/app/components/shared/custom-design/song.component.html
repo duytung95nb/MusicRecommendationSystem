@@ -26,17 +26,17 @@
     <ng-container *ngIf="layoutType === 'item--with-image'">
         <mat-card class="list-item">
             <a class="image-mask"></a>
-            <img mat-card-image src="{{song.url}}">
+            <img mat-card-image src="{{song.thumbnail}}">
             <div class="info-area">
                 <h3 class="list-item__title">
                     {{indexInList + 1}}
                 </h3>
                 <div class="list-item__content">
-                    <p class="song-name">{{song.name}}</p>
+                    <p class="song-name">{{song.song}}</p>
                     <a class="song-artist">{{song.artist}}</a>
                 </div>
                 <div class="list-item__views">
-                    <span class="glyphicon glyphicon-headphones">{{song.listened}}</span>
+                    <span class="glyphicon glyphicon-headphones">3000</span>
                 </div>
             </div>
         </mat-card>
@@ -46,11 +46,11 @@
             <div class="info-area">
                 <button mat-button class="play-button"><span class="fa fa-play"></span></button>
                 <div class="list-item__content">
-                    <p class="song-name">{{song.name}}</p>
+                    <p class="song-name">{{song.song}}</p>
                     <a class="song-artist">{{song.artist}}</a>
                 </div>
                 <div class="list-item__views">
-                    <span class="glyphicon glyphicon-headphones">{{song.listened}}</span>
+                    <span class="glyphicon glyphicon-headphones">5540</span>
                 </div>
             </div>
         </mat-card>

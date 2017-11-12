@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS song (sid text PRIMARY KEY,
                              album text,
                              thumbnail text,
                              iframe text);
+
+CREATE INDEX song_album_idx ON song (album);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE result_cf (
 			uid text PRIMARY KEY,
@@ -58,8 +60,8 @@ CREATE TABLE result_cb_item_item (
     sid text PRIMARY KEY,
     recommendations list<text>
 );
-INSERT INTO result_cb_item_item ("uid", "recommendations")
-       VALUES ( 'f90cc077-b9e1-40f9-8f59-ca69abaa5b93',
+INSERT INTO result_cb_item_item ("sid", "recommendations")
+       VALUES ( 'c41126b40f4b4f2ead331f99dd7acb94',
                 [ '47a303f48cef438fa6203b14e87d2925',
                   '47a303f48cef438fa6203b14e87d2925',
                   'b92b05f2a08945ce8532749f22cbb8e0',

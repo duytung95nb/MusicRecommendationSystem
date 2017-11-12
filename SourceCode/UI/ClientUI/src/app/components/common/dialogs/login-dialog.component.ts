@@ -54,7 +54,6 @@ export class LoginDialog{
         .subscribe(response => {
             // login success
             if (response.status === 200) {
-                console.log(response._body);
                 localStorage.setItem('loggedInInfo', response._body);
                 this.dialogRef.close();
                 window.location.reload();
