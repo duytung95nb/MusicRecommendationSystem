@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Song } from '../../../objects/song';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'main-carousel',
@@ -6,5 +8,11 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./custom-design.css']
 })
 export class MainCarousel {
-    @Input() images;
+    @Input() mostPopularSongs: Song[];
+    constructor(private router:Router) {
+
+    }
+    onSongClicked(song) {
+        this.router.navigate(["song", song.id])
+    }
 }
