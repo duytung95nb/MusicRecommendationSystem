@@ -16,6 +16,7 @@ class Popularity(object):
         self.raw_data = self.session.execute("SELECT song_id, timestamp "
                                              "FROM user_event "
                                              "WHERE action_type='listen';")
+        self.session.execute("DROP TABLE IF EXISTS result_popularity ;")
         self.session.execute("CREATE TABLE IF NOT EXISTS result_popularity ("
                              "sid text PRIMARY KEY,"
                              "rank int);")
@@ -44,8 +45,12 @@ class Popularity(object):
     def calculate(self):
         dist_data = self.sparkContext.parallelize(self._handle_raw_data())
         counts = dist_data.reduceByKey(lambda a, b: a + b)
-        counts.saveToCassandra("music_recommendation",
+        counts = counts.sortBy(lambda a: a[1], ascending=False).take(10)
+        result = self.sparkContext.parallelize(counts)
+        result.saveToCassandra("music_recommendation",
                                "result_popularity")
+
+        print result.collect()
 
 
 if __name__ == '__main__':
