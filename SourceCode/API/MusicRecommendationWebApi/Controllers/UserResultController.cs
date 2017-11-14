@@ -23,27 +23,33 @@ namespace MusicRecommendationWebApi.Controllers
             cassandraConnector = CassandraConnector.getInstance();
         }
         [EnableCors("AllowSpecificOrigin")]
-        // [Authorize]
         [Route("home")]
-        // [Produces("application/json")]
         [HttpGet]
         public IActionResult Get(string userId)
         {
-            var userCfResult = this.cassandraConnector.getMapper()
-            .Single<UserCfResult>("WHERE uid = ?", userId);
-
             List<Song> cfRecommendedSongs = new List<Song>();
-            foreach (string songId in userCfResult.recommendedSongIds)
-            {
-                var returnedSong = this.cassandraConnector.getMapper()
-                .Single<Song>("WHERE sid = ?", songId);
-                cfRecommendedSongs.Add(returnedSong);
+            List<Song> listenedSongs = new List<Song>();
+            Console.Write(userId);
+            if (userId != null) {
+                var userCfResult = this.cassandraConnector.getMapper()
+                .Single<UserCfResult>("WHERE uid = ?", userId);
+
+                foreach (string songId in userCfResult.recommendedSongIds)
+                {
+                    var returnedSong = this.cassandraConnector.getMapper()
+                    .Single<Song>("WHERE sid = ?", songId);
+                    cfRecommendedSongs.Add(returnedSong);
+                }
+                listenedSongs = this.GetListenedSongs(userId, 10);
             }
 
-            var listenedSongs = this.GetListenedSongs(userId, 10);
+            var mostPopularSongs = this.GetTopWeeklySongs();
             dynamic returnResult = new System.Dynamic.ExpandoObject();
-            returnResult.listenedSongs = listenedSongs;
-            returnResult.cfRecommendedSongs = cfRecommendedSongs;
+            returnResult.mostPopularSongs = mostPopularSongs;
+            if (listenedSongs.Count() != 0 && cfRecommendedSongs.Count() != 0) {
+                returnResult.listenedSongs = listenedSongs;
+                returnResult.cfRecommendedSongs = cfRecommendedSongs;
+            }
             return Ok(returnResult);
         }
 
@@ -97,6 +103,19 @@ namespace MusicRecommendationWebApi.Controllers
                 listenedSongs.Add(returnedSong);
             }
             return listenedSongs;
+        }
+
+        private List<Song> GetTopWeeklySongs() {
+            IEnumerable<string> listenedSongIds = this.cassandraConnector.getMapper()
+            .Fetch<string>("SELECT sid FROM result_popularity");
+            List<Song> weeklyTopSongs = new List<Song>();
+            foreach (string songId in listenedSongIds)
+            {
+                var returnedSong = this.cassandraConnector.getMapper()
+                .Single<Song>("WHERE sid = ?", songId);
+                weeklyTopSongs.Add(returnedSong);
+            }
+            return weeklyTopSongs;
         }
     }
 }

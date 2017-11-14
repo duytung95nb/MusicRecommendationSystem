@@ -26,6 +26,7 @@ export class HomePageComponent implements OnInit {
             this.user = JSON.parse(localStorage.getItem('loggedInInfo')).userInfo;
             this.songService.getRecommendationsForLoggedInUser(this.user.id)
                 .subscribe(returnedResult => {
+                    self.mostPopularSongs = returnedResult.mostPopularSongs;
                     self.listenedSongs = returnedResult.listenedSongs;
                     self.collaborativeSongs = returnedResult.cfRecommendedSongs;
                 });

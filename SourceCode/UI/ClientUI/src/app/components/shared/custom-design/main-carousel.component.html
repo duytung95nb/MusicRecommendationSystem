@@ -1,7 +1,7 @@
 <div class="carousel">
     <ul class="slides">
         <li *ngFor="let song of mostPopularSongs">
-            <img (click)="onSongClicked(song)" src="{{song.url}}" title="{{ song.name }} - {{song.artist}}" alt="">
+            <img (click)="onSongClicked(song)" src="{{song.thumbnail}}" title="{{ song.song }} - {{song.artist}}" alt="">
         </li>
     </ul>
 </div>

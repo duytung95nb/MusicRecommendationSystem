@@ -33,7 +33,7 @@ export class SongService {
             .map(res => res.json());
     }
     getRegularCommendation(): Observable<any> {
-        return this.connector.get(this.link/*change for specific request*/)
+        return this.connector.get(this.homeApiRoute)
             .map(res => res.json());;
     }
 }
