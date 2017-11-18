@@ -35,7 +35,8 @@ CREATE TABLE IF NOT EXISTS song (sid text PRIMARY KEY,
                              composer text,
                              album text,
                              thumbnail text,
-                             iframe text);
+                             iframe text,
+                             lyrics text);
 
 CREATE INDEX song_album_idx ON song (album);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------

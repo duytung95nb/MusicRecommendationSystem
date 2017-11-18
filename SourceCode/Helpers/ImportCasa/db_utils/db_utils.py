@@ -13,11 +13,6 @@ class DBUtils:
         self.metadata_data_frame = pd.read_csv(self.metadata_csv,
                                                sep=",", encoding='utf-8')
 
-    def query_table(self):
-        rows = self.session.execute("SELECT * FROM user")
-        for row in rows:
-            print row.uid
-
     def import_metadata(self):
         self.session.execute("CREATE TABLE IF NOT EXISTS song ("
                              "sid text PRIMARY KEY,"
@@ -27,7 +22,8 @@ class DBUtils:
                              "composer text,"
                              "album text,"
                              "thumbnail text,"
-                             "iframe text);")
+                             "iframe text,"
+                             "lyrics text);")
 
         for index, item in self.metadata_data_frame.iterrows():
             id = '' if pd.isnull(item['id']) else item['id']
@@ -38,6 +34,7 @@ class DBUtils:
             thumbnail = '' if pd.isnull(item['thumbnail']) else item['thumbnail']
             iframe = '' if pd.isnull(item['iframe']) else item['iframe']
             genre = '' if pd.isnull(item['genre']) else item['genre']
+            lyrics = '' if pd.isnull(item['lyrics']) else item['lyrics']
 
             if genre is not '':
                 genre = genre.split("|")[1:]
@@ -46,7 +43,7 @@ class DBUtils:
 
             self.session.execute("INSERT INTO song "
                                  "(sid, song, artist, composer, "
-                                 "album, thumbnail, iframe, genre) "
-                                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s);",
-                                 [id, song, artist, composer,
-                                  album, thumbnail, iframe, genre])
+                                 "album, thumbnail, iframe, genre, lyrics) "
+                                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);",
+                                 [id, song, artist, composer, album,
+                                  thumbnail, iframe, genre, lyrics])
