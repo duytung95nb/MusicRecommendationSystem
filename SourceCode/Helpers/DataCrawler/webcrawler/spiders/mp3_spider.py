@@ -106,6 +106,7 @@ class Mp3Spider(scrapy.Spider):
             album = response.xpath('//div[@class="info-song-top otr fl"]').xpath('.//a[@class="txt-info"]/text()').extract_first()
             thumbnail = response.xpath('//div[@class="box-artist"]/a/img/@src').extract_first()
             genres = response.xpath('//div[@class="info-song-top otr clear"]').xpath(".//h2/a/text()").extract()
+            lyrics = response.xpath('//div[@class="lyrics-container po-r"]/div/div')[0].xpath('.//p/text()').extract()
             iframe_code = response.url.split("/")[-1].split(".")[0]
 
             data_song_id = uuid.uuid4().hex
@@ -115,6 +116,7 @@ class Mp3Spider(scrapy.Spider):
             data_album = ""
             data_thumbnail = ""
             data_genre = ""
+            data_lyrics = ""
 
             self.log("Level 3: %s" % response.url)
 
@@ -138,6 +140,11 @@ class Mp3Spider(scrapy.Spider):
                 self.log("Thumbnail: %s" % thumbnail.strip())
                 data_thumbnail = thumbnail.strip()
 
+            if lyrics is not None:
+                for line in lyrics:
+                    if line.strip() != "":
+                        data_lyrics = data_lyrics + ". " + line.strip()
+
             for genre in genres:
                 self.log("Genre: %s" % genre.strip())
                 data_genre = data_genre + "|" + genre
@@ -150,5 +157,6 @@ class Mp3Spider(scrapy.Spider):
                 "album": data_album,
                 "genre": data_genre,
                 "thumbnail": data_thumbnail,
-                "iframe": iframe_code
+                "iframe": iframe_code,
+                "lyrics": data_lyrics
             }
