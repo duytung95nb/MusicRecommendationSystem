@@ -131,6 +131,8 @@ namespace MusicRecommendationWebApi.Controllers
                     .Single<SongCbResult>("WHERE sid = ?", userEvent.songId);
                 SongToRecommend songToRecommend = new SongToRecommend();
                 songToRecommend.actionType = userEvent.actionType;
+                songToRecommend.interactedSong = this.cassandraConnector.getMapper()
+                    .Single<Song>("WHERE sid = ?", userEvent.songId);
                 foreach (string songId in sbResultSongIds.recommendations)
                 {
                     var relatedSong = this.cassandraConnector.getMapper()
@@ -145,6 +147,7 @@ namespace MusicRecommendationWebApi.Controllers
         private class SongToRecommend
         {
             public string actionType;
+            public Song interactedSong;
             public List<Song> relatedSongs;
             public SongToRecommend()
             {
