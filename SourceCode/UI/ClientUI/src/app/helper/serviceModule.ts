@@ -8,7 +8,6 @@ import { UserService } from './userService';
 import { UserEventService } from './userEventService';
 
 @NgModule({
-    imports: [UserEventService, SongService, HttpConnector, UserService],
     providers: [UserEventService, SongService, HttpConnector, UserService]
 })
 export class ServiceModule { }
