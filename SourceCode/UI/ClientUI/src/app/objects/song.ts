@@ -1,6 +1,6 @@
 export class Song {
     constructor(
-        public id: number,
+        public id: string,
         public album: string,
         public song: String,
         public artist: String,

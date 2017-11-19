@@ -20,6 +20,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './effects/userEffect';
 import {StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { User } from './objects/user';
+import { ServiceModule } from './helper/serviceModule';
 
 @NgModule({
   declarations: [
@@ -37,13 +38,13 @@ import { User } from './objects/user';
     SharedModule,
     MaterialModule,
     StarRatingModule.forRoot(),
+    ServiceModule,
     StoreModule.forRoot({ root: userReducer}),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([
       UserEffects
     ])
   ],
-  providers: [SongService, HttpConnector, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

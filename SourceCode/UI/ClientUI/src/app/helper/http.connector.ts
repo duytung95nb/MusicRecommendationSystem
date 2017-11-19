@@ -14,7 +14,7 @@ export class HttpConnector {
         let options = new RequestOptions({ headers: headers });
         return this.http.get(url, options);
     }
-    post(url: string, body: any): Observable<any> {
+    post(url: string, body: any = {}): Observable<any> {
         let headers = new Headers({ 'Accept': 'application/json' });
         this.createAuthorizationHeader(headers);
         let options = new RequestOptions({ headers: headers });

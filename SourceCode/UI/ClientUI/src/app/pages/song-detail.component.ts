@@ -3,6 +3,9 @@ import { ActivatedRoute } from "@angular/router";
 import { SongService } from "../helper/services";
 import { Song } from "../objects/song";
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { UserEvent } from "../objects/userEvent";
+import { LISTEN } from "../actions/UserAction";
+import { UserEventService } from "../helper/userEventService";
 
 @Component({
     templateUrl: 'song-detail.component.html',
@@ -18,6 +21,7 @@ export class SongDetail implements OnInit, OnDestroy {
     private loggedInUser: any;
     constructor(private activatedRoute: ActivatedRoute,
         private songService: SongService,
+        private userEventService: UserEventService,
         private sanitizer: DomSanitizer) {
     }
     ngOnInit() {
@@ -38,89 +42,20 @@ export class SongDetail implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        var loggedInUserId = this.loggedInUser ? this.loggedInUser.id : null;
+        //TODO: need to change duration when we have this feature
+        var duration = "450";
+        var userEvent = new UserEvent(
+            loggedInUserId,
+            this.currentSong.id,
+            LISTEN,
+            duration,
+            Date.now()
+        );
+        this.userEventService.logUserEvent(userEvent)
+            .subscribe(result => {
+                console.log("Logged user event to database", result);
+            });
         this.idSubscribe.unsubscribe();
     }
 }
-
-const images = [
-    {
-        "id": 1,
-        "artist": "Lam Truong",
-        "composer": "Dan Truong",
-        "name": "Tinh don phuong 1",
-        "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/covered.jpg",
-        "listened": 3000
-    },
-    {
-        "id": 2,
-        "artist": "Lam Truong",
-        "composer": "Dan Truong",
-        "name": "Tinh don phuong 2",
-        "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/generation.jpg"
-    },
-    {
-        "id": 3,
-        "artist": "Lam Truong",
-        "composer": "Dan Truong",
-        "name": "Tinh don phuong 3",
-        "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/preschool.jpg",
-        "listened": 3000
-    },
-    {
-        "id": 4,
-        "artist": "Lam Truong",
-        "composer": "Dan Truong",
-        "name": "Tinh don phuong 4",
-        "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/potter.jpg",
-        "listened": 3000
-    },
-    {
-        "id": 5,
-        "artist": "Lam Truong",
-        "composer": "Dan Truong",
-        "name": "Tinh don phuong 5",
-        "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/generation.jpg",
-        "listened": 3000
-    },
-    {
-        "id": 6,
-        "artist": "Lam Truong",
-        "composer": "Dan Truong",
-        "name": "Tinh don phuong 6",
-        "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/covered.jpg",
-        "listened": 3000
-    },
-    {
-        "id": 7,
-        "artist": "Lam Truong",
-        "composer": "Dan Truong",
-        "name": "Tinh don phuong 7",
-        "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/potter.jpg",
-        "listened": 3000
-    },
-    {
-        "id": 8,
-        "artist": "Lam Truong",
-        "composer": "Dan Truong",
-        "name": "Tinh don phuong 8",
-        "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/preschool.jpg",
-        "listened": 3000
-    },
-    {
-        "id": 9,
-        "artist": "Lam Truong",
-        "composer": "Dan Truong",
-        "name": "Tinh don phuong 9",
-        "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/soccer.jpg",
-        "listened": 3000
-    },
-    {
-        "id": 10,
-        "artist": "Lam Truong",
-        "composer": "Dan Truong",
-        "name": "Tinh don phuong 10",
-        "url": "https://raw.githubusercontent.com/christiannwamba/angular2-carousel-component/master/images/soccer.jpg",
-        "listened": 3000
-    }
-
-];
