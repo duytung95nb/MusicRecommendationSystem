@@ -45,10 +45,10 @@ namespace MusicRecommendationWebApi.Controllers
                 listenedSongs = this.GetListenedSongs(userId, 10);
                 returnResult.listenedSongs = listenedSongs;
                 // get recommendation base on user events
-                List<UserEvent> top3LatestUserEvents = this.cassandraConnector.getMapper()
+                IEnumerable<UserEvent> top3LatestUserEvents = this.cassandraConnector.getMapper()
                 .Fetch<UserEvent>("WHERE uid = ? ORDER BY timestamp DESC LIMIT 3", userId);
                 returnResult.userEventRecommendations = this.GetRecommendationsBaseOnUserEvents(
-                    top3LatestUserEvents, 10);
+                    top3LatestUserEvents.ToList(), 10);
             }
 
             var mostPopularSongs = this.GetTopWeeklySongs();
@@ -151,13 +151,6 @@ namespace MusicRecommendationWebApi.Controllers
                 actionType = "";
                 relatedSongs = new List<Song>();
             }
-        }
-
-        private List<Song> GetRelatedSongsBaseOnSongId(string songId)
-        {
-            List<Song> relatedSongs = new List<Song>();
-
-            return relatedSongs;
         }
     }
 }
