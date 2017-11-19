@@ -7,6 +7,10 @@
             <div class="right_col" role="main" style="min-height: 1054px;">
                 <carousel [songs]="listenedSongs" [title]="'Nghe lại nào'"></carousel>
                 <carousel [songs]="collaborativeSongs" [title]="'Có thể bạn sẽ thích'"></carousel>
+                <ng-container *ngIf="userEventRecommendations">
+                    <carousel *ngFor="let userEventRecommendation of userEventRecommendations"
+                        [songs]="userEventRecommendation.relatedSongs" [title]="'Vì bạn đã ' + userEventRecommendation.actionType"></carousel>
+                </ng-container>
                 <div class="clearfix"></div>
             </div>
         </div>

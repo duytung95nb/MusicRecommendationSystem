@@ -12,7 +12,6 @@ namespace MusicRecommendationWebApi.JsonObjectMappers
         public string Username { get; set; }
         [JsonProperty("Password")]
         public string Password { get; set; }
-        
         [JsonProperty("AvatarUrl")]
         public string AvatarUrl { get; set; }
         [JsonProperty("Firstname")]

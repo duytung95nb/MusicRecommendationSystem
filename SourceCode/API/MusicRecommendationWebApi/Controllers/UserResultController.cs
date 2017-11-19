@@ -27,29 +27,32 @@ namespace MusicRecommendationWebApi.Controllers
         [HttpGet]
         public IActionResult Get(string userId)
         {
-            List<Song> cfRecommendedSongs = new List<Song>();
-            List<Song> listenedSongs = new List<Song>();
-            Console.Write(userId);
-            if (userId != null) {
+            dynamic returnResult = new System.Dynamic.ExpandoObject();
+            bool isUserLoggedIn = userId != null;
+            if (isUserLoggedIn)
+            {
                 var userCfResult = this.cassandraConnector.getMapper()
                 .Single<UserCfResult>("WHERE uid = ?", userId);
-
+                List<Song> cfRecommendedSongs = new List<Song>();
+                List<Song> listenedSongs = new List<Song>();
                 foreach (string songId in userCfResult.recommendedSongIds)
                 {
                     var returnedSong = this.cassandraConnector.getMapper()
                     .Single<Song>("WHERE sid = ?", songId);
                     cfRecommendedSongs.Add(returnedSong);
                 }
+                returnResult.cfRecommendedSongs = cfRecommendedSongs;
                 listenedSongs = this.GetListenedSongs(userId, 10);
+                returnResult.listenedSongs = listenedSongs;
+                // get recommendation base on user events
+                List<UserEvent> top3LatestUserEvents = this.cassandraConnector.getMapper()
+                .Fetch<UserEvent>("WHERE uid = ? ORDER BY timestamp DESC LIMIT 3", userId);
+                returnResult.userEventRecommendations = this.GetRecommendationsBaseOnUserEvents(
+                    top3LatestUserEvents, 10);
             }
 
             var mostPopularSongs = this.GetTopWeeklySongs();
-            dynamic returnResult = new System.Dynamic.ExpandoObject();
             returnResult.mostPopularSongs = mostPopularSongs;
-            if (listenedSongs.Count() != 0 && cfRecommendedSongs.Count() != 0) {
-                returnResult.listenedSongs = listenedSongs;
-                returnResult.cfRecommendedSongs = cfRecommendedSongs;
-            }
             return Ok(returnResult);
         }
 
@@ -105,7 +108,8 @@ namespace MusicRecommendationWebApi.Controllers
             return listenedSongs;
         }
 
-        private List<Song> GetTopWeeklySongs() {
+        private List<Song> GetTopWeeklySongs()
+        {
             IEnumerable<string> listenedSongIds = this.cassandraConnector.getMapper()
             .Fetch<string>("SELECT sid FROM result_popularity");
             List<Song> weeklyTopSongs = new List<Song>();
@@ -116,6 +120,44 @@ namespace MusicRecommendationWebApi.Controllers
                 weeklyTopSongs.Add(returnedSong);
             }
             return weeklyTopSongs;
+        }
+
+        private List<SongToRecommend> GetRecommendationsBaseOnUserEvents(List<UserEvent> userEvents, int numberOfRecommendationPerEvent)
+        {
+            List<SongToRecommend> returnResult = new List<SongToRecommend>();
+            foreach (UserEvent userEvent in userEvents)
+            {
+                SongCbResult sbResultSongIds = this.cassandraConnector.getMapper()
+                    .Single<SongCbResult>("WHERE sid = ?", userEvent.songId);
+                SongToRecommend songToRecommend = new SongToRecommend();
+                songToRecommend.actionType = userEvent.actionType;
+                foreach (string songId in sbResultSongIds.recommendations)
+                {
+                    var relatedSong = this.cassandraConnector.getMapper()
+                        .Single<Song>("WHERE sid = ? LIMIT ?", songId, numberOfRecommendationPerEvent);
+                    songToRecommend.relatedSongs.Add(relatedSong);
+                }
+                returnResult.Add(songToRecommend);
+            }
+            return returnResult;
+        }
+
+        private class SongToRecommend
+        {
+            public string actionType;
+            public List<Song> relatedSongs;
+            public SongToRecommend()
+            {
+                actionType = "";
+                relatedSongs = new List<Song>();
+            }
+        }
+
+        private List<Song> GetRelatedSongsBaseOnSongId(string songId)
+        {
+            List<Song> relatedSongs = new List<Song>();
+
+            return relatedSongs;
         }
     }
 }
