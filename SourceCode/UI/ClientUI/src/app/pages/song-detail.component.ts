@@ -50,7 +50,7 @@ export class SongDetail implements OnInit, OnDestroy {
             this.currentSong.id,
             LISTEN,
             duration,
-            Date.now()
+            null
         );
         this.userEventService.logUserEvent(userEvent)
             .subscribe(result => {

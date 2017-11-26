@@ -41,7 +41,7 @@ namespace MusicRecommendationWebApi.Controllers
         public IActionResult LogUserEvent([FromBody] UserEvent userEvent)
         {   
             userEvent.timestamp = DateTime.Now;
-            this.cassandraConnector.getMapper().Insert<UserEvent>(userEvent);
+            this.cassandraConnector.getMapper().Insert<UserEvent>(userEvent as UserEvent);
             return Ok(userEvent);
         }
     }

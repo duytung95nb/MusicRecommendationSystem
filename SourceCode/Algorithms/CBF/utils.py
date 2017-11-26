@@ -104,7 +104,6 @@ class CBUtil:
         genre_dict = self._load_csv_into_factor_dict()
         self._extract_song_feature_csv(rows, genre_dict)
 
-
     def run(self):
         music_dict = self._get_music_dict()
         feature_space_matrix = self._get_feature_space_matrix()

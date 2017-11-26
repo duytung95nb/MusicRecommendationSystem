@@ -32,8 +32,8 @@
                     {{indexInList + 1}}
                 </h3>
                 <div class="list-item__content">
-                    <p class="song-name">{{song.song}}</p>
-                    <a class="song-artist">{{song.artist}}</a>
+                    <p class="song-name">{{song.song | ellipsis:25 }}</p>
+                    <a class="song-artist">{{song.artist | ellipsis:25 }}</a>
                 </div>
                 <div class="list-item__views">
                     <span class="glyphicon glyphicon-headphones">3000</span>
@@ -46,8 +46,8 @@
             <div class="info-area">
                 <button mat-button class="play-button"><span class="fa fa-play"></span></button>
                 <div class="list-item__content">
-                    <p class="song-name">{{song.song}}</p>
-                    <a class="song-artist">{{song.artist}}</a>
+                    <p class="song-name">{{song.song | ellipsis:25 }}</p>
+                    <a class="song-artist">{{song.artist | ellipsis:25 }}</a>
                 </div>
                 <div class="list-item__views">
                     <span class="glyphicon glyphicon-headphones">5540</span>

@@ -25,6 +25,7 @@ class DBUtils:
                              "iframe text,"
                              "lyrics text);")
 
+        num_count = 0
         for index, item in self.metadata_data_frame.iterrows():
             id = '' if pd.isnull(item['id']) else item['id']
             song = '' if pd.isnull(item['song']) else item['song']
@@ -47,3 +48,6 @@ class DBUtils:
                                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);",
                                  [id, song, artist, composer, album,
                                   thumbnail, iframe, genre, lyrics])
+            num_count += 1
+            if num_count >= 10000:
+                break
