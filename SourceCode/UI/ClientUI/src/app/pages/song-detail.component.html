@@ -1,4 +1,10 @@
+<a class="social-buttons__action" title="Chia sẻ"
+(click)="onShareClick()">
+    <span class="fa fa-share-alt-square"></span>
+    <span class="social-buttons__text">Chia sẻ</span>
+</a>
 <div class="detail-page-content" *ngIf="currentSong">
+    
     <div class="left-side">
         <div class="song-detail">
             <mat-card class="play-area">
@@ -8,33 +14,50 @@
                     <p class="artist">{{currentSong.artist}}</p>
                     <p class="name">{{currentSong.song}}</p>
                 </div>
-                <iframe *ngIf="currentIframeSource" scrolling="no" class="player-area__player" [src]="currentIframeSource" frameborder="0" allowfullscreen="true"></iframe>
+                <iframe *ngIf="currentIframeSource" scrolling="no" class="player-area__player"
+                        [src]="currentIframeSource"
+                        frameborder="0"
+                        allowfullscreen="true"></iframe>
                 <div class="play-area__social">
                     <div class="rating-area">
-                        <star-rating-comp class="rating__user-rate" [labelText]="'Đánh giá'" [starType]="'svg'" [labelPosition]="'left'" [staticColor]="'positive'"
-                            [size]="'medium'">
+                        <star-rating-comp class="rating__user-rate"
+                            [labelText]="'Đánh giá'"
+                            [starType]="'svg'"
+                            [labelPosition]="'left'"
+                            [staticColor]="'positive'"
+                            [size]="'medium'"
+                            (onClick)="onRatingClick($event)"
+                            (onRatingChange)="onRatingChange($event)"
+                            [rating]="userRateForCurrentSong">
                         </star-rating-comp>
-                        <star-rating-comp class="rating__song-rate" [labelText]="'2.63/5'" [starType]="'svg'" [labelPosition]="'left'" [rating]="2.63"
+                        <star-rating-comp class="rating__song-rate"
+                            [labelText]="currentSong.averageRating + '/5'"
+                            [starType]="'svg'"
+                            [labelPosition]="'left'"
+                            [rating]="currentSong.averageRating"
                             [size]="'medium'" [showHalfStars]="true" [readOnly]="true">
                         </star-rating-comp>
                     </div>
                     <div class="social-buttons">
-                        <a class="social-buttons__action" title="Thêm vào yêu thích">
+                        <a class="social-buttons__action" title="Thêm vào yêu thích"
+                        (click)="onAddToFavouriteClick()">
                             <span class="fa fa-plus"></span>
                             <span class="social-buttons__text">Thêm yêu thích</span>
                         </a>
-                        <a class="social-buttons__action" title="Chia sẻ">
+                        <a class="social-buttons__action" title="Chia sẻ"
+                        (click)="onShareClick()">
                             <span class="fa fa-share-alt-square"></span>
                             <span class="social-buttons__text">Chia sẻ</span>
                         </a>
-                        <a class="social-buttons__action" title="Tải">
+                        <a class="social-buttons__action" title="Tải"
+                        (click)="onDownloadClick()">
                             <span class="fa fa-download"></span>
                             <span class="social-buttons__text">Tải Xuống</span>
                         </a>
                     </div>
                     <div class="listened">
                         <span class="glyphicon glyphicon-headphones"></span>
-                        28,204,113
+                        {{currentSong.listened}}
                     </div>
                 </div>
             </mat-card>
