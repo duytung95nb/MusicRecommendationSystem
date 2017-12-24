@@ -19,5 +19,10 @@ namespace UserGeneratorBaseOnDatabase.DAL
             }
             return SongDAL.songIds;
         }
+        public void updateSongListened(string songId)
+        {
+            Song song = this.connector.getMapper().Single<Song>("WHERE sid=?", songId); 
+            this.connector.getMapper().Update<Song>("SET listened=? WHERE sid=?", ++song.Listened, song.Id);;
+        }
     }
 }

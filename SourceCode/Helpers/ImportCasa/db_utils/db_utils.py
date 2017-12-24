@@ -23,7 +23,8 @@ class DBUtils:
                              "album text,"
                              "thumbnail text,"
                              "iframe text,"
-                             "lyrics text);")
+                             "lyrics text,"
+                             "listened bigint);")
 
         num_count = 0
         for index, item in self.metadata_data_frame.iterrows():
@@ -43,11 +44,12 @@ class DBUtils:
                 genre = list('')
 
             self.session.execute("INSERT INTO song "
-                                 "(sid, song, artist, composer, "
-                                 "album, thumbnail, iframe, genre, lyrics) "
-                                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);",
+                                 "(sid, song, artist, composer, album, "
+                                 "thumbnail, iframe, genre, lyrics, listened) "
+                                 "VALUES (%s, %s, %s, %s, %s, "
+                                 "%s, %s, %s, %s, %s);",
                                  [id, song, artist, composer, album,
-                                  thumbnail, iframe, genre, lyrics])
+                                  thumbnail, iframe, genre, lyrics, 0])
             num_count += 1
-            if num_count >= 10000:
+            if num_count >= 20000:
                 break

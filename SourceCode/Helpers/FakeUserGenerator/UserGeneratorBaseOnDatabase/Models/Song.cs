@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 
 namespace UserGeneratorBaseOnDatabase.Models
 {
@@ -9,15 +10,17 @@ namespace UserGeneratorBaseOnDatabase.Models
         public string Album { get; set; }
         public string Artist { get; set; }
         public string Composer { get; set; }
-        public string Genre { get; set; }
+        public List<string> Genre { get; set; }
         public string Iframe { get; set; }
         public string song { get; set; }
         public string Thumbnail { get; set; }
+        public long Listened {get; set;}
+        public string Lyrics {get; set;}
         public Song() {
             this.Id = "";
         }
         public Song(string _id, string _album, string _artist, string _composer,
-        string _genre, string _iframe, string _song, string _thumbnail)
+        List<string> _genre, string _iframe, string _song, string _thumbnail)
         {
             this.Id = _id;
             this.Album = _album;

@@ -1,10 +1,10 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using Cassandra;
 using UserGeneratorBaseOnDatabase.DAL;
 using UserGeneratorBaseOnDatabase.Models;
 using UserGeneratorBaseOnDatabase.Utils;
+using System.Linq;
 
 namespace UserGeneratorBaseOnDatabase.Generators
 {
@@ -20,12 +20,16 @@ namespace UserGeneratorBaseOnDatabase.Generators
         private static readonly List<string> ACTION_TYPES = new List<string>(
             new string[] { "rate", "listen", "add_to_favourite", "share", "download" }
             );
+        private SongDAL songDAL;
         private List<string> songIds;
+        private List<Song> songs;
         private IEnumerable<User> usersList;
+        private Dictionary<string, KeyValuePair<DateTime, long>> updatingListenCountSongsDictionary;
         public UserEventGenerator()
         {
+            this.songDAL = new SongDAL();
             this.usersList = new UserDAL().getUsers();
-            this.songIds = new SongDAL().getSongIds().ToList();
+            this.songIds = this.songDAL.getSongIds().ToList();
         }
         public void GenerateRandomUserEvents(int numberOfEventsPerUser)
         {
@@ -45,6 +49,8 @@ namespace UserGeneratorBaseOnDatabase.Generators
                 userEvent.ActionType = RandomUtils.GetRandomStringInList(UserEventGenerator.ACTION_TYPES);
                 userEvent.PayLoad = GetUserEventPayload(userEvent.ActionType);
                 userEventDAL.addUserEvent(userEvent);
+                // update songs listened count to dictionary
+                this.songDAL.updateSongListened(userEvent.SongId);
             }
         }
 
@@ -78,6 +84,5 @@ namespace UserGeneratorBaseOnDatabase.Generators
             }
             return payLoad;
         }
-
     }
 }

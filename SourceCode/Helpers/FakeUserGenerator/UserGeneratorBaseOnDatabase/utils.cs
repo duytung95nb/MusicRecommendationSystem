@@ -27,5 +27,11 @@ namespace UserGeneratorBaseOnDatabase.Utils
             int randomNumber = random.Next(start, end);
             return randomNumber;
         }
+        public static Song GetRandomSongInList(List<Song> songs) 
+        {
+            var random = new Random();
+            int index = random.Next(0, songs.Count);
+            return songs[index];
+        }
     }
 }
