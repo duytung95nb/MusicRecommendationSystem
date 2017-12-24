@@ -22,7 +22,9 @@ export class SongService {
     }
     getCollaborativeSongs(userid: string): Observable<Song[]> {
         return this.connector.get(this.link)
-            .map(res => res.json());;
+            .map(res => {
+                return res.json();
+            });
     }
     getContentBasedSongs(userid: string): Observable<Song[]> {
         return this.connector.get(this.link)

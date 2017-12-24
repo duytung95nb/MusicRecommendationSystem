@@ -8,7 +8,9 @@ export class Song {
         public genre: string[],
         public iframe: string,
         public thumbnail: string,
-        public listened: number
+        public listened: number,
+        public lyrics: string,
+        public averageRating: number
     ) {
 
     }

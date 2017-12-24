@@ -21,6 +21,7 @@ import { UserEffects } from './effects/userEffect';
 import {StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { User } from './objects/user';
 import { ServiceModule } from './helper/serviceModule';
+import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ServiceModule } from './helper/serviceModule';
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([
       UserEffects
-    ])
+    ]),
+    FacebookModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })

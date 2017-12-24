@@ -8,7 +8,7 @@
                     <div class="mask">
                         <p>{{song.song | ellipsis:15 }}</p>
                         <div class="tools tools-bottom">
-                            <a href="#">
+                            <a (click)="onSongClicked(song)">
                                 <i class="fa fa-play"></i>
                             </a>
                         </div>
