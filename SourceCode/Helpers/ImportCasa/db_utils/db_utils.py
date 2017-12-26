@@ -51,5 +51,5 @@ class DBUtils:
                                  [id, song, artist, composer, album,
                                   thumbnail, iframe, genre, lyrics, 0])
             num_count += 1
-            if num_count >= 20000:
+            if num_count >= 10000:
                 break
