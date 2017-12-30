@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "*********************************************" >> ${THESIS_HOME}/log
 START=$(date +%s)
 
 THESIS_HOME="/root/project/MusicRecommendationSystem/"
@@ -51,7 +52,7 @@ source /root/miniconda2/bin/deactivate
 END=$(date +%s)
 DIFF=$(( $END - $START ))
 DATE=`date '+%Y-%m-%d %H:%M:%S'`
-echo "*********************************************" >> ${THESIS_HOME}/log
+
 echo "${DATE} - took ${DIFF} seconds" >> ${THESIS_HOME}/log
 echo "- Popularity: ${REPORT_POP} seconds" >> ${THESIS_HOME}/log
 echo "- Collaborative: ${REPORT_CF} seconds" >> ${THESIS_HOME}/log
