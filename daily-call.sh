@@ -1,4 +1,5 @@
 #!/bin/bash
+START=$(date +%s)
 
 THESIS_HOME="/root/project/MusicRecommendationSystem/"
 CF_DIR=${THESIS_HOME}/SourceCode/Algorithms/CF/
@@ -26,3 +27,8 @@ echo "Calculating CBF..."
 spark-submit --packages anguenot/pyspark-cassandra:0.7.0 user_item_similarity.py
 
 source deactivate
+
+END=$(date +%s)
+DIFF=$(( $END - $START ))
+DATE=`date '+%Y-%m-%d %H:%M:%S'`
+echo "${DATE} - took ${DIFF} seconds" >> ${THESIS_HOME}/log
