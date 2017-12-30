@@ -6,7 +6,7 @@ CF_DIR=${THESIS_HOME}/SourceCode/Algorithms/CF/
 CBF_DIR=${THESIS_HOME}/SourceCode/Algorithms/CBF/
 POPULAR_DIR=${THESIS_HOME}/SourceCode/Algorithms/Popularity/
 
-source activate music-recommendation
+source /root/miniconda2/bin/activate music-recommendation
 
 START_POP=$(date +%s)
 echo "Calculating popularity..."
@@ -41,14 +41,15 @@ spark-submit --packages anguenot/pyspark-cassandra:0.7.0 user_item_similarity.py
 END_CBF=$(date +%s)
 REPORT_CBF=$(( $END_CBF - $START_CBF ))
 
-source deactivate
+source /root/miniconda2/bin/deactivate
 
 END=$(date +%s)
 DIFF=$(( $END - $START ))
 DATE=`date '+%Y-%m-%d %H:%M:%S'`
+echo "*********************************************" >> ${THESIS_HOME}/log
 echo "${DATE} - took ${DIFF} seconds" >> ${THESIS_HOME}/log
-echo "\t- Popularity: ${REPORT_POP} seconds" >> ${THESIS_HOME}/log
-echo "\t- Collaborative: ${REPORT_CF} seconds" >> ${THESIS_HOME}/log
-echo "\t- Lyrics Similarity: ${REPORT_LYRICS} seconds" >> ${THESIS_HOME}/log
-echo "\t- Build User Profile: ${REPORT_BUILD_USER_PROFILE} seconds" >> ${THESIS_HOME}/log
-echo "\t- Content-based: ${REPORT_CBF} seconds" >> ${THESIS_HOME}/log
+echo "- Popularity: ${REPORT_POP} seconds" >> ${THESIS_HOME}/log
+echo "- Collaborative: ${REPORT_CF} seconds" >> ${THESIS_HOME}/log
+echo "- Lyrics Similarity: ${REPORT_LYRICS} seconds" >> ${THESIS_HOME}/log
+echo "- Build User Profile: ${REPORT_BUILD_USER_PROFILE} seconds" >> ${THESIS_HOME}/log
+echo "- Content-based: ${REPORT_CBF} seconds" >> ${THESIS_HOME}/log
