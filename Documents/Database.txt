@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS user(
 	avatar_url varchar,
 	birth_date timestamp,
 	city varchar);
-CREATE /*IF NOT EXISTS*/ INDEX ON user (username);
+CREATE INDEX ON user (username);
 insert into user (uid, username, password, firstname, lastname, gender, avatar_url, birth_date, city)
 values(now(), 'duytung95nb', 'tungdao', 'Dao', 'Tung', true, 'https://www.w3schools.com/css/trolltunga.jpg', '2011-02-03 04:05+0000', 'Ho Chi Minh');
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
