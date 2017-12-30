@@ -23,6 +23,6 @@ echo "Calculating user profile..."
 python build_user_profile.py
 
 echo "Calculating CBF..."
-spark-submit --packages anguenot/pyspark-cassandra:0.7.0 main.py
+spark-submit --packages anguenot/pyspark-cassandra:0.7.0 user_item_similarity.py
 
 source deactivate
