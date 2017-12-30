@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppState } from '../../../reducers/userReducer';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { ISubscription } from "rxjs/Subscription";
+import { AuthService } from 'angular2-social-login';
 
 @Component({
     selector: 'login-dialog',
@@ -32,32 +33,62 @@ export class LoginDialog{
     // private subscrition: ISubscription;
     constructor(public dialogRef: MatDialogRef<LoginDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private userService: UserService
-        /*private store: Store<AppState>*/) {
+        private userService: UserService,
+        private authService: AuthService) {
 
     }
 
-    // ngOnInit() {
-    //     // this.user = this.store.select<User>(state => state.loggedInUserInfo);
-    //     // this.token = this.store.select<string>(state => state.token);
-    //     var self = this;
-    //     this.subscrition = this.token.subscribe(tokenString => {
-    //         if (tokenString !== undefined) {
-    //             self.dialogRef.close();
-    //         }
-    //     });
-    // }
     onLoginClicked(): void {
         // var loginAction = new Login(LOGIN, { username: this.username, password: this.password });
         // this.store.dispatch(loginAction);
         this.userService.login(this.username, this.password)
-        .subscribe(response => {
-            // login success
-            if (response.status === 200) {
-                localStorage.setItem('loggedInInfo', response._body);
-                this.dialogRef.close();
-                window.location.reload();
-            }
-        });
+            .subscribe(response => {
+                // login success
+                if (response.status === 200) {
+                    localStorage.setItem('loggedInInfo', response._body);
+                    this.dialogRef.close();
+                    window.location.reload();
+                }
+            });
+    }
+
+    onLoginWithFacebookClick(): void {
+        //TODO: See what it gonna return, add new user or login user to the system.
+        this.authService.login('facebook')
+            .subscribe(
+                data => {
+                    console.log(data);
+                    var returnedUserId;
+                    this.userService.loginSocial(returnedUserId)
+                        .subscribe(response => {
+                            // login success
+                            if (response.status === 200) {
+                                localStorage.setItem('loggedInInfo', response._body);
+                                this.dialogRef.close();
+                                window.location.reload();
+                            }
+                        });
+                }
+            );
+    }
+
+    onLoginWithGoogleClick(): void {
+        //TODO: See what it gonna return, add new user or login user to the system.
+        this.authService.login('google')
+            .subscribe(
+                data => {
+                    console.log(data);
+                    var returnedUserId;
+                    this.userService.loginSocial(returnedUserId)
+                        .subscribe(response => {
+                            // login success
+                            if (response.status === 200) {
+                                localStorage.setItem('loggedInInfo', response._body);
+                                this.dialogRef.close();
+                                window.location.reload();
+                            }
+                        });
+                }
+            );
     }
 }
