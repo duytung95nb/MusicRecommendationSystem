@@ -1,12 +1,11 @@
 #!/bin/bash
-echo "*********************************************" >> ${THESIS_HOME}/log
 START=$(date +%s)
-
 THESIS_HOME="/root/project/MusicRecommendationSystem/"
 CF_DIR=${THESIS_HOME}/SourceCode/Algorithms/CF/
 CBF_DIR=${THESIS_HOME}/SourceCode/Algorithms/CBF/
 POPULAR_DIR=${THESIS_HOME}/SourceCode/Algorithms/Popularity/
 
+echo "*********************************************" >> ${THESIS_HOME}/log
 source /root/miniconda2/bin/activate music-recommendation
 
 START_POP=$(date +%s)
