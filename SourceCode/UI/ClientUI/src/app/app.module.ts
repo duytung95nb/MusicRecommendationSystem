@@ -22,6 +22,20 @@ import {StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { User } from './objects/user';
 import { ServiceModule } from './helper/serviceModule';
 import { FacebookModule } from 'ngx-facebook';
+import {Angular2SocialLoginModule} from 'angular2-social-login';
+
+let providers = {
+  "google": {
+    "clientId": "GOOGLE_CLIENT_ID"
+  },
+  "linkedin": {
+    "clientId": "LINKEDIN_CLIENT_ID"
+  },
+  "facebook": {
+    "clientId": "FACEBOOK_CLIENT_ID",
+    "apiVersion": "<version>" //like v2.4 
+  }
+};
 
 @NgModule({
   declarations: [
@@ -38,6 +52,8 @@ import { FacebookModule } from 'ngx-facebook';
     CommonSiteModule,
     SharedModule,
     MaterialModule,
+    
+    Angular2SocialLoginModule,
     StarRatingModule.forRoot(),
     ServiceModule,
     StoreModule.forRoot({ root: userReducer}),
@@ -45,8 +61,10 @@ import { FacebookModule } from 'ngx-facebook';
     EffectsModule.forRoot([
       UserEffects
     ]),
-    FacebookModule.forRoot()
+    FacebookModule.forRoot(),
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+Angular2SocialLoginModule.loadProvidersScripts(providers);

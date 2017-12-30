@@ -63,7 +63,17 @@ namespace MusicRecommendationWebApi.Controllers
         {
             var currentSong = this.cassandraConnector.getMapper()
             .Single<Song>("WHERE sid = ?", songId);
-
+            // user rate
+            var userRateEvents = this.cassandraConnector.getMapper()
+            .Fetch<UserEvent>("WHERE uid=? AND action_type=Rate", userId);
+            int userRateForCurrentSong = 0;
+            foreach(UserEvent userRatingEvent in userRateEvents) 
+            {
+                if (userRatingEvent.songId == songId) {
+                    userRateForCurrentSong = Int16.Parse(userRatingEvent.payload);
+                }
+            }
+            // end of get user rate
             var songSbResult = this.cassandraConnector.getMapper()
             .Single<SongCbResult>("WHERE sid = ?", songId);
             List<Song> similarSongs = new List<Song>();
@@ -89,6 +99,7 @@ namespace MusicRecommendationWebApi.Controllers
             }
             dynamic returnResult = new System.Dynamic.ExpandoObject();
             returnResult.currentSong = currentSong;
+            returnResult.userRateForCurrentSong = userRateForCurrentSong;
             returnResult.similarSongs = similarSongs;
             returnResult.nextPlaySongs = nextPlaySongs;
             return Ok(returnResult);

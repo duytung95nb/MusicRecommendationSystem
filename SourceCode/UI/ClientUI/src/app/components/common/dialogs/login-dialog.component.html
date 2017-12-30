@@ -3,16 +3,16 @@
         <button mat-raised-button color="warn" class="register-button">Đăng ký ngay!</button>
         <hr>
         <div class="social-login">
-            <div class="social-login__facebook">
+            <div class="social-login__facebook" (click)="onLoginWithFacebookClick()">
                 <i class="fa fa-facebook-square"></i>Đăng nhập với Facebook
             </div>
-            <div class="social-login__google">
+            <div class="social-login__google" (click)="onLoginWithGoogleClick()">
                 <i class="fa fa-google-plus-square"></i>Đăng nhập với Google +
             </div>
         </div>
     </div>
     <div class="login-dialog-content__login">
-        <h2 mat-dialog-title class="login-title">Đăng nhập asdas {{token | async}}</h2>
+        <h2 mat-dialog-title class="login-title">Đăng nhập {{token | async}}</h2>
         <mat-form-field class="input-username">
             <input [(ngModel)]="username" matInput type="text" placeholder="Username">
         </mat-form-field>

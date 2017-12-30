@@ -17,4 +17,8 @@ export class UserService{
         }
         return this.connector.post(this.apiRoute + "/login", body);
     }
+
+    loginSocial(userId: string): Observable<any> {
+        return this.connector.post(this.apiRoute + "/social-login?userId=" + userId);
+    }
 }
