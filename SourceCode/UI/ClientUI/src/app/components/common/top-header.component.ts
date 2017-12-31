@@ -41,5 +41,9 @@ export class TopHeaderComponent implements OnInit {
     }
     showLoginForm(): void {
         this.dialogRef = this.dialog.open(LoginDialog, LoginDialog.config);
+        this.dialogRef.afterClosed()
+        .subscribe(systemLoggedInResult => {
+            console.log("systemLoggedInResult", systemLoggedInResult);
+        });
     }
 }

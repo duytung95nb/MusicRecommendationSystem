@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit, OnDestroy, HostListener } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SongService } from "../helper/services";
 import { Song } from "../objects/song";
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -24,10 +24,11 @@ export class SongDetail implements OnInit, OnDestroy {
     private userRateForCurrentSong: number;
     constructor(private activatedRoute: ActivatedRoute,
         private songService: SongService,
+        private router: Router,
         private userEventService: UserEventService,
         private sanitizer: DomSanitizer,
         private facebookService: FacebookService) {
-        //TODO: change init param base on facebook app.
+            //TODO: change init param base on facebook app.
             let initParams: InitParams = {
                 appId: '121873418213397',
                 xfbml: true,
@@ -46,7 +47,7 @@ export class SongDetail implements OnInit, OnDestroy {
             self.songService.get(loggedInUserId, params['songId'])
                 .subscribe(result => {
                     self.currentSong = result.currentSong;
-                    self.userRateForCurrentSong = result.userRateForCurrentSong;
+                    self.userRateForCurrentSong = parseInt(result.userRateForCurrentSong);
                     self.currentIframeSource = self.sanitizer.bypassSecurityTrustResourceUrl("https://mp3.zing.vn/embed/song/" + result.currentSong.iframe + "?start=true");
                     self.similarSongs = result.similarSongs;
                     self.nextPlaySongs = result.nextPlaySongs;
@@ -56,6 +57,11 @@ export class SongDetail implements OnInit, OnDestroy {
 
     // get duration
     ngOnDestroy() {
+        this.logListenedEvent();
+        this.idSubscribe.unsubscribe();
+    }
+
+    logListenedEvent() {
         var loggedInUserId = this.loggedInUser ? this.loggedInUser.id : null;
         //TODO: need to change duration when we have this feature
         var duration = "450";
@@ -67,23 +73,25 @@ export class SongDetail implements OnInit, OnDestroy {
             null
         );
         this.userEventService.logUserEvent(userEvent)
-            .subscribe(result => {
-                console.log("Logged user event to database", result);
-            });
-        this.idSubscribe.unsubscribe();
+        .subscribe(result => {
+            console.log("Logged user event to database", result);
+        });
     }
 
     onRatingClick($event) {
-        this.userRateForCurrentSong = $event;   // replace value of rating here
+        this.userRateForCurrentSong = $event.rating;
         var loggedInUserId = this.loggedInUser ? this.loggedInUser.id : null;
         var userEvent = new UserEvent(
             loggedInUserId,
             this.currentSong.id,
             RATE,
             this.userRateForCurrentSong.toString(),
-            Date.now()
+            null
         );
-        this.userEventService.logUserEvent(userEvent);
+        this.userEventService.logUserEvent(userEvent)
+            .subscribe(result => {
+                console.log("Logged user event to database", result);
+            });
     }
 
     onAddToFavouriteClick() {
@@ -93,23 +101,27 @@ export class SongDetail implements OnInit, OnDestroy {
             this.currentSong.id,
             ADD_TO_FAVOURITE,
             "true",
-            Date.now()
+            null
         );
         this.userEventService.logUserEvent(userEvent);
     }
 
     onShareClick() {
+        var self = this;
         let params: UIParams = {
-            href: "https://www.npmjs.com/package/ng2-facebook-sdk",
+            href: window.location.host + self.router.url,
+            link: window.location.host + self.router.url,
+            picture: self.currentSong.thumbnail,
+            caption: "Share testing",
             method: 'share'
-          };
+        };
          
-          this.facebookService.ui(params)
-            .then((res: UIResponse) => {
-                // depend on response to log sharing event or not
-                console.log(res);
-            })
-            .catch((e: any) => console.error(e));
+        this.facebookService.ui(params)
+        .then((res: UIResponse) => {
+            // depend on response to log sharing event or not
+            console.log(res);
+        })
+        .catch((e: any) => console.error(e));
 
         // var loggedInUserId = this.loggedInUser ? this.loggedInUser.id : null;
         // var userEvent = new UserEvent(

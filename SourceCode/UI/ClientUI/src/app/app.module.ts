@@ -33,7 +33,7 @@ let providers = {
   },
   "facebook": {
     "clientId": "FACEBOOK_CLIENT_ID",
-    "apiVersion": "<version>" //like v2.4 
+    "apiVersion": "2.11" //like v2.4 
   }
 };
 
@@ -52,9 +52,8 @@ let providers = {
     CommonSiteModule,
     SharedModule,
     MaterialModule,
-    
-    Angular2SocialLoginModule,
     StarRatingModule.forRoot(),
+    Angular2SocialLoginModule,
     ServiceModule,
     StoreModule.forRoot({ root: userReducer}),
     StoreDevtoolsModule.instrument(),

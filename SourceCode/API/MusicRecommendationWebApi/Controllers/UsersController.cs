@@ -16,6 +16,7 @@ using System.Dynamic;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Cors;
+using MusicRecommendationWebApi.JsonObjectMappers;
 
 namespace MusicRecommendationWebApi.Controllers
 {
@@ -49,6 +50,28 @@ namespace MusicRecommendationWebApi.Controllers
             return new ObjectResult(successUserValidationData);
         }
 
+        [Route("social-login")]
+        [HttpPost]
+        public IActionResult socialLogin([FromBody] UserMapper user)
+        {
+            // JsonConvert.DeserializeObject(user);
+            User userChecked = GetUserByUsername(user.Username).Result;
+            if (userChecked == null) {
+                User newUser = new User();
+                newUser.Id = Guid.NewGuid();
+                newUser.Username = user.Username;
+                newUser.AvatarUrl = user.AvatarUrl;
+                newUser.Firstname = user.Firstname;
+                newUser.Lastname = user.Lastname;
+                this.cassandraConnector.getMapper()
+                                .Insert<User>(newUser);
+                userChecked = this.cassandraConnector.getMapper().Single<User>("WHERE username=?", newUser.Username);
+            }
+            dynamic successUserValidationData = new ExpandoObject();
+            successUserValidationData.token = GenerateToken(userChecked.Username);
+            successUserValidationData.userInfo = userChecked;
+            return new ObjectResult(successUserValidationData);
+        }
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)

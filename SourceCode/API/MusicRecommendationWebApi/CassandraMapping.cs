@@ -30,7 +30,8 @@ namespace MusicRecommendationWebApi
             .Column(s => s.Genre, cm => cm.WithName("genre"))
             .Column(s => s.Iframe, cm => cm.WithName("iframe"))
             .Column(s => s.song, cm => cm.WithName("song"))
-            .Column(s => s.Thumbnail, cm => cm.WithName("thumbnail"));
+            .Column(s => s.Thumbnail, cm => cm.WithName("thumbnail"))
+            .Column(s => s.Listened, cm => cm.WithName("listened"));
             For<UserCfResult>()
             .TableName("result_cf")
             .Column(s => s.userId, cm => cm.WithName("uid"))

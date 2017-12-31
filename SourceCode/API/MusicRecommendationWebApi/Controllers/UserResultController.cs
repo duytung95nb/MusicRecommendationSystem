@@ -32,16 +32,18 @@ namespace MusicRecommendationWebApi.Controllers
             if (isUserLoggedIn)
             {
                 var userCfResult = this.cassandraConnector.getMapper()
-                .Single<UserCfResult>("WHERE uid = ?", userId);
+                .SingleOrDefault<UserCfResult>("WHERE uid = ?", userId);
                 List<Song> cfRecommendedSongs = new List<Song>();
                 List<Song> listenedSongs = new List<Song>();
-                foreach (string songId in userCfResult.recommendedSongIds)
-                {
-                    var returnedSong = this.cassandraConnector.getMapper()
-                    .Single<Song>("WHERE sid = ?", songId);
-                    cfRecommendedSongs.Add(returnedSong);
+                if (userCfResult != null) {
+                    foreach (string songId in userCfResult.recommendedSongIds)
+                    {
+                        var returnedSong = this.cassandraConnector.getMapper()
+                        .Single<Song>("WHERE sid = ?", songId);
+                        cfRecommendedSongs.Add(returnedSong);
+                    }
+                    returnResult.cfRecommendedSongs = cfRecommendedSongs;
                 }
-                returnResult.cfRecommendedSongs = cfRecommendedSongs;
                 listenedSongs = this.GetListenedSongs(userId, 10);
                 returnResult.listenedSongs = listenedSongs;
                 // get recommendation base on user events
@@ -65,9 +67,10 @@ namespace MusicRecommendationWebApi.Controllers
             .Single<Song>("WHERE sid = ?", songId);
             // user rate
             var userRateEvents = this.cassandraConnector.getMapper()
-            .Fetch<UserEvent>("WHERE uid=? AND action_type=Rate", userId);
+            .Fetch<UserEvent>("WHERE uid=? AND action_type='rate'", userId);
             int userRateForCurrentSong = 0;
-            foreach(UserEvent userRatingEvent in userRateEvents) 
+            var userEventList = userRateEvents.ToList();
+            foreach(var userRatingEvent in userEventList) 
             {
                 if (userRatingEvent.songId == songId) {
                     userRateForCurrentSong = Int16.Parse(userRatingEvent.payload);

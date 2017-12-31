@@ -19,9 +19,9 @@ namespace MusicRecommendationWebApi.JsonObjectMappers
         [JsonProperty("Lastname")]
         public string Lastname { get; set; }
         [JsonProperty("Gender")]
-        public bool Gender { get; set; }
+        public bool? Gender { get; set; }
         [JsonProperty("Birthdate")]
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
         [JsonProperty("City")]
         public string City { get; set; }
     }

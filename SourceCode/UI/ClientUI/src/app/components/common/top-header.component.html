@@ -8,7 +8,7 @@
     <div class="top-header__main-nav">
         <a *ngIf="!loggedInInfo" mat-button class="login-button" routerLink="." (click)="showLoginForm()">Đăng nhập</a>
         <a *ngIf="loggedInInfo" class="user-profile dropdown-toggle login-button" (click)="onUserClicked()" data-toggle="dropdown" aria-expanded="false">
-            <img src="{{loggedInUser.avatarUrl}}" alt="">{{loggedInUser.username}}
+            <img src="{{loggedInUser.avatarUrl}}" alt="">{{loggedInUser.firstname}}
             <span class=" fa fa-angle-down"></span>
         </a>
         <ul *ngIf="isShowUserMenu"  class="user-menu">

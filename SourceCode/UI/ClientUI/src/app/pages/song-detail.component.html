@@ -26,15 +26,16 @@
                             [labelPosition]="'left'"
                             [staticColor]="'positive'"
                             [size]="'medium'"
+                            [hoverEnabled]="true"
                             (onClick)="onRatingClick($event)"
                             (onRatingChange)="onRatingChange($event)"
                             [rating]="userRateForCurrentSong">
                         </star-rating-comp>
                         <star-rating-comp class="rating__song-rate"
-                            [labelText]="currentSong.averageRating + '/5'"
+                            [labelText]="4.5 + '/5'"
                             [starType]="'svg'"
                             [labelPosition]="'left'"
-                            [rating]="currentSong.averageRating"
+                            [rating]="4.5"
                             [size]="'medium'" [showHalfStars]="true" [readOnly]="true">
                         </star-rating-comp>
                     </div>
