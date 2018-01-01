@@ -12,14 +12,14 @@
         </div>
     </div>
     <div class="login-dialog-content__login">
-        <h2 mat-dialog-title class="login-title">Đăng nhập {{token | async}}</h2>
+        <h2 mat-dialog-title class="login-title">Đăng nhập</h2>
         <mat-form-field class="input-username">
             <input [(ngModel)]="username" matInput type="text" placeholder="Username">
         </mat-form-field>
         <mat-form-field class="input-password">
             <input [(ngModel)]="password" matInput type="password" placeholder="Password">
         </mat-form-field>
-        <a href="">Quên mật khẩu? {{token | async}}</a>
+        <a href="">Quên mật khẩu?</a>
         <mat-dialog-actions>
             <button (click)="onLoginClicked()" mat-raised-button color="primary" class="login-button">Đăng nhập</button>
         </mat-dialog-actions>

@@ -37,6 +37,7 @@ namespace MusicRecommendationWebApi.Controllers
             var usersList = this.cassandraConnector.getMapper().Fetch<User>();
             return Ok(usersList);
         }
+
         [Route("login")]
         [HttpPost]
         public IActionResult Login([FromBody] Credentials user)
@@ -54,8 +55,9 @@ namespace MusicRecommendationWebApi.Controllers
         [HttpPost]
         public IActionResult socialLogin([FromBody] UserMapper user)
         {
-            // JsonConvert.DeserializeObject(user);
             User userChecked = GetUserByUsername(user.Username).Result;
+            dynamic successUserValidationData = new ExpandoObject();
+            successUserValidationData.isNewUser = userChecked == null;
             if (userChecked == null) {
                 User newUser = new User();
                 newUser.Id = Guid.NewGuid();
@@ -65,24 +67,14 @@ namespace MusicRecommendationWebApi.Controllers
                 newUser.Lastname = user.Lastname;
                 this.cassandraConnector.getMapper()
                                 .Insert<User>(newUser);
-                userChecked = this.cassandraConnector.getMapper().Single<User>("WHERE username=?", newUser.Username);
+                userChecked = this.cassandraConnector.getMapper()
+                    .Single<User>("WHERE username=?", newUser.Username);
             }
-            dynamic successUserValidationData = new ExpandoObject();
             successUserValidationData.token = GenerateToken(userChecked.Username);
             successUserValidationData.userInfo = userChecked;
             return new ObjectResult(successUserValidationData);
         }
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
         private string GenerateToken(string username)
         {
             var claims = new Claim[]

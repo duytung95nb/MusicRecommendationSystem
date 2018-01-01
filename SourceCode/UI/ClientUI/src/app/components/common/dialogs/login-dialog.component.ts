@@ -12,6 +12,7 @@ import { AuthService } from 'angular2-social-login';
 import { FacebookService } from 'ngx-facebook/dist/esm/providers/facebook';
 import { LoginResponse } from 'ngx-facebook';
 import { HttpConnector } from '../../../helper/http.connector';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'login-dialog',
@@ -31,20 +32,18 @@ export class LoginDialog{
     };
     private username: string;
     private password: string;
-    // private token: Observable<string>;
-    // private user: Observable<User>;
-    // private subscrition: ISubscription;
     constructor(public dialogRef: MatDialogRef<LoginDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         public userService: UserService,
         public authService: AuthService, 
         public facebook: FacebookService,
-        private httpConnector: HttpConnector) {
+        private httpConnector: HttpConnector,
+        private router: Router) {
         facebook.init({
             appId      : '121873418213397',
             cookie     : false, 
             xfbml      : true,  // parse social plugins on this page
-            version    : 'v2.11' // use graph api version 2.5
+            version    : 'v2.11'
         });
     }
 
@@ -69,22 +68,35 @@ export class LoginDialog{
         }
         var self = this;
         this.facebook.login(loginOptions)
-        .then((response: LoginResponse) => {
-            self.getUserFacebookProfile(response.authResponse.accessToken)
-            .subscribe((result) => {
-                var registeringUser = new User(result.id, result.id, result.id, result.picture.data.url, result.first_name, result.last_name, null, null, null);
-                self.userService.loginSocial(registeringUser)
-                    .subscribe(systemLoggedInResult => {
-                        // login success
-                        if (systemLoggedInResult.status === 200) {
-                            localStorage.setItem('loggedInInfo', systemLoggedInResult._body);
-                            self.dialogRef.close(systemLoggedInResult);
-                            window.location.reload();
-                        }
+            .then((response: LoginResponse) => {
+                self.getUserFacebookProfile(response.authResponse.accessToken)
+                    .subscribe((result) => {
+                        var registeringUser = new User(result.id,
+                                result.id,
+                                result.id,
+                                result.picture.data.url,
+                                result.first_name,
+                                result.last_name,
+                                null,
+                                null,
+                                null);
+                        self.userService.loginSocial(registeringUser)
+                            .subscribe(systemLoggedInResult => {
+                                // login success
+                                if (systemLoggedInResult.status === 200) {
+                                    localStorage.setItem('loggedInInfo', systemLoggedInResult._body);
+                                    self.dialogRef.close(systemLoggedInResult);
+                                    if (systemLoggedInResult._body.isNewUser) {
+                                        self.router.navigate(['init-profile']);
+                                    }
+                                    else {
+                                        window.location.reload();
+                                    }
+                                }
+                            });
                     });
-            });
-        })
-        .catch(e => console.error('Error logging in', e));
+            })
+            .catch(e => console.error('Error logging in', e));
     }
 
     getUserFacebookProfile(accessToken:string):Observable<any>{

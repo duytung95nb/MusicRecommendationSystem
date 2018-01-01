@@ -5,10 +5,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
  * @title Stepper overview
  */
 @Component({
-  templateUrl: 'add-profile.component.html',
-  styleUrls: ['./add-profile.component.css']
+  templateUrl: 'init-profile.component.html',
+  styleUrls: ['./init-profile.component.css']
 })
-export class StepperOverviewExample {
+export class InitProfile {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
