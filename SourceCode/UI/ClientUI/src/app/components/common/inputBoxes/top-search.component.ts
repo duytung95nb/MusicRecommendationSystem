@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from "rxjs/Observable";
+import { MatAutocompleteSelectedEvent } from "@angular/material";
 
 @Component({
     selector: 'top-search',
@@ -9,26 +10,26 @@ import { Observable } from "rxjs/Observable";
 })
 
 export class TopSearch {
+    @Input() options: Array<any>;
+    @Input() placeholderText: String;
+    @Output() optionSelected: EventEmitter<MatAutocompleteSelectedEvent> = new EventEmitter<MatAutocompleteSelectedEvent>();
     myControl: FormControl = new FormControl();
     myGroup: FormGroup = new FormGroup({
         searchInput: this.myControl
     });
-    options = [
-        'One',
-        'Two',
-        'Three'
-    ];
 
     filteredOptions: Observable<string[]>;
 
     ngOnInit() {
+        var self = this;
         this.filteredOptions = this.myControl.valueChanges
             .startWith(null)
-            .map(val => val ? this.filter(val) : this.options.slice());
+            .map(val => 
+                val ? this.filter(val): null);
     }
 
-    filter(val: string): string[] {
+    filter(val: string): Array<any> {
         return this.options.filter(option =>
-            option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+            option.name.toLowerCase().indexOf(val.toLowerCase()) === 0);
     }
 }

@@ -23,6 +23,7 @@ import { User } from './objects/user';
 import { ServiceModule } from './helper/serviceModule';
 import { FacebookModule } from 'ngx-facebook';
 import {Angular2SocialLoginModule} from 'angular2-social-login';
+import { InitProfile } from './pages/init-profile.component';
 
 let providers = {
   "google": {
@@ -41,7 +42,8 @@ let providers = {
   declarations: [
     AppComponent,
     HomePageComponent,
-    SongDetail
+    SongDetail,
+    InitProfile
   ],
   imports: [
     BrowserModule,

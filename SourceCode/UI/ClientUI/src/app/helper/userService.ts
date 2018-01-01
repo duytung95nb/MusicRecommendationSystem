@@ -22,4 +22,16 @@ export class UserService{
         var body = user;
         return this.connector.post(this.apiRoute + "/social-login", body);
     }
+
+    public getInitialData(): Observable<any> {
+        return this.connector.get(this.apiRoute + "/initial-data")
+            .map(res => res.json());
+    }
+
+    public submitInitialData(userId: string, data: any): Observable<any> {
+        var body = null;
+        body.userId = userId;
+        body.data = data;
+        return this.connector.post(this.apiRoute + "/save-initial", body);
+    }
 }

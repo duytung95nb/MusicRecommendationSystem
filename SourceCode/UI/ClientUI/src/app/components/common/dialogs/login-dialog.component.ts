@@ -85,8 +85,9 @@ export class LoginDialog{
                                 // login success
                                 if (systemLoggedInResult.status === 200) {
                                     localStorage.setItem('loggedInInfo', systemLoggedInResult._body);
+                                    var loggedInDataObject = JSON.parse(systemLoggedInResult._body);
                                     self.dialogRef.close(systemLoggedInResult);
-                                    if (systemLoggedInResult._body.isNewUser) {
+                                    if (loggedInDataObject.isNewUser) {
                                         self.router.navigate(['init-profile']);
                                     }
                                     else {

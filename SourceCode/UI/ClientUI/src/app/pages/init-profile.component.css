@@ -1,0 +1,25 @@
+.selections-container {
+
+}
+
+.selections-container {
+
+}
+
+.selections-container .option {
+
+}
+
+.selections-container .option input[type=checkbox]{
+    display: none;
+}
+
+.selections-container .option .option__name {
+    padding: 4px;
+}
+
+.selections-container .option input[type=checkbox]:checked ~ .option__name{
+    background-color: #ff4081;
+    color: white;
+    border-radius: 5px;
+}

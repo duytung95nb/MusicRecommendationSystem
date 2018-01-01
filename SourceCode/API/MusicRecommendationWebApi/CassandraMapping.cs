@@ -47,6 +47,18 @@ namespace MusicRecommendationWebApi
             .TableName("result_cb_item_item")
             .Column(s => s.Id , cm => cm.WithName("sid"))
             .Column(u => u.recommendations  , cm => cm.WithName("recommendations"));
+            For<Genre>()
+            .TableName("genres")
+            .Column(s => s.index , cm => cm.WithName("idx"))
+            .Column(u => u.name  , cm => cm.WithName("name"));
+            For<Composer>()
+            .TableName("composers")
+            .Column(s => s.index , cm => cm.WithName("idx"))
+            .Column(u => u.name  , cm => cm.WithName("name"));
+            For<Artist>()
+            .TableName("artists")
+            .Column(s => s.index , cm => cm.WithName("idx"))
+            .Column(u => u.name  , cm => cm.WithName("name"));
 
         }
     }

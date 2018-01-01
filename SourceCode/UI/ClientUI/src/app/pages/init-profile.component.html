@@ -1,21 +1,55 @@
-<mat-horizontal-stepper>
-    <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Fill out your address</ng-template>
-            <mat-form-field>
-                <input matInput placeholder="Address" formControlName="secondCtrl" required>
-            </mat-form-field>
+<mat-horizontal-stepper [linear]="isLinear">
+    <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup" class="genres-container">
+            <ng-template matStepLabel>Chọn thể loại bạn thích:</ng-template>
+            <div class="selections-container container" *ngIf="genres">
+                <div>
+                    <top-search [placeholderText]="'Tìm kiếm thể  loại'" [options]="genres"></top-search>
+                </div>
+                <div class="option col-xs-1" *ngFor="let genre of genres; trackBy: genre?.index">
+                    <input type="checkbox" id="genre_{{genre.index}}" value="genre.index" (change)="onCheckedChange(genre.index, $event.target.checked)">
+                    <label class="option__name" for="genre_{{genre.index}}">{{genre.name}}</label>
+                </div>
+            </div>
             <div>
-                <button mat-button matStepperNext>Next</button>
+                <button mat-raised-button color="primary" (click)="onGenresSubmit()" matStepperNext>Tiếp</button>
             </div>
         </form>
     </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
+    <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup" (ngSubmit)="onArtistsSubmit()">
+        <ng-template matStepLabel>Chọn nghệ sĩ bạn thích:</ng-template>
+        <div class="selections-container container" *ngIf="artists">
+                <div>
+                    <top-search [placeholderText]="'Tìm kiếm nghệ sĩ'" [options]="artists"></top-search>
+                </div>
+                <div class="option col-xs-1" *ngFor="let artist of artists; trackBy: artists?.index">
+                    <input type="checkbox" id="artist_{{artist.index}}">
+                    <label class="option__name" for="artist_{{artist.index}}">{{artist.name}}</label>
+                </div>
+            </div>
         <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperPrevious>Done</button>
+        <button mat-raised-button color="basic" matStepperPrevious>Về</button>
+        <button mat-raised-button color="primary" type="submit" matStepperNext>Tiếp</button>
         </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <form [formGroup]="composerFormGroup" (ngSubmit)="onComposersSubmit()">
+            <ng-template matStepLabel>Chọn tác giả bạn thích:</ng-template>
+            <div class="selections-container container" *ngIf="composers">
+                    <div>
+                        <top-search [placeholderText]="'Tìm kiếm tác giả'" [options]="composers"></top-search>
+                    </div>
+                    <div class="option col-xs-1" *ngFor="let composer of composers; trackBy: composer?.index">
+                        <input type="checkbox" id="composer_{{composer.index}}">
+                        <label class="option__name" for="composer_{{composer.index}}">{{composer.name}}</label>
+                    </div>
+            </div>
+            <div>
+                <button mat-raised-button color="basic" matStepperPrevious>Về</button>
+                <button mat-raised-button color="accent" type="submit" matStepperNext>Xong</button>
+            </div>
+        </form>
     </mat-step>
 </mat-horizontal-stepper>

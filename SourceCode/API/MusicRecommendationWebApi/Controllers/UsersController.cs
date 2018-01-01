@@ -57,7 +57,7 @@ namespace MusicRecommendationWebApi.Controllers
         {
             User userChecked = GetUserByUsername(user.Username).Result;
             dynamic successUserValidationData = new ExpandoObject();
-            successUserValidationData.isNewUser = userChecked == null;
+            successUserValidationData.isNewUser = userChecked == null? true: false;
             if (userChecked == null) {
                 User newUser = new User();
                 newUser.Id = Guid.NewGuid();
@@ -73,6 +73,28 @@ namespace MusicRecommendationWebApi.Controllers
             successUserValidationData.token = GenerateToken(userChecked.Username);
             successUserValidationData.userInfo = userChecked;
             return new ObjectResult(successUserValidationData);
+        }
+
+        [Route("initial-data")]
+        [HttpGet]
+        public IActionResult InitialData()
+        {
+            dynamic initialData = new ExpandoObject();
+            initialData.genres = this.cassandraConnector.getMapper().Fetch<Genre>();
+            initialData.composers = this.cassandraConnector.getMapper().Fetch<Composer>();
+            initialData.artists = this.cassandraConnector.getMapper().Fetch<Artist>();
+            return Ok(new ObjectResult(initialData));
+        }
+
+        [Route("save-initial")]
+        [HttpPost]
+        public IActionResult SaveInitial([FromBody] string userId, dynamic formData)
+        {
+            dynamic initialData = new ExpandoObject();
+            initialData.genres = this.cassandraConnector.getMapper().Fetch<Genre>();
+            initialData.composers = this.cassandraConnector.getMapper().Fetch<Composer>();
+            initialData.artists = this.cassandraConnector.getMapper().Fetch<Artist>();
+            return Ok(new ObjectResult(initialData));
         }
 
         private string GenerateToken(string username)
@@ -95,7 +117,7 @@ namespace MusicRecommendationWebApi.Controllers
         private async Task<User> GetUserByUsername(string username)
         {
             User userChecked = await this.cassandraConnector.getMapper()
-            .FirstOrDefaultAsync<User>("SELECT * FROM user WHERE username = ?", username);
+                .FirstOrDefaultAsync<User>("SELECT * FROM user WHERE username = ?", username);
             return userChecked;
         }
     }

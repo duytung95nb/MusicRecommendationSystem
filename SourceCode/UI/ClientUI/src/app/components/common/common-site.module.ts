@@ -25,7 +25,8 @@ import { MaterialModule } from '../../material.module';
         TopHeaderComponent,
         FooterComponent,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TopSearch
     ],
     entryComponents: [
         LoginDialog
