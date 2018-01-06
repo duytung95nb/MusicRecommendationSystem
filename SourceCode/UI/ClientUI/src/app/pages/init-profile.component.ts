@@ -55,47 +55,35 @@ export class InitProfile {
       formValues.removeAt(index);
     }
   }
-
-  onGenresSubmit() {
+  
+  onInitialProfileSubmit (event) {
     var selectedGenreIndexes = this.firstFormGroup.getRawValue().values;
-    var indexesArray = new Array();
-    indexesArray.length = this.genres.length;
-    indexesArray.fill(0);
+    var genreIndexesArray = new Array();
+    genreIndexesArray.length = this.genres.length;
+    genreIndexesArray.fill(0);
     for(var i=0; i< selectedGenreIndexes.length; i++) {
-      indexesArray[selectedGenreIndexes[i]] = 1;
+      genreIndexesArray[selectedGenreIndexes[i]] = 1;
     }
 
-    this.userService.submitInitialData(this.loggedInUser.id, indexesArray)
-      .subscribe(result => {
-        console.log(result);
-      });
-  }
-  
-  onArtistsSubmit = () => {
     var selectedArtistIndexes = this.secondFormGroup.getRawValue().values;
-    var indexesArray = new Array();
-    indexesArray.length = this.genres.length;
-    indexesArray.fill(0);
+    var artistIndexesArray = new Array();
+    artistIndexesArray.length = this.artists.length;
+    artistIndexesArray.fill(0);
     for(var i=0; i< selectedArtistIndexes.length; i++) {
-      indexesArray[selectedArtistIndexes[i]] = 1;
+      artistIndexesArray[selectedArtistIndexes[i]] = 1;
     }
-    this.userService.submitInitialData(this.loggedInUser.id, indexesArray)
-      .subscribe(result => {
-        console.log(result);
-      });
-  }
-  
-  onComposersSubmit = () => {
+
     var selectedComposerIndexes = this.composerFormGroup.getRawValue().values;
-    var indexesArray = new Array();
-    indexesArray.length = this.genres.length;
-    indexesArray.fill(0);
+    var composerIndexesArray = new Array();
+    composerIndexesArray.length = this.genres.length;
+    composerIndexesArray.fill(0);
     for(var i=0; i< selectedComposerIndexes.length; i++) {
-      indexesArray[selectedComposerIndexes[i]] = 1;
+      composerIndexesArray[selectedComposerIndexes[i]] = 1;
     }
-    this.userService.submitInitialData(this.loggedInUser.id, indexesArray)
+    this.userService.submitInitialData(this.loggedInUser.id, genreIndexesArray, artistIndexesArray, composerIndexesArray)
       .subscribe(result => {
         console.log(result);
       });
+    event.stopPropagation();
   }
 }

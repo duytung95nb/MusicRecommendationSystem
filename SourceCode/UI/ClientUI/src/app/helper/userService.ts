@@ -28,10 +28,13 @@ export class UserService{
             .map(res => res.json());
     }
 
-    public submitInitialData(userId: string, data: any): Observable<any> {
-        var body = null;
-        body.userId = userId;
-        body.data = data;
+    public submitInitialData(userId: string, genreIndexesArray: any, artistIndexesArray: any, composerIndexesArray: any): Observable<any> {
+        var body = {
+            id: userId,
+            genreIndexesArray: genreIndexesArray,
+            artistIndexesArray: artistIndexesArray,
+            composerIndexesArray: composerIndexesArray
+        };
         return this.connector.post(this.apiRoute + "/save-initial", body);
     }
 }

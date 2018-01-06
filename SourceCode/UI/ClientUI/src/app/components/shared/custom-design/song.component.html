@@ -6,7 +6,7 @@
                 <div class="image view view-first">
                     <img style="width: 100%; display: block;" src="{{song.thumbnail}}" alt="image" />
                     <div class="mask">
-                        <p>{{song.song | ellipsis:15 }}</p>
+                        <p>{{song.song}}</p>
                         <div class="tools tools-bottom">
                             <a (click)="onSongClicked(song)">
                                 <i class="fa fa-play"></i>
@@ -16,9 +16,9 @@
                 </div>
                 <div class="caption">
                     <p>
-                        <strong>{{song.song | ellipsis:15 }}</strong>
+                        <strong>{{song.song}}</strong>
                     </p>
-                    <p>{{song.artist | ellipsis:15 }}</p>
+                    <p>{{song.artist}}</p>
                 </div>
             </div>
         </div>

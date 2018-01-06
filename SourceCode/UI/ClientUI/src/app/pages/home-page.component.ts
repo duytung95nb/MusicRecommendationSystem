@@ -4,6 +4,7 @@ import { Song } from "../objects/song";
 import { TestDate } from "../objects/date";
 import { ActivatedRoute } from "@angular/router";
 import { User } from "../objects/user";
+import { LISTEN, RATE, ADD_TO_FAVOURITE,DOWNLOAD, SHARE } from "../actions/UserAction";
 
 @Component({
     templateUrl: 'home-page.component.html',
@@ -37,6 +38,23 @@ export class HomePageComponent implements OnInit {
             this.songService.getRegularCommendation().subscribe(returnedResult => {
                 self.mostPopularSongs = returnedResult.mostPopularSongs;
             });
+        }
+    }
+
+    getActionRecommendText(actionType: string) {
+        switch(actionType) {
+            case RATE:
+                return "bình chọn";
+            case LISTEN:
+                return "nghe";
+            case ADD_TO_FAVOURITE:
+                return "thêm vào yêu thích";
+            case DOWNLOAD:
+                return "tải";
+            case SHARE:
+                return "chia sẻ";
+            default:
+                return '';
         }
     }
 }

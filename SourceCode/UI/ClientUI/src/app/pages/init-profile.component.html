@@ -12,12 +12,12 @@
                 </div>
             </div>
             <div>
-                <button mat-raised-button color="primary" (click)="onGenresSubmit()" matStepperNext>Tiếp</button>
+                <button mat-raised-button color="primary" matStepperNext>Tiếp</button>
             </div>
         </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup" (ngSubmit)="onArtistsSubmit()">
+        <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Chọn nghệ sĩ bạn thích:</ng-template>
         <div class="selections-container container" *ngIf="artists">
                 <div>
@@ -30,12 +30,12 @@
             </div>
         <div>
         <button mat-raised-button color="basic" matStepperPrevious>Về</button>
-        <button mat-raised-button color="primary" type="submit" matStepperNext>Tiếp</button>
+        <button mat-raised-button color="primary" matStepperNext>Tiếp</button>
         </div>
         </form>
     </mat-step>
     <mat-step>
-        <form [formGroup]="composerFormGroup" (ngSubmit)="onComposersSubmit()">
+        <form [formGroup]="composerFormGroup">
             <ng-template matStepLabel>Chọn tác giả bạn thích:</ng-template>
             <div class="selections-container container" *ngIf="composers">
                     <div>
@@ -48,7 +48,7 @@
             </div>
             <div>
                 <button mat-raised-button color="basic" matStepperPrevious>Về</button>
-                <button mat-raised-button color="accent" type="submit" matStepperNext>Xong</button>
+                <button mat-raised-button color="accent" type="submit" (click)="onInitialProfileSubmit($event)" matStepperNext>Xong</button>
             </div>
         </form>
     </mat-step>

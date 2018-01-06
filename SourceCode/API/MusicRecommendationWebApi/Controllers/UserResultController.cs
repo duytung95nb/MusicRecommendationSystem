@@ -34,7 +34,7 @@ namespace MusicRecommendationWebApi.Controllers
                 var userCfResult = this.cassandraConnector.getMapper()
                 .SingleOrDefault<UserCfResult>("WHERE uid = ?", userId);
                 List<Song> cfRecommendedSongs = new List<Song>();
-                List<Song> listenedSongs = new List<Song>();
+                HashSet<Song> listenedSongs = new HashSet<Song>();
                 if (userCfResult != null) {
                     foreach (string songId in userCfResult.recommendedSongIds)
                     {
@@ -44,13 +44,23 @@ namespace MusicRecommendationWebApi.Controllers
                     }
                     returnResult.cfRecommendedSongs = cfRecommendedSongs;
                 }
-                listenedSongs = this.GetListenedSongs(userId, 10);
+                listenedSongs = this.GetUniqueListenedSongs(userId, 10);
                 returnResult.listenedSongs = listenedSongs;
                 // get recommendation base on user events
-                IEnumerable<UserEvent> top3LatestUserEvents = this.cassandraConnector.getMapper()
-                .Fetch<UserEvent>("WHERE uid = ? ORDER BY timestamp DESC LIMIT 3", userId);
+                List<UserEvent> userEventsOrdered = this.cassandraConnector.getMapper()
+                    .Fetch<UserEvent>("WHERE uid = ? ORDER BY timestamp DESC", userId).ToList();
+                List<UserEvent> top3LatestDistinctUserEvents = new List<UserEvent>();
+                int maxNumberOfDistinctUserEvents = 3;
+                foreach(var userEvent in userEventsOrdered) {
+                    if(!isSongIdExistsInUserevents(userEvent.songId, top3LatestDistinctUserEvents)) {
+                        top3LatestDistinctUserEvents.Add(userEvent);
+                        maxNumberOfDistinctUserEvents--;
+                        if (maxNumberOfDistinctUserEvents == 0)
+                            break;
+                    }
+                }
                 returnResult.userEventRecommendations = this.GetRecommendationsBaseOnUserEvents(
-                    top3LatestUserEvents.ToList(), 10);
+                    top3LatestDistinctUserEvents, 10);
             }
 
             var mostPopularSongs = this.GetTopWeeklySongs();
@@ -93,10 +103,10 @@ namespace MusicRecommendationWebApi.Controllers
             nextPlaySongs = sameAlbumSongs.ToList();
             if (sameAlbumSongs.Count() < 10)
             {
-                List<Song> additionalListenedSongs = new List<Song>();
+                HashSet<Song> additionalListenedSongs = new HashSet<Song>();
                 if (userId != null)
                 {
-                    additionalListenedSongs = this.GetListenedSongs(userId, 10 - sameAlbumSongs.Count());
+                    additionalListenedSongs = this.GetUniqueListenedSongs(userId, 10 - sameAlbumSongs.Count());
                 }
                 nextPlaySongs.Concat(additionalListenedSongs);
             }
@@ -108,18 +118,19 @@ namespace MusicRecommendationWebApi.Controllers
             return Ok(returnResult);
         }
 
-        private List<Song> GetListenedSongs(string userId, int limit)
+        private HashSet<Song> GetUniqueListenedSongs(string userId, int limit)
         {
             IEnumerable<string> listenedSongIds = this.cassandraConnector.getMapper()
-            .Fetch<string>("SELECT song_id FROM user_event WHERE uid = ? ORDER BY timestamp DESC LIMIT ?", userId, limit);
+                .Fetch<string>("SELECT song_id FROM user_event WHERE uid = ? ORDER BY timestamp DESC LIMIT ?", userId, limit);
             List<Song> listenedSongs = new List<Song>();
-            foreach (string songId in listenedSongIds)
+            foreach (string songId in listenedSongIds.Distinct())
             {
                 var returnedSong = this.cassandraConnector.getMapper()
-                .Single<Song>("WHERE sid = ?", songId);
+                    .Single<Song>("WHERE sid = ?", songId);
                 listenedSongs.Add(returnedSong);
             }
-            return listenedSongs;
+            var uniqueListenedSongs = new HashSet<Song>(listenedSongs);
+            return uniqueListenedSongs;
         }
 
         private List<Song> GetTopWeeklySongs()
@@ -158,6 +169,13 @@ namespace MusicRecommendationWebApi.Controllers
             return returnResult;
         }
 
+        private bool isSongIdExistsInUserevents(string songId, List<UserEvent> userEvents) {
+            foreach(var userEvent in userEvents) {
+                if (songId == userEvent.songId)
+                    return true;
+            }
+            return false;
+        }
         private class SongToRecommend
         {
             public string actionType;

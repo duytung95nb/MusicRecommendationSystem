@@ -3105,7 +3105,7 @@ ul.project_files li a i {
     border-right: 2px solid transparent
 }
 .thumbnail .image {
-    height: 120px;
+    height: 180px;
     overflow: hidden
 }
 .caption {
@@ -3113,10 +3113,17 @@ ul.project_files li a i {
     background: #F7F7F7
 }
 .caption p {
-    margin-bottom: 5px
+    margin-bottom: 5px;
+    width: 100%;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.caption p strong {
+    white-space: nowrap;
 }
 .thumbnail {
-    height: 190px;
+    height: 250px;
     overflow: hidden
 }
 .view {
@@ -3146,7 +3153,7 @@ ul.project_files li a i {
     font-size: 17px;
     padding: 3px;
     background: rgba(0, 0, 0, 0.35);
-    margin: 43px 0 0 0
+    margin: 100px 0 0 0
 }
 .mask.no-caption .tools {
     margin: 90px 0 0 0
@@ -3182,7 +3189,8 @@ ul.project_files li a i {
 .view-first .mask {
     opacity: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    transition: all 0.4s ease-in-out
+    transition: all 0.4s ease-in-out;
+    height: 100%;
 }
 .view-first .tools {
     transform: translateY(-100px);

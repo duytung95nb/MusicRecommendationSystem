@@ -88,13 +88,30 @@ namespace MusicRecommendationWebApi.Controllers
 
         [Route("save-initial")]
         [HttpPost]
-        public IActionResult SaveInitial([FromBody] string userId, dynamic formData)
+        public IActionResult SaveInitial([FromBody] InitialUserProfile initialUserProfile)
         {
-            dynamic initialData = new ExpandoObject();
-            initialData.genres = this.cassandraConnector.getMapper().Fetch<Genre>();
-            initialData.composers = this.cassandraConnector.getMapper().Fetch<Composer>();
-            initialData.artists = this.cassandraConnector.getMapper().Fetch<Artist>();
-            return Ok(new ObjectResult(initialData));
+            try {
+                InitProfileGenre initProfileGenre = new InitProfileGenre();
+                initProfileGenre.uid = initialUserProfile.id;
+                initProfileGenre.profile = initialUserProfile.genres;
+                this.cassandraConnector.getMapper().Insert<InitProfileGenre>(initProfileGenre);
+
+
+                InitProfileArtist initProfileArtist = new InitProfileArtist();
+                initProfileArtist.uid = initialUserProfile.id;
+                initProfileArtist.profile = initialUserProfile.artists;
+                this.cassandraConnector.getMapper().Insert<InitProfileArtist>(initProfileArtist);
+
+                InitProfileComposer initProfileComposer = new InitProfileComposer();
+                initProfileComposer.uid = initialUserProfile.id;
+                initProfileComposer.profile = initialUserProfile.composers;
+                this.cassandraConnector.getMapper().Insert<InitProfileComposer>(initProfileComposer);
+
+                return Ok(new ObjectResult(initialUserProfile.id));
+            }
+            catch {
+                return BadRequest();
+            }
         }
 
         private string GenerateToken(string username)

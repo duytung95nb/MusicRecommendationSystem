@@ -160,4 +160,7 @@
 .single-song {
     cursor: pointer;
 }
+.single-song .caption {
+    text-overflow: ellipsis;
+}
 /* end of song */
