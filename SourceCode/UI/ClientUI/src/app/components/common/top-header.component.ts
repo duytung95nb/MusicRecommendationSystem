@@ -16,9 +16,9 @@ import { AppState } from '../../reducers/userReducer';
 })
 
 export class TopHeaderComponent implements OnInit {
-    private loggedInInfo: any;
-    private loggedInUser: User;
-    private isShowUserMenu: boolean;
+    public loggedInInfo: any;
+    public loggedInUser: User;
+    public isShowUserMenu: boolean;
     dialogRef: MatDialogRef<LoginDialog>;
     constructor(public dialog: MatDialog, private router: Router) {
         this.loggedInInfo = localStorage.getItem('loggedInInfo');

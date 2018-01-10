@@ -14,10 +14,10 @@ import { LISTEN, RATE, ADD_TO_FAVOURITE,DOWNLOAD, SHARE } from "../actions/UserA
 export class HomePageComponent implements OnInit {
     public userid: string;
     public user: any;
-    private listenedSongs: any[];
-    private mostPopularSongs: Song[];
+    public listenedSongs: any[];
+    public mostPopularSongs: Song[];
     public collaborativeSongs: any[];
-    private userEventRecommendations: any;
+    public userEventRecommendations: any;
     constructor(private songService: SongService, private activatedRoute: ActivatedRoute) {
     }
     ngOnInit() {

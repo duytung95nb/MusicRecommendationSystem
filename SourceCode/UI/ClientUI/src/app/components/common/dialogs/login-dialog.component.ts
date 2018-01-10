@@ -30,8 +30,8 @@ export class LoginDialog{
         maxWidth: '600px',
         maxHeight: '400px'
     };
-    private username: string;
-    private password: string;
+    public username: string;
+    public password: string;
     constructor(public dialogRef: MatDialogRef<LoginDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         public userService: UserService,

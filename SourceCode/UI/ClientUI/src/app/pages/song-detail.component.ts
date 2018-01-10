@@ -15,13 +15,13 @@ import { FacebookService } from "ngx-facebook/dist/esm/providers/facebook";
 })
 
 export class SongDetail implements OnInit, OnDestroy {
-    private idSubscribe: any;
-    private currentSong: Song;
-    private currentIframeSource: SafeUrl;
-    private similarSongs: Song[];
-    private nextPlaySongs: Song[];
-    private loggedInUser: any;
-    private userRateForCurrentSong: number;
+    public idSubscribe: any;
+    public currentSong: Song;
+    public currentIframeSource: SafeUrl;
+    public similarSongs: Song[];
+    public nextPlaySongs: Song[];
+    public loggedInUser: any;
+    public userRateForCurrentSong: number;
     constructor(private activatedRoute: ActivatedRoute,
         private songService: SongService,
         private router: Router,
