@@ -6,7 +6,7 @@ import { User } from "../objects/user";
 
 @Injectable()
 export class UserService{
-    private apiRoute: string = 'http://localhost:5000/api/users';
+    private apiRoute: string = 'http://198.143.141.37:5000/api/users';
     constructor(private connector: HttpConnector){
     }
     private data: string;
