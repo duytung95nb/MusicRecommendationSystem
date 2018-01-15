@@ -12,7 +12,7 @@ export class SongService {
     private detailApiRoute: string = 'http://localhost:5000/api/recommendations/detail';
     // private homeApiRoute: string = 'http://198.143.141.37:5000/api/recommendations/home';
     // private detailApiRoute: string = 'http://198.143.141.37:5000/api/recommendations/detail';
-    
+
     private collaborative: string = 'collaborative';
     private contentBased: string = 'contentbased';
     constructor(private connector: HttpConnector) {
