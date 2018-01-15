@@ -71,6 +71,18 @@ namespace MusicRecommendationWebApi
             .TableName("u_profile_composer")
             .Column(u => u.uid , cm => cm.WithName("uid"))
             .Column(u => u.profile  , cm => cm.WithName("profile"));
+            For<RecommendationByGenre>()
+            .TableName("result_cb_user_item_genre")
+            .Column(u => u.uid , cm => cm.WithName("uid"))
+            .Column(u => u.recommendations  , cm => cm.WithName("recommendations"));
+            For<RecommendationByArtist>()
+            .TableName("result_cb_user_item_artist")
+            .Column(u => u.uid , cm => cm.WithName("uid"))
+            .Column(u => u.recommendations  , cm => cm.WithName("recommendations"));
+            For<RecommendationByComposer>()
+            .TableName("result_cb_user_item_composer")
+            .Column(u => u.uid , cm => cm.WithName("uid"))
+            .Column(u => u.recommendations  , cm => cm.WithName("recommendations"));
         }
     }
 }

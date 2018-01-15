@@ -61,6 +61,10 @@ namespace MusicRecommendationWebApi.Controllers
                 }
                 returnResult.userEventRecommendations = this.GetRecommendationsBaseOnUserEvents(
                     top3LatestDistinctUserEvents, 10);
+                // get recommendations base on user taste
+                returnResult.artistRecommendations = GetRecommendationsBaseOnTaste(userId, "artist", 10);;
+                returnResult.genreRecommendations = GetRecommendationsBaseOnTaste(userId, "genre", 10);
+                returnResult.composerRecommendations = GetRecommendationsBaseOnTaste(userId, "composer", 10);
             }
 
             var mostPopularSongs = this.GetTopWeeklySongs();
@@ -169,6 +173,51 @@ namespace MusicRecommendationWebApi.Controllers
             return returnResult;
         }
 
+        private TasteRecommend GetRecommendationsBaseOnTaste(string userId, string tasteType, int numberOfRecommendationPerEvent)
+        {
+            List<string> songIds = new List<string>();
+            switch(tasteType) {
+                case "genre":
+                var genreRecommendations = new TasteRecommend();
+                songIds = this.cassandraConnector.getMapper()
+                    .Single<RecommendationByGenre>("WHERE uid = ?", userId)
+                    .recommendations;
+                genreRecommendations.uid = userId;
+                genreRecommendations.recommendType = tasteType;
+                genreRecommendations.recommendations = this.cassandraConnector.getMapper()
+                    .Fetch<Song>("WHERE sid IN ? LIMIT ?", songIds, numberOfRecommendationPerEvent)
+                    .ToList();
+                return genreRecommendations;
+                case "artist":
+                    var artistRecommendations = new TasteRecommend();
+                    songIds = this.cassandraConnector.getMapper()
+                        .Single<RecommendationByArtist>("WHERE uid = ?", userId)
+                        .recommendations;
+                    
+                    artistRecommendations.uid = userId;
+                    artistRecommendations.recommendType = tasteType;
+                    artistRecommendations.recommendations = this.cassandraConnector.getMapper()
+                        .Fetch<Song>("WHERE sid IN ? LIMIT ?", songIds, numberOfRecommendationPerEvent)
+                        .ToList();
+                    return artistRecommendations;
+                case "composer":
+                    var composerRecommendations = new TasteRecommend();
+                    songIds = this.cassandraConnector.getMapper()
+                        .Single<RecommendationByComposer>("WHERE uid = ?", userId)
+                        .recommendations;
+
+                    composerRecommendations.uid = userId;
+                    composerRecommendations.recommendType = tasteType;
+                    composerRecommendations.recommendations = this.cassandraConnector.getMapper()
+                        .Fetch<Song>("WHERE sid IN ? LIMIT ?", songIds, numberOfRecommendationPerEvent)
+                        .ToList();
+                    return composerRecommendations;
+                default:
+                    return null;
+            }
+        }
+
+        
         private bool isSongIdExistsInUserevents(string songId, List<UserEvent> userEvents) {
             foreach(var userEvent in userEvents) {
                 if (songId == userEvent.songId)
@@ -185,6 +234,18 @@ namespace MusicRecommendationWebApi.Controllers
             {
                 actionType = "";
                 relatedSongs = new List<Song>();
+            }
+        }
+        private class TasteRecommend
+        {
+            public string uid;
+            public string recommendType;
+            public List<Song> recommendations; 
+            public TasteRecommend()
+            {
+                uid = "";
+                recommendType = "";
+                recommendations = new List<Song>();
             }
         }
     }

@@ -109,8 +109,8 @@ export class SongDetail implements OnInit, OnDestroy {
     onShareClick() {
         var self = this;
         let params: UIParams = {
-            href: window.location.host + self.router.url,
-            link: window.location.host + self.router.url,
+            href: window.location.href,
+            link: window.location.href,
             picture: self.currentSong.thumbnail,
             caption: "Share testing",
             method: 'share'

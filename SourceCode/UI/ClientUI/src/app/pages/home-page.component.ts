@@ -18,6 +18,10 @@ export class HomePageComponent implements OnInit {
     public mostPopularSongs: Song[];
     public collaborativeSongs: any[];
     public userEventRecommendations: any;
+    public genreRecommendations: any[];
+    public artistRecommendations: any[];
+    public composerRecommendations: any[];
+    
     constructor(private songService: SongService, private activatedRoute: ActivatedRoute) {
     }
     ngOnInit() {
@@ -32,6 +36,9 @@ export class HomePageComponent implements OnInit {
                     self.listenedSongs = returnedResult.listenedSongs;
                     self.collaborativeSongs = returnedResult.cfRecommendedSongs;
                     self.userEventRecommendations = returnedResult.userEventRecommendations;
+                    self.genreRecommendations = returnedResult.genreRecommendations;
+                    self.artistRecommendations = returnedResult.artistRecommendations;
+                    self.composerRecommendations = returnedResult.composerRecommendations;
                 });
         }
         else {

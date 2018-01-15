@@ -47,6 +47,7 @@
 .play-area__social {
     display: block;
     text-align: left;
+    padding: 0 20px;
 }
 .play-area__social .rating-area {
     display: inline-block;

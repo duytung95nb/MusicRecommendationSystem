@@ -7,12 +7,17 @@ from pyspark_cassandra import CassandraSparkContext
 def similar(user, items, events):
     top_sim = list()
     listened_songs = events.get(user[0])
-    for sid, profile in items.items():
-        if sid in listened_songs:
-            continue
+    if listened_songs is None:
+        for sid, profile in items.items():
+            similarity = cosine_similarity([user[1], profile])[0][1]
+            top_sim.append((sid, similarity))
+    else:
+        for sid, profile in items.items():
+            if sid in listened_songs:
+                continue
 
-        similarity = cosine_similarity([user[1], profile])[0][1]
-        top_sim.append((sid, similarity))
+            similarity = cosine_similarity([user[1], profile])[0][1]
+            top_sim.append((sid, similarity))
 
     top_sim.sort(key=lambda tup: tup[1], reverse=True)
     top_sim = top_sim[:10]
@@ -85,22 +90,6 @@ class UserItemSimilarity(object):
             result.append(new_tuple)
 
         return result
-
-    def similar_to(self, user, items):
-        top_sim = list()
-        listened_songs = self.events.get(user[0])
-        for sid, profile in items.items():
-            if sid in listened_songs:
-                continue
-
-            similarity = cosine_similarity([user[1], profile])[0][1]
-            top_sim.append((sid, similarity))
-
-        top_sim.sort(key=lambda tup: tup[1], reverse=True)
-        top_sim = top_sim[:10]
-        top_sim = [sim[0] for sim in top_sim]
-
-        print top_sim
 
     def build(self):
         events = self.events

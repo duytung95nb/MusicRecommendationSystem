@@ -11,7 +11,7 @@ import { MatAutocompleteSelectedEvent } from "@angular/material";
 
 export class TopSearch {
     @Input() options: Array<any>;
-    @Input() placeholderText: String;
+    @Input() placeholderText: string;
     @Output() optionSelected: EventEmitter<MatAutocompleteSelectedEvent> = new EventEmitter<MatAutocompleteSelectedEvent>();
     myControl: FormControl = new FormControl();
     myGroup: FormGroup = new FormGroup({

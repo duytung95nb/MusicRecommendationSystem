@@ -5,13 +5,23 @@
         </div>
         <div class="recommmendation-area">
             <div class="right_col" role="main" style="min-height: 1054px;">
-                <carousel [songs]="listenedSongs" [title]="'Nghe lại nào'"></carousel>
+                <carousel *ngIf="listenedSongs !== undefined && listenedSongs.length !== 0" [songs]="listenedSongs" [title]="'Nghe lại nào'"></carousel>
                 <carousel [songs]="collaborativeSongs" [title]="'Có thể bạn sẽ thích'"></carousel>
-                <ng-container *ngIf="userEventRecommendations">
-                    <carousel *ngFor="let userEventRecommendation of userEventRecommendations"
-                        [songs]="userEventRecommendation.relatedSongs"
-                        [title]="'Vì bạn đã ' + getActionRecommendText(userEventRecommendation.actionType) + ' ' + userEventRecommendation.interactedSong.song"></carousel>
-                </ng-container>
+                <carousel
+                    *ngIf="artistRecommendations && artistRecommendations.length !== 0"
+                    [songs]="artistRecommendations.recommendations"
+                    [title]="'Nghệ sỹ cho bạn ' + artistRecommendations.artistName + ':'">
+                </carousel>
+                <carousel
+                    *ngIf="genreRecommendations && genreRecommendations.length !== 0"
+                    [songs]="genreRecommendations.recommendations"
+                    [title]="'Có thể bạn thích thể  loại ' + genreRecommendations.genreTitle + ':'">
+                </carousel>
+                <carousel
+                    *ngIf="composerRecommendations && composerRecommendations.length !== 0"
+                    [songs]="composerRecommendations.recommendations"
+                    [title]="'Có thể bạn thích tác giả ' + composerRecommendations.composerName + ':'">
+                </carousel>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -19,6 +29,13 @@
     <div class="right-side">
         <div class="top-monthly-area">
             <vertical-list [layoutType]="'item--with-image'" [title]="'Bảng xếp hạng tháng'" [songs]="mostPopularSongs"></vertical-list>
+            <ng-container *ngIf="userEventRecommendations">
+                <vertical-list *ngFor="let userEventRecommendation of userEventRecommendations"
+                    [layoutType]="'item--no-image'"
+                    [songs]="userEventRecommendation.relatedSongs"
+                    [title]="'Vì bạn đã ' + getActionRecommendText(userEventRecommendation.actionType) + ' ' + userEventRecommendation.interactedSong.song">
+                </vertical-list>
+            </ng-container>
         </div>
     </div>
     <div class="clearfix"></div>
