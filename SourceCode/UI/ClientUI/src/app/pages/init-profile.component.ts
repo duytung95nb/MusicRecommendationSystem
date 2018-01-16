@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from '@angular/forms';
 import { UserService } from '../helper/userService';
+import { Router } from '@angular/router';
 
 /**
  * @title Stepper overview
@@ -19,7 +20,8 @@ export class InitProfile {
   composers: Array<any>;
   private loggedInInfo: any;
   private loggedInUser: any;
-  constructor(private _formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private _formBuilder: FormBuilder, private userService: UserService,
+    private router: Router) {
     this.loggedInInfo = localStorage.getItem('loggedInInfo');
     if (this.loggedInInfo) {
         this.loggedInUser = JSON.parse(this.loggedInInfo).userInfo;
@@ -45,8 +47,9 @@ export class InitProfile {
       self.composers = initialData.value.composers;
     });
   }
-  onCheckedChange(value:string, isChecked: boolean) {
-    var formValues = <FormArray>this.firstFormGroup.controls.values;
+
+  onCheckedChange(formGroup:FormGroup, value:string, isChecked: boolean) {
+    var formValues = <FormArray>formGroup.controls.values;
   
     if(isChecked) {
       formValues.push(new FormControl(value));
@@ -75,14 +78,17 @@ export class InitProfile {
 
     var selectedComposerIndexes = this.composerFormGroup.getRawValue().values;
     var composerIndexesArray = new Array();
-    composerIndexesArray.length = this.genres.length;
+    composerIndexesArray.length = this.composers.length;
     composerIndexesArray.fill(0);
     for(var i=0; i< selectedComposerIndexes.length; i++) {
       composerIndexesArray[selectedComposerIndexes[i]] = 1;
     }
+    var self = this;
     this.userService.submitInitialData(this.loggedInUser.id, genreIndexesArray, artistIndexesArray, composerIndexesArray)
       .subscribe(result => {
-        console.log(result);
+        if(result.status === 200) {
+          window.location.href = "";
+        }
       });
     event.stopPropagation();
   }

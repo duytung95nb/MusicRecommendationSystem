@@ -32,6 +32,13 @@ export class LoginDialog{
     };
     public username: string;
     public password: string;
+    public newUsername: string;
+    public newPassword: string;
+    public newPasswordVerifying: string;
+    public newFirstname: string;
+    public newLastname: string;
+    public isRegistering: boolean;
+    public hasUserAlready: boolean;
     constructor(public dialogRef: MatDialogRef<LoginDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         public userService: UserService,
@@ -45,6 +52,9 @@ export class LoginDialog{
             xfbml      : true,  // parse social plugins on this page
             version    : 'v2.11'
         });
+
+        this.isRegistering = false;
+        this.hasUserAlready = false;
     }
 
     onLoginClicked(): void {
@@ -127,5 +137,40 @@ export class LoginDialog{
                         });
                 }
             );
+    }
+
+    onRegisterClicked(): void {
+        if(this.isRegisterInforValid()) {
+            // make request
+            var registeringUser = new User("",
+                this.newUsername,
+                this.newPassword,
+                "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
+                this.newFirstname,
+                this.newLastname,
+                null,
+                null,
+                null);
+            var self = this;
+            this.userService.register(registeringUser).subscribe(response => {
+                if(response.status === 200) {
+                    localStorage.setItem('loggedInInfo', response._body);
+                    this.dialogRef.close();
+                    self.router.navigate(['init-profile']);
+                }
+                else if (response.status === 400) {
+                    self.hasUserAlready = true;
+                }
+            });
+        }
+        else {
+
+        }
+    }
+
+    isRegisterInforValid(): boolean {
+        return this.newUsername !== ""
+            && this.newPasswordVerifying === this.newPassword
+            && this.newPassword !== "";
     }
 }

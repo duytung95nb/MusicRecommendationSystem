@@ -178,40 +178,62 @@ namespace MusicRecommendationWebApi.Controllers
             List<string> songIds = new List<string>();
             switch(tasteType) {
                 case "genre":
-                var genreRecommendations = new TasteRecommend();
-                songIds = this.cassandraConnector.getMapper()
-                    .Single<RecommendationByGenre>("WHERE uid = ?", userId)
-                    .recommendations;
-                genreRecommendations.uid = userId;
-                genreRecommendations.recommendType = tasteType;
-                genreRecommendations.recommendations = this.cassandraConnector.getMapper()
-                    .Fetch<Song>("WHERE sid IN ? LIMIT ?", songIds, numberOfRecommendationPerEvent)
-                    .ToList();
-                return genreRecommendations;
+                    try
+                    {
+                        var genreRecommendations = new TasteRecommend();
+                        songIds = this.cassandraConnector.getMapper()
+                            .SingleOrDefault<RecommendationByGenre>("WHERE uid = ?", userId)
+                            .recommendations;
+                        genreRecommendations.uid = userId;
+                        genreRecommendations.recommendType = tasteType;
+                        genreRecommendations.recommendations = this.cassandraConnector.getMapper()
+                            .Fetch<Song>("WHERE sid IN ? LIMIT ?", songIds, numberOfRecommendationPerEvent)
+                            .ToList();
+                        return genreRecommendations;
+                    }
+                    catch (System.Exception)
+                    {
+                        return null;
+                    }
                 case "artist":
-                    var artistRecommendations = new TasteRecommend();
-                    songIds = this.cassandraConnector.getMapper()
-                        .Single<RecommendationByArtist>("WHERE uid = ?", userId)
-                        .recommendations;
-                    
-                    artistRecommendations.uid = userId;
-                    artistRecommendations.recommendType = tasteType;
-                    artistRecommendations.recommendations = this.cassandraConnector.getMapper()
-                        .Fetch<Song>("WHERE sid IN ? LIMIT ?", songIds, numberOfRecommendationPerEvent)
-                        .ToList();
-                    return artistRecommendations;
+                    try
+                    {
+                        var artistRecommendations = new TasteRecommend();
+                        songIds = this.cassandraConnector.getMapper()
+                            .SingleOrDefault<RecommendationByArtist>("WHERE uid = ?", userId)
+                            .recommendations;
+                        
+                        artistRecommendations.uid = userId;
+                        artistRecommendations.recommendType = tasteType;
+                        artistRecommendations.recommendations = this.cassandraConnector.getMapper()
+                            .Fetch<Song>("WHERE sid IN ? LIMIT ?", songIds, numberOfRecommendationPerEvent)
+                            .ToList();
+                        return artistRecommendations;
+                    }
+                    catch (System.Exception)
+                    {
+                        return null;
+                    }
                 case "composer":
-                    var composerRecommendations = new TasteRecommend();
-                    songIds = this.cassandraConnector.getMapper()
-                        .Single<RecommendationByComposer>("WHERE uid = ?", userId)
-                        .recommendations;
+                    try
+                    {
+                        var composerRecommendations = new TasteRecommend();
+                        songIds = this.cassandraConnector.getMapper()
+                            .SingleOrDefault<RecommendationByComposer>("WHERE uid = ?", userId)
+                            .recommendations;
 
-                    composerRecommendations.uid = userId;
-                    composerRecommendations.recommendType = tasteType;
-                    composerRecommendations.recommendations = this.cassandraConnector.getMapper()
-                        .Fetch<Song>("WHERE sid IN ? LIMIT ?", songIds, numberOfRecommendationPerEvent)
-                        .ToList();
-                    return composerRecommendations;
+                        composerRecommendations.uid = userId;
+                        composerRecommendations.recommendType = tasteType;
+                        composerRecommendations.recommendations = this.cassandraConnector.getMapper()
+                            .Fetch<Song>("WHERE sid IN ? LIMIT ?", songIds, numberOfRecommendationPerEvent)
+                            .ToList();
+                        return composerRecommendations;
+                    }
+                    catch (System.Exception)
+                    {
+                        return null;
+                    }
+                    
                 default:
                     return null;
             }

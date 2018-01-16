@@ -51,14 +51,13 @@ export class SongDetail implements OnInit, OnDestroy {
                     self.currentIframeSource = self.sanitizer.bypassSecurityTrustResourceUrl("https://mp3.zing.vn/embed/song/" + result.currentSong.iframe + "?start=true");
                     self.similarSongs = result.similarSongs;
                     self.nextPlaySongs = result.nextPlaySongs;
+                    self.logListenedEvent();
                 });
         });
     }
 
     // get duration
     ngOnDestroy() {
-        this.logListenedEvent();
-        this.idSubscribe.unsubscribe();
     }
 
     logListenedEvent() {

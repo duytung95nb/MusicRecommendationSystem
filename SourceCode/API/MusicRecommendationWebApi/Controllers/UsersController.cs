@@ -75,6 +75,31 @@ namespace MusicRecommendationWebApi.Controllers
             return new ObjectResult(successUserValidationData);
         }
 
+        [Route("register")]
+        [HttpPost]
+        public IActionResult register([FromBody] UserMapper user)
+        {
+            User userChecked = GetUserByUsername(user.Username).Result;
+            if (userChecked != null)
+                return BadRequest();
+            dynamic successUserValidationData = new ExpandoObject(); 
+            User newUser = new User();
+            newUser.Id = Guid.NewGuid();
+            newUser.Username = user.Username;
+            newUser.Password = user.Password;
+            newUser.AvatarUrl = user.AvatarUrl;
+            newUser.Firstname = user.Firstname;
+            newUser.Lastname = user.Lastname;
+            this.cassandraConnector.getMapper()
+                            .Insert<User>(newUser);
+            userChecked = this.cassandraConnector.getMapper()
+                .Single<User>("WHERE username=?", newUser.Username);
+            successUserValidationData.token = GenerateToken(userChecked.Username);
+            successUserValidationData.userInfo = userChecked;
+
+            return new ObjectResult(successUserValidationData);
+        }
+
         [Route("initial-data")]
         [HttpGet]
         public IActionResult InitialData()

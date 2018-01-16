@@ -1,6 +1,15 @@
 <div class="login-dialog-content">
     <div class="login-dialog-content__register">
-        <button mat-raised-button color="warn" class="register-button">Đăng ký ngay!</button>
+        <button mat-raised-button color="warn" *ngIf="!isRegistering"
+            class="register-button" (click)="isRegistering = !isRegistering">Đăng ký ngay!</button>
+        <div class="return-to-login" *ngIf="isRegistering">
+            Đã có tài khoản?
+            <button mat-raised-button color="warn"
+                class="register-button"
+                (click)="isRegistering = !isRegistering">
+                Trở lại đăng nhập!
+            </button>
+        </div>
         <hr>
         <div class="social-login">
             <div class="social-login__facebook" (click)="onLoginWithFacebookClick()">
@@ -11,7 +20,8 @@
             </div>
         </div>
     </div>
-    <div class="login-dialog-content__login">
+    <!-- login area -->
+    <div class="login-dialog-content__login" *ngIf="!isRegistering">
         <h2 mat-dialog-title class="login-title">Đăng nhập</h2>
         <mat-form-field class="input-username">
             <input [(ngModel)]="username" matInput type="text" placeholder="Username">
@@ -22,6 +32,29 @@
         <a href="">Quên mật khẩu?</a>
         <mat-dialog-actions>
             <button (click)="onLoginClicked()" mat-raised-button color="primary" class="login-button">Đăng nhập</button>
+        </mat-dialog-actions>
+    </div>
+    <!-- register area -->
+    <div class="login-dialog-content__register-area" *ngIf="isRegistering">
+        <h2 mat-dialog-title class="login-title">Đăng ký</h2>
+        <mat-form-field class="input-username">
+            <input [(ngModel)]="newFirstname" matInput type="text" placeholder="Họ và tên đệm">
+        </mat-form-field>
+        <mat-form-field class="input-username">
+            <input [(ngModel)]="newLastname" matInput type="text" placeholder="Tên">
+        </mat-form-field>
+        <mat-form-field class="input-username">
+            <input [(ngModel)]="newUsername" matInput type="text" placeholder="Tên đăng nhập">
+        </mat-form-field>
+        <mat-form-field class="input-password">
+            <input [(ngModel)]="newPassword" matInput type="password" placeholder="Mật khẩu">
+        </mat-form-field>
+        <mat-form-field class="input-password">
+            <input [(ngModel)]="newPasswordVerifying" matInput type="password" placeholder="Xác nhận lại mật khẩu">
+            <div *ngIf="hasUserAlready">Người dùng đã tồn tại</div>
+        </mat-form-field>
+        <mat-dialog-actions>
+            <button (click)="onRegisterClicked()" mat-raised-button color="primary" class="login-button">Đăng ký</button>
         </mat-dialog-actions>
     </div>
 </div>

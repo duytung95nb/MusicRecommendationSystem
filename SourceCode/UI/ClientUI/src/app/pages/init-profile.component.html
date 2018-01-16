@@ -7,7 +7,8 @@
                     <top-search [placeholderText]="'Tìm kiếm thể  loại'" [options]="genres"></top-search>
                 </div>
                 <div class="option col-xs-1" *ngFor="let genre of genres; trackBy: genre?.index">
-                    <input type="checkbox" id="genre_{{genre.index}}" value="genre.index" (change)="onCheckedChange(genre.index, $event.target.checked)">
+                    <input type="checkbox" id="genre_{{genre.index}}" value="genre.index"
+                    (change)="onCheckedChange(firstFormGroup, genre.index, $event.target.checked)">
                     <label class="option__name" for="genre_{{genre.index}}">{{genre.name}}</label>
                 </div>
             </div>
@@ -24,7 +25,8 @@
                     <top-search [placeholderText]="'Tìm kiếm nghệ sĩ'" [options]="artists"></top-search>
                 </div>
                 <div class="option col-xs-1" *ngFor="let artist of artists; trackBy: artists?.index">
-                    <input type="checkbox" id="artist_{{artist.index}}">
+                    <input type="checkbox" id="artist_{{artist.index}}"
+                        (change)="onCheckedChange(secondFormGroup, artist.index, $event.target.checked)">
                     <label class="option__name" for="artist_{{artist.index}}">{{artist.name}}</label>
                 </div>
             </div>
@@ -42,7 +44,8 @@
                         <top-search [placeholderText]="'Tìm kiếm tác giả'" [options]="composers"></top-search>
                     </div>
                     <div class="option col-xs-1" *ngFor="let composer of composers; trackBy: composer?.index">
-                        <input type="checkbox" id="composer_{{composer.index}}">
+                        <input type="checkbox" id="composer_{{composer.index}}"
+                            (change)="onCheckedChange(composerFormGroup, composer.index, $event.target.checked)">
                         <label class="option__name" for="composer_{{composer.index}}">{{composer.name}}</label>
                     </div>
             </div>

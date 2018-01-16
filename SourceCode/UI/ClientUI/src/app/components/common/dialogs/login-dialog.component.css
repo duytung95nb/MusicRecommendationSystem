@@ -33,7 +33,9 @@
 .register-button {
     width: 100%;
 }
-.login-dialog-content__login {
+
+.login-dialog-content__login, 
+.login-dialog-content__register-area {
     display: table-cell;
     padding: 0 10px;
     width: 400px;
@@ -41,6 +43,7 @@
     text-align: center;
     vertical-align: top;
 }
+
 .input-username {
     display: block;
     width: 100%;
@@ -54,4 +57,8 @@
 }
 .login-title {
     font-weight: bold;
+}
+
+.return-to-login {
+    text-align: center;
 }

@@ -7,8 +7,8 @@ import { UserEvent } from "../objects/userEvent";
 
 @Injectable()
 export class UserEventService {
-    private apiRoute: string = 'http://localhost:5000/api/userEvent/log';
-    // private apiRoute: string = 'http://198.143.141.37:5000/api/userEvent/log';
+    // private apiRoute: string = 'http://localhost:5000/api/userEvent/log';
+    private apiRoute: string = 'http://198.143.141.37:5000/api/userEvent/log';
     constructor(private connector: HttpConnector) {
     }
     private data: string;

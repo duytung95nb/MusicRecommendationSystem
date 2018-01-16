@@ -10,17 +10,17 @@
                 <carousel
                     *ngIf="artistRecommendations && artistRecommendations.length !== 0"
                     [songs]="artistRecommendations.recommendations"
-                    [title]="'Nghệ sỹ cho bạn ' + artistRecommendations.artistName + ':'">
+                    [title]="'Nghệ sỹ bạn thích:'">
                 </carousel>
                 <carousel
                     *ngIf="genreRecommendations && genreRecommendations.length !== 0"
                     [songs]="genreRecommendations.recommendations"
-                    [title]="'Có thể bạn thích thể  loại ' + genreRecommendations.genreTitle + ':'">
+                    [title]="'Có thể bạn thích các thể  loại:'">
                 </carousel>
                 <carousel
                     *ngIf="composerRecommendations && composerRecommendations.length !== 0"
                     [songs]="composerRecommendations.recommendations"
-                    [title]="'Có thể bạn thích tác giả ' + composerRecommendations.composerName + ':'">
+                    [title]="'Có thể bạn thích tác giả các bài hát:'">
                 </carousel>
                 <div class="clearfix"></div>
             </div>
