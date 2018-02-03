@@ -65,6 +65,19 @@ namespace MusicRecommendationWebApi.Controllers
                 returnResult.artistRecommendations = GetRecommendationsBaseOnTaste(userId, "artist", 10);;
                 returnResult.genreRecommendations = GetRecommendationsBaseOnTaste(userId, "genre", 10);
                 returnResult.composerRecommendations = GetRecommendationsBaseOnTaste(userId, "composer", 10);
+
+                if (returnResult.artistRecommendations == null) {
+                    // get artist recommendation
+                    returnResult.artistRecommendations = GetRecommendationBaseOnInitialSelection(userId, "artist");
+                }
+                if (returnResult.genreRecommendations == null) {
+                    // get genres recommendation
+                    returnResult.genreRecommendations = GetRecommendationBaseOnInitialSelection(userId, "genre");
+                }
+                if (returnResult.composerRecommendations == null) {
+                    // get composer recommendation
+                    returnResult.composerRecommendations = GetRecommendationBaseOnInitialSelection(userId, "composer");
+                }
             }
 
             var mostPopularSongs = this.GetTopWeeklySongs();
@@ -239,7 +252,104 @@ namespace MusicRecommendationWebApi.Controllers
             }
         }
 
-        
+        private TasteRecommend GetRecommendationBaseOnInitialSelection(string userId, string initialType) {
+            switch(initialType) {
+                case "genre":
+                    try
+                    {
+                        var genreRecommendations = new TasteRecommend();
+                        var genrePoints = this.cassandraConnector.getMapper()
+                            .SingleOrDefault<InitProfileGenre>("WHERE uid = ?", userId)
+                            .profile
+                            .ToArray();
+                        var firstGenreIndex = 0;
+                        for(int i = 0; i < genrePoints.Length; i++) {
+                            if(genrePoints[i] > 0) {
+                                firstGenreIndex = i;
+                                break;
+                            }
+                        }
+                        var firstGenre = this.cassandraConnector.getMapper()
+                            .SingleOrDefault<Genre>("WHERE idx=?", firstGenreIndex)
+                            .name;
+
+                        genreRecommendations.uid = userId;
+                        genreRecommendations.recommendType = initialType;
+                        genreRecommendations.recommendations = this.cassandraConnector.getMapper()
+                            .Fetch<Song>("WHERE genre=? LIMIT ?", firstGenre, 10)
+                            .ToList();
+                        return genreRecommendations;
+                    }
+                    catch (System.Exception)
+                    {
+                        return null;
+                    }
+                case "artist":
+                    try
+                    {
+                        var artistRecommendations = new TasteRecommend();
+                        var artistPoints = this.cassandraConnector.getMapper()
+                            .SingleOrDefault<InitProfileArtist>("WHERE uid = ?", userId)
+                            .profile
+                            .ToArray();
+                        var firstArtistIndex = 0;
+                        for(int i = 0; i < artistPoints.Length; i++) {
+                            if(artistPoints[i] > 0) {
+                                firstArtistIndex = i;
+                                break;
+                            }
+                        }
+                        var firstArtist = this.cassandraConnector.getMapper()
+                            .SingleOrDefault<Artist>("WHERE idx=?", firstArtistIndex)
+                            .name;
+
+                        artistRecommendations.uid = userId;
+                        artistRecommendations.recommendType = initialType;
+                        artistRecommendations.recommendations = this.cassandraConnector.getMapper()
+                            .Fetch<Song>("WHERE artist=? LIMIT ?", firstArtist, 10)
+                            .ToList();
+                        return artistRecommendations;
+                    }
+                    catch (System.Exception)
+                    {
+                        return null;
+                    }
+                case "composer":
+
+                    try
+                    {
+                        var composerRecommendations = new TasteRecommend();
+                        var composerPoints = this.cassandraConnector.getMapper()
+                            .SingleOrDefault<InitProfileComposer>("WHERE uid = ?", userId)
+                            .profile
+                            .ToArray();
+                        var firstComposerIndex = 0;
+                        for(int i = 0; i < composerPoints.Length; i++) {
+                            if(composerPoints[i] > 0) {
+                                firstComposerIndex = i;
+                                break;
+                            }
+                        }
+                        var firstComposer = this.cassandraConnector.getMapper()
+                            .SingleOrDefault<Composer>("WHERE idx=?", firstComposerIndex)
+                            .name;
+
+                        composerRecommendations.uid = userId;
+                        composerRecommendations.recommendType = initialType;
+                        composerRecommendations.recommendations = this.cassandraConnector.getMapper()
+                            .Fetch<Song>("WHERE composer=? LIMIT ?", firstComposer, 10)
+                            .ToList();
+                        return composerRecommendations;
+                    }
+                    catch (System.Exception)
+                    {
+                        return null;
+                    }
+                default:
+                return null;
+            }
+        }
+
         private bool isSongIdExistsInUserevents(string songId, List<UserEvent> userEvents) {
             foreach(var userEvent in userEvents) {
                 if (songId == userEvent.songId)

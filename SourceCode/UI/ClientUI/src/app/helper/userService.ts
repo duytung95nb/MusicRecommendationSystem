@@ -7,7 +7,7 @@ import { User } from "../objects/user";
 @Injectable()
 export class UserService{
     // private apiRoute: string = 'http://localhost:5000/api/users';
-    private apiRoute: string = 'http://198.143.141.37:5000/api/users';
+    private apiRoute: string = 'http://localhost:5000/api/users';
 
     constructor(private connector: HttpConnector){
     }
@@ -30,7 +30,8 @@ export class UserService{
             .map(res => res.json());
     }
 
-    public submitInitialData(userId: string, genreIndexesArray: any, artistIndexesArray: any, composerIndexesArray: any): Observable<any> {
+    public submitInitialData(userId: string, genreIndexesArray: any, artistIndexesArray: any,
+        composerIndexesArray: any): Observable<any> {
         var body = {
             id: userId,
             genreIndexesArray: genreIndexesArray,

@@ -19,7 +19,7 @@ namespace MusicRecommendationWebApi
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://198.143.141.37:5000")
+                .UseUrls("http://localhost:5000")
                 .UseStartup<Startup>()
                 .Build();
     }
